@@ -1,0 +1,74 @@
+import React from 'react'
+
+export default function OfferStatus() {
+  return (
+    <div className='categoryContainer'>
+      <div className="inner m-5 p-2 mt-3 pt-2 ">
+
+        <h1>Offer Status</h1>
+      </div>
+      <div className="inner m-5 p-5 mt-1 pt-1">
+      <div className="inner m-3 p-5 mt-5 pt-1">
+          <div className="offerProduct mt-3">
+            <div className="product">
+              <div className="col-6">
+                <h5>Product Name</h5>
+                <hr />
+                <div className="oprice">
+                  <h5>Original Price: </h5> <span>Rs.3423</span>
+                </div>
+                <div className="oprice">
+                  <h5>Offer Price: </h5> <span>Rs.3234</span>
+                </div>
+                <div className="offerdesc">
+                  <h5>Description:</h5>
+                  <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint odit nisi, inventore nam laboriosam incidunt.</span>
+                </div>
+              </div>
+              <div className="col-6 offer_img">
+                <img src={require('../../images/pic.jpg')} alt="" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <button className='offerStatusbtn'>Your offer is Accepted/Rejected</button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div className="inner m-3 p-5 mt-5 pt-1">
+          <div className="offerProduct mt-3">
+            <div className="product">
+              <div className="col-6">
+                <h5>Product Name</h5>
+                <hr />
+                <div className="oprice">
+                  <h5>Original Price: </h5> <span>Rs.3423</span>
+                </div>
+                <div className="oprice">
+                  <h5>Offer Price: </h5> <span>Rs.3234</span>
+                </div>
+                <div className="offerdesc">
+                  <h5>Description:</h5>
+                  <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint odit nisi, inventore nam laboriosam incidunt.</span>
+                </div>
+              </div>
+              <div className="col-6 offer_img">
+                <img src={require('../../images/pic.jpg')} alt="" />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12">
+                <button className='offerStatusbtn'>Your offer is Accepted/Rejected</button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      </div>
+      )
+}
