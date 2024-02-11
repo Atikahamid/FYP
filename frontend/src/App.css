@@ -237,6 +237,9 @@ body{
   font-size: 20px;
   text-align: center; 
 }
+.profilerow{
+  margin: 10px 25px;
+}
 .form_div{
   display: flex;
   flex-direction: column;
@@ -330,4 +333,47 @@ body{
   display: flex;
   flex-direction: column;
   
+}
+
+.obtn{
+    margin: 9px 6px;
+    padding: 2px 14px;
+    color: white;
+}
+.productdetail_img img{
+  width: 80%;
+  height: 25rem;
+  margin: 20px 6px 12px 20px;
+}
+.detaildata{
+  display: flex;
+}
+.productdetail_data{
+  margin: 20px 12px 4px 5px;
+}
+.pdbtn{
+  background-color: rgb(94, 37, 37);
+  margin: 6px 10px;
+  border: none;
+  width: 50%;
+  font-size: 14px;
+  box-shadow: 0 3px 8px grey;
+  color: white;
+}
+.pdbtn:hover{
+  background-color: #401e1ef2;
+  color: white;
+}
+.pdbtn:active{
+  background-color: rgb(94, 37, 37);
+  transform: translateY(4px);
+  color: white;
+}
+
+.dl-horizontal dt{
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+.makebtn{
+  margin-left: 100px;
 }

@@ -11,6 +11,8 @@ import Navbar from './Components/user/Navbar';
 import Sidebar from './Components/user/Sidebar';
 // import CategoryCardPanel from './Components/CategoryCardPanel';
 import ProductCardPanel from './Components/user/ProductCardPanel';
+import ProductDetails from './Components/user/ProductDetails';
+import MakeOffer from './Components/user/MakeOffer';
 // import ProductCard from './Components/ProductCard';
 
 function App() {
@@ -71,6 +73,8 @@ function Content(){
         {/* <Route path="/CategoryCardPanel" element={<CategoryCardPanel/>} /> */}
         <Route path="/ProductCardPanel" element={<ProductCardPanel/>} />
         {/* <Route path="/ProductCard" element={<ProductCard/>} /> */}
+        <Route path="/ProductDetails" element={<ProductDetails/>} />
+        <Route path="/makeOffer" element={<MakeOffer/>} />
 
 
       </Routes>

@@ -8,7 +8,7 @@ export default function MyProfile() {
       <h1>My Profile</h1>
       </div>
       <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
-      <div className="row">
+      <div className="row profilerow">
         <div className="col-6 form_div ">
           <label className='form_label'>First Name </label>
            <input type="text" className='form_control' placeholder='name'/>

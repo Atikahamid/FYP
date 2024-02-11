@@ -1,6 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function OfferStatus() {
+  const navigate=useNavigate();
+  const handledetails=()=>{
+    navigate('/ProductDetails');
+  }
   return (
     <div className='categoryContainer'>
       <div className="inner m-5 p-2 mt-3 pt-2 ">
@@ -24,10 +29,16 @@ export default function OfferStatus() {
                   <h5>Description:</h5>
                   <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint odit nisi, inventore nam laboriosam incidunt.</span>
                 </div>
+                <div className="optionbtn">
+                <button className="btn btn-warning obtn">Edit</button>
+                <button className="btn btn-primary obtn" onClick={handledetails}>Details</button>
+                <button className="btn btn-danger obtn">Delete</button>
+              </div>
               </div>
               <div className="col-6 offer_img">
-                <img src={require('../../images/pic.jpg')} alt="" />
+                <img src={require('../../images/tyres.png')} alt="" />
               </div>
+              
             </div>
             <div className="row">
               <div className="col-12">
@@ -56,7 +67,7 @@ export default function OfferStatus() {
                 </div>
               </div>
               <div className="col-6 offer_img">
-                <img src={require('../../images/pic.jpg')} alt="" />
+                <img src={require('../../images/tyre1.webp')} alt="" />
               </div>
             </div>
             <div className="row">
