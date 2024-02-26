@@ -1,8 +1,5 @@
 import React from 'react';
-import { 
-  BiSolidCategory
-  
-} from "react-icons/bi";
+import { BiSolidCategory} from "react-icons/bi";
 import {FaBars} from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
@@ -13,7 +10,7 @@ import { useState } from 'react';
 // import Navbar from './Navbar';
 
 
-export default function Sidebar(props) {
+export default function Sidebar() {
   const[isOpen, setIsOpen]=useState(true);
   const toggle=()=>setIsOpen(!isOpen);
   const menuItem=[

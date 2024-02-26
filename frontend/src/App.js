@@ -13,6 +13,7 @@ import Sidebar from './Components/user/Sidebar';
 import ProductCardPanel from './Components/user/ProductCardPanel';
 import ProductDetails from './Components/user/ProductDetails';
 import MakeOffer from './Components/user/MakeOffer';
+import AddToCart from './Components/user/AddToCart';
 // import ProductCard from './Components/ProductCard';
 
 function App() {
@@ -75,6 +76,7 @@ function Content(){
         {/* <Route path="/ProductCard" element={<ProductCard/>} /> */}
         <Route path="/ProductDetails" element={<ProductDetails/>} />
         <Route path="/makeOffer" element={<MakeOffer/>} />
+        <Route path="/addtocart" element={<AddToCart/>} />
 
 
       </Routes>

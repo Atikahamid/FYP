@@ -6,7 +6,7 @@ import { IoMdSearch } from "react-icons/io";
 
 export default function Navbar() {
   return (
-    <div className='navbar'>
+    <div className='navbarOne'>
       <div className="first">
         <FaBars className='bars2' />
         <input type="text" className='search-box' placeholder='search...' />
@@ -16,7 +16,7 @@ export default function Navbar() {
         <FaShoppingCart className='cart' />
         <h3 className='name'>Atika Hamid </h3>
 
-        <button type="button" class="btn  logout">Logout</button>
+        <button type="button" className="btn  logout">Logout</button>
       </div>
     </div>
   )

@@ -61,12 +61,12 @@ body{
   background: #fff;
   color: rgb(94, 37, 37);
   border: 2px solid rgb(94, 37, 37);
-}
+} */
 /* .icon, .link-text{
-  /* font-size: 15px; */
+  /* font-size: 15px;
 
 /* //navbar */
-.navbar{
+.navbarOne{
   /* border: 2px solid black; */
   width: 100%;
   display: flex;
@@ -215,8 +215,8 @@ body{
   padding: 3px 5px;
 }
 .viewDetails{
-  margin-bottom: 13px;
-  width: 189px;
+  margin: 2px 2px 13px 26px;
+  width: 80%;
   border: none;
   background-color: brown;
   color: white;
@@ -377,3 +377,80 @@ body{
 .makebtn{
   margin-left: 100px;
 }
+/* chatbot */
+.chatinput{
+  width: 100%;
+  padding: 14px 26px;
+  margin: 11px 67px;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: #d1c8c8;
+  color: black;
+  box-shadow: 0 6px 18px grey;
+}
+.chat_div{
+  position: relative;
+    top: 13px;
+}
+.chatbtn{
+  width: 36px;
+  height: 45px;
+  border: none;
+  background-color: #d1c8c8;
+}
+.answer_div{
+  /* border: 2px solid black; */
+  width: 80%;
+  height: 60vh;
+  margin: 5px 80px 13px;
+  padding: 13px 18px 9px;
+}
+/* .desc{
+  display: flex;
+  flex-direction: column;
+} */
+.product_dl{
+  align-items: left;
+  margin-left: 30px;
+}
+.prodcard_div{
+  display: flex;
+  flex-direction: row;
+  padding: 3px 3px;
+}
+.productcard{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 8px 9px grey;
+ 
+}
+.productcard img{
+  width: 100%;
+  height: 171px;
+  margin-bottom: 5px;
+}
+.quantity_div{
+  margin-top: 3px;
+}
+.btn1{
+  margin: 6px 0px;
+  padding: 2px 5px;
+  padding-left: 4px;
+  border: 1px solid brown;
+  font-size: 12px;
+  color: brown;
+  /* border: 2px solid black; */
+}
+.btn2{
+  font-size: 12px;
+  padding: 2px 5px;
+  margin: 6px 5px;
+  border: 1px solid brown;
+  color: brown;
+  /* border: 2px solid black; */
+}
+/* Add to cart */
+/* .tableContainer{
+  height: 30rem;
+} */

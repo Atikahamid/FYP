@@ -6,6 +6,9 @@ export default function ProductDetails() {
     const handlemakeoffer = () => {
         navigate('/makeOffer');
     }
+    const handleaddtocart=()=>{
+        navigate('/addtocart');
+    }
     return (
         <div>
             <div className="categoryContainer">
@@ -43,7 +46,7 @@ export default function ProductDetails() {
                                 </dl>
                             </div>
                             <div className="col-12 d-flex">
-                                <button className="btn  ms-0 pdbtn">Add to Cart</button>
+                                <button className="btn  ms-0 pdbtn" onClick={handleaddtocart}>Add to Cart</button>
                                 <button className="btn  pdbtn" onClick={handlemakeoffer}>Make an Offer</button>
                             </div>
 
