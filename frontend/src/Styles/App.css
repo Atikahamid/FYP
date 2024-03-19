@@ -61,16 +61,16 @@ body{
   background: #fff;
   color: rgb(94, 37, 37);
   border: 2px solid rgb(94, 37, 37);
-} */
+} 
 /* .icon, .link-text{
   /* font-size: 15px;
 
 /* //navbar */
-.navbarOne{
+.topbar{
   /* border: 2px solid black; */
+  position: sticky;
   width: 100%;
   display: flex;
-  position: sticky;
   height: 60px;
   top: 0;
   background-color: white;
@@ -78,12 +78,21 @@ body{
 .side{
   display: flex;
   padding: 0;
-  margin-bottom: -1px;
+  position: absolute;
+  right: 21px;
+  top: 12px;
+}
+.first input:focus{
+  border: none;
+}
+.first{
+  display: flex;
 }
 
 .search-box{
   margin-left: 40px;
-  margin-top: -7px;
+  margin-top: 7px;
+  margin-bottom: 16px;
   width: 400px;
   display: block;
   font-size: 15px;
@@ -95,39 +104,32 @@ body{
 .search-box:focus{
   outline: none;
 }
-.first input:focus{
-  border: none;
-}
-.first{
-  display: flex;
-}
+
+
 .cart{
-  /* padding: 3px 3px; */
-  margin: 11px 11px 4px;
-  font-size: 14px;
+  margin: 8px 12px 4px;
+  font-size: 19px;
   cursor: pointer;
-}
+} 
 .cart:active{
   transform: translateY(4px);
 }
 .bars2{
   margin-left: 5px;
   margin-right: 5px;
-  margin-top: 0px;
+  margin-top: 14px;
   font-size: 25px;
   color: rgb(94, 37, 37);
 }
 .search-icon{
-  position: absolute;
-  top: 0;
-  left: 430px;
   width: 50px;
-  height: 100%;
   border-radius: 50%;
   cursor: pointer;
   border: none;
   background: none;
   color: grey;
+  margin-top: 13px;
+  margin-right: 43px;
 }
 .searcg-icon:hover{color: black;}
 .search-icon:active{
@@ -139,7 +141,7 @@ body{
   font-size: 14px;
   text-align: center;
 }
-.logout{
+.logoutbtn{
   border: 2px solid rgb(94, 37, 37);
   color: rgb(94, 37, 37);
   padding: 0px 25px;
@@ -158,18 +160,7 @@ body{
   box-shadow: 0 9px 8px grey;
   transform: translateY(4px);
 }
-.pic{
-  border: 2px solid black;
-  width: 40px;
-  font-weight: bold;
-  font-size: 20px;
-  margin-right: 25px;
-  margin-left: 0px;
-  padding: 4px 10px 4px;
-  border-radius: 50%;
-  height: 44px;
-  margin-top: 1px;
-}
+
 .categoryContainer{
   padding-bottom: 30px;
  padding-top: 20px;
@@ -454,3 +445,42 @@ body{
 /* .tableContainer{
   height: 30rem;
 } */
+
+/* Dashboard Card */
+.dashCard{
+  display: flex;
+  
+  width: 15rem;
+  /* border: 1px solid black; */
+  height: 25vh;
+  border-radius: 10px;
+  background-color: white;
+}
+.dashCard_Detail{
+  display: flex;
+  flex-direction: column;
+}
+.DashCard_pic img{
+  width: 92px;
+  height: 100px;
+}
+.dashboard_number{
+  font-size: 35px;
+}
+.dashboard_container{
+  padding-bottom: 20rem;
+}
+
+
+/* my profile */
+
+.profile_image img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.profile_image{
+  border: 2px solid black;
+  width: 205px;
+  border-radius: 50%;
+}

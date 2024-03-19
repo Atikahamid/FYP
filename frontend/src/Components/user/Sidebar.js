@@ -7,6 +7,8 @@ import { LuClipboardCheck } from "react-icons/lu";
 import { IoMdToday } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+// import { RiDashboardFill } from "react-icons/ri";
+import { RxDashboard } from "react-icons/rx";
 // import Navbar from './Navbar';
 
 
@@ -14,7 +16,11 @@ export default function Sidebar() {
   const[isOpen, setIsOpen]=useState(true);
   const toggle=()=>setIsOpen(!isOpen);
   const menuItem=[
-    
+    {
+      path:"/",
+      name:"Dashboard",
+      icon:<RxDashboard />
+    },
     {
       path:"/partscategory",
       name:"Parts Category",
@@ -52,9 +58,9 @@ export default function Sidebar() {
         </div>
         {
           menuItem.map((item,index)=>(
-            <NavLink to={item.path} key={index} className="link" activeclassName="active">
+            <NavLink to={item.path} key={index} className="link" activeClassName="active">
               <div style={{fontSize: isOpen ? "17px": "20px"}}  className="icon">{item.icon}</div>
-              <div style={{display: isOpen ? "block": "none"}} className="link_text">{item.name}</div>
+              <div style={{display: isOpen ? "block": "none", "paddingTop":"5px"}} className="link_text">{item.name}</div>
             </NavLink>
           ))
         }

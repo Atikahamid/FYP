@@ -1,87 +1,15 @@
 import React from 'react';
-import {Route, Routes, useNavigate} from 'react-router-dom';
-import './App.css';
-import PartsCategory from './Components/user/PartsCategory';
-import MyOrders from './Components/user/MyOrders';
-import MyProfile from './Components/user/MyProfile';
-import OfferStatus from './Components/user/OfferStatus';
-import AskMe from './Components/user/AskMe';
-// import CategoryCard from './Components/CategoryCard';
-import Navbar from './Components/user/Navbar';
-import Sidebar from './Components/user/Sidebar';
-// import CategoryCardPanel from './Components/CategoryCardPanel';
-import ProductCardPanel from './Components/user/ProductCardPanel';
-import ProductDetails from './Components/user/ProductDetails';
-import MakeOffer from './Components/user/MakeOffer';
-import AddToCart from './Components/user/AddToCart';
-// import ProductCard from './Components/ProductCard';
+import User from './Pages/User';
+
 
 function App() {
-  const navigate=useNavigate();
+ 
   return (
-    <div className="contained">
-     
-      <Sidebar
-      onclick={({path})=>{
-        navigate(path);
-      }}
-       Item={[
-    
-    {
-      path:"/partscategory"
-    },
-    {
-      path:"/myorders"
-    },
-    {
-      path:"/myprofile"
-    },
-    {
-      path:"/offerstatus"
-    },
-    {
-      path:"/askme"
-    }
-  
-  ]}>
-      </Sidebar>
-      
-      <div className="main">
-        <Navbar/>
-        <Content className='content'/>
-      </div>
-
-    {/* <Navbar/> */}
-      {/* <div className="navbarA"><Navbar/>
-       */}
-      {/* </div> */}
-      {/* <CategoryCard/> */}
-      
-    </div>
-   
+   <div>
+    <User/>
+   </div>
   )
 }
-function Content(){
-  return(
-  <div>
-     <Routes>
-        <Route path="/partscategory" element={<PartsCategory/>} />
-        <Route path="/myorders" element={<MyOrders/>} />
-        <Route path="/myprofile" element={<MyProfile/>} />
-        <Route path="/offerstatus" element={<OfferStatus/>} />
-        <Route path="/askme" element={<AskMe/>} />
 
-        {/* <Route path="/CategoryCardPanel" element={<CategoryCardPanel/>} /> */}
-        <Route path="/ProductCardPanel" element={<ProductCardPanel/>} />
-        {/* <Route path="/ProductCard" element={<ProductCard/>} /> */}
-        <Route path="/ProductDetails" element={<ProductDetails/>} />
-        <Route path="/makeOffer" element={<MakeOffer/>} />
-        <Route path="/addtocart" element={<AddToCart/>} />
-
-
-      </Routes>
-  </div>
-  )
-}
 
 export default App;

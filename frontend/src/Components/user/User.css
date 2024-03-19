@@ -1,0 +1,54 @@
+.profile_image img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }
+.profile_image{
+    border: 2px solid black;
+    width: 205px;
+    border-radius: 50%;
+}
+.myprofile_label label{
+    font-weight: 700;
+}
+.Editprofile_btn{
+    width: 121px;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    color: #575151;
+    font-weight: bold;
+    background-color: #cac2c2;
+    margin-top: 10px;
+}
+
+
+/* my orders page */
+
+.order_category{
+    width: 100%;
+    border: 2px solid #984f4f;
+    border-radius: 25px;
+    margin: 16px 5px;
+    padding: 1px 22px;
+    color: white;
+    font-size: 20px;
+    background-color: #984f4f;
+}
+.order_category h1{
+    text-align: left;
+}
+.orderproduct_image img{
+    width: 100%;
+    height: 100px;
+}
+.order_label{
+    margin-right: 43px;
+    font-weight: 600;
+}
+.order_ptag{
+    font-weight: 600;
+}
+.orderstatus_span{
+    margin-left: 60px;
+}
