@@ -15,7 +15,7 @@ import ProductDetails from '../Components/user/ProductDetails';
 import MakeOffer from '../Components/user/MakeOffer';
 import AddToCart from '../Components/user/AddToCart';
 import Dashboard from '../Components/user/Dashboard';
-// import UpdateMyProfile from '../Components/user/MyProfile';
+import UpdateMyProfile from '../Components/user/UpdateMyProfile';
 import MyProfile from '../Components/user/MyProfile';
 // import ProductCard from './Components/ProductCard';
 
@@ -77,6 +77,7 @@ function Content(){
         <Route path="/myprofile" element={<MyProfile/>} />
         <Route path="/offerstatus" element={<OfferStatus/>} />
         <Route path="/askme" element={<AskMe/>} />
+        <Route path="/updateprofile" element={<UpdateMyProfile/>} />
 
         {/* <Route path="/CategoryCardPanel" element={<CategoryCardPanel/>} /> */}
         <Route path="/ProductCardPanel" element={<ProductCardPanel/>} />

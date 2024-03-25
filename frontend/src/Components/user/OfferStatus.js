@@ -36,7 +36,7 @@ export default function OfferStatus() {
               </div>
               </div>
               <div className="col-6 offer_img">
-                <img src={require('../../assets/images/tyres.png')} alt="" />
+                <img src={require('../../assets/images/User/tyres.png')} alt="" />
               </div>
               
             </div>
@@ -67,7 +67,7 @@ export default function OfferStatus() {
                 </div>
               </div>
               <div className="col-6 offer_img">
-                <img src={require('../../assets/images/tyre1.webp')} alt="" />
+                <img src={require('../../assets/images/User/tyre1.webp')} alt="" />
               </div>
             </div>
             <div className="row">

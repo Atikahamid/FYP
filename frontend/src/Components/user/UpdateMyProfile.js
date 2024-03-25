@@ -5,7 +5,7 @@ export default function UpdateMyProfile() {
     <div className='categoryContainer'>
      <div className="inner m-5 p-2 mt-3 pt-2">
 
-      <h1>My Profile</h1>
+      <h1>Update Profile</h1>
       </div>
       <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
       <div className="row profilerow">

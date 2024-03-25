@@ -15,7 +15,7 @@ export default function ProductDetails() {
                 <div className="inner m-5 p-2 mt-3 pt-2 ">
                     <div className="detaildata justify-content-evenly">
                         <div className="col-6 productdetail_img">
-                            <img src={require('../../assets/images/tyre1.webp')} alt="" />
+                            <img src={require('../../assets/images/User/tyre1.webp')} alt="" />
                         </div>
                         <div className="col-6 productdetail_data">
                             <h5>Product Name</h5>

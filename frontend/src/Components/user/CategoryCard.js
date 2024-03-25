@@ -8,7 +8,7 @@ export default function CategoryCard() {
   }
   return (
     <div className='categorycard mt-5'>
-      <img src={require ('../../assets/images/pic.jpg')} alt="" />
+      <img src={require ('../../assets/images/User/pic.jpg')} alt="" />
       <div className="desc">
         <h3 className='Productname'>Category Name</h3>
         <button className="viewProduct" onClick={handleCategory}>View Products</button>

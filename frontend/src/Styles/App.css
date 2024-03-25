@@ -98,7 +98,7 @@ body{
   font-size: 15px;
   border-radius: 25px;
   padding: 8px 40px 8px 20px;
-  box-shadow: 0 5px 8px 3px grey;
+  box-shadow: 0 2px 8px -1px grey;
   border: none;
 }
 .search-box:focus{
@@ -272,10 +272,16 @@ body{
 }
 .updatebtn{
   border: none;
-  width: 100%;
-  background-color: brown;
+  /* display: flex; */
+  /* align-items: right; */
+  /* justify-content: right; */
+
+  /* width: 100%; */
+  /* background-color: brown; */
+  background: linear-gradient(40deg, rgb(150, 66, 66), #470606);
   color: white;
   font-size: 14px;
+  padding: 8px 30px;
   font-weight: 400;
   border-radius: 5px;
 }
@@ -449,7 +455,6 @@ body{
 /* Dashboard Card */
 .dashCard{
   display: flex;
-  
   width: 15rem;
   /* border: 1px solid black; */
   height: 25vh;
@@ -484,3 +489,15 @@ body{
   width: 205px;
   border-radius: 50%;
 }
+
+
+.addproduct_btn{
+  display: flex;
+  justify-content: right;
+}
+.action_offer_btn{
+  padding: 2px 5px;
+  font-size: 15px;
+}
+
+

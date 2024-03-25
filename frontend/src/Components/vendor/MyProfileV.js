@@ -1,14 +1,13 @@
 import React from 'react'
-import './User.css'
 import { useNavigate } from 'react-router-dom'
 
-export default function MyProfile() {
-    const navigate=useNavigate();
-    const handleeditprofile=()=>{
-        navigate('/updateprofile');
-    }
-    return (
-        <div className='categoryContainer'>
+export default function MyProfileV() {
+  const navigate=useNavigate();
+  const handleeditprofile=()=>{
+    navigate('/updateprofile');
+  }
+  return (
+    <div className='categoryContainer'>
             <div className="inner m-5 p-2 mt-3 pt-2">
 
                 <h1>My Profile</h1>
@@ -71,5 +70,5 @@ export default function MyProfile() {
                 </div>
             </div>
         </div>
-    )
+  )
 }

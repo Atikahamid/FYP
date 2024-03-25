@@ -9,7 +9,7 @@ export default function ProductCard() {
   }
   return (
     <div className='productcard mt-5'>
-      <img src={require('../../assets/images/pic.jpg')} alt="" />
+      <img src={require('../../assets/images/User/pic.jpg')} alt="" />
       <div className="row justify-content-evenly">
         <div className="col-10 d-flex flex-column">
           <span>Name</span>
