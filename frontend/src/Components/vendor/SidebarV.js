@@ -49,7 +49,7 @@ export default function SidebarV() {
     </div>
     {
       menuItem.map((item,index)=>(
-        <NavLink to={item.path} key={index} className="link" activeClassName="active">
+        <NavLink to={item.path} key={index} className="link_vendor" activeClassName="active">
           <div style={{fontSize: isOpen ? "17px": "20px"}}  className="icon">{item.icon}</div>
           <div style={{display: isOpen ? "block": "none", "paddingTop":"5px"}} className="link_text">{item.name}</div>
         </NavLink>
