@@ -1,6 +1,7 @@
 import React from 'react';
+import Admin from './Pages/Admin';
 // import User from './Pages/User';
-import Vendor from './Pages/Vendor';
+// import Vendor from './Pages/Vendor';
 
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
   return (
    <div>
     {/* <User/> */}
-    <Vendor/>
+    {/* <Vendor/> */}
+    <Admin/>
    </div>
   )
 }

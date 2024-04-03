@@ -25,10 +25,27 @@ body{
   color: white;
   position: sticky;
   top: 0;
+  display: flex;
+  flex-direction: column;
   /* border-radius: 5px; */
   height: 100vh;
   width: 25%;
   transition: all 0.5s;
+  padding: 5px 5px 0 2px;
+}
+.inner_sidebar{
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+  /* overflow: auto; */
+}
+::-webkit-scrollbar{
+  width: 5px;
+}
+::-webkit-scrollbar-thumb{
+  background: #fff;
+  border-radius: 10px;
+  padding-right: 2px;
 }
 .top_section{
   display: flex;
@@ -51,6 +68,7 @@ body{
   gap: 15px;
   transition: all 0.5s;
   text-decoration: none;
+  
 }
 .link_vendor{
   display: flex;
@@ -66,10 +84,10 @@ body{
   border: 2px solid rgb(94, 37, 37);
   transition: all 0.5s;
 }
-child_items{
+/* child_items{
   display: flex;
   flex-direction: row;
-}
+} */
 .child_link{
   display: flex;
   flex-direction: column;
@@ -84,6 +102,7 @@ child_items{
 }
 .main_menue{
   display: flex;
+
 }
 .link:hover{
   background-color: #fff;
@@ -95,7 +114,7 @@ child_items{
   display: flex;
   flex-direction: column;
   color: #fff;
-  padding: 8px 0px 0px;
+  padding: 10px 0px 7px 0px;
   gap: 15px;
   transition: all 0.5s;
   text-decoration: none;
@@ -571,4 +590,12 @@ child_items{
   font-size: 15px;
 }
 
-
+/* Admin */
+.category_admin_btn{
+  padding: 2px 8px;
+  font-size: 14px;
+}
+.vendor_list_btn{
+  padding: 5px 11px 8px 11px;
+  font-size: 14px;
+}
