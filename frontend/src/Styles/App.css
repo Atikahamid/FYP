@@ -253,7 +253,7 @@ body{
 
 .categoryContainer{
   padding-bottom: 30px;
- padding-top: 20px;
+  padding-top: 20px;
   background-color: rgb(231, 224, 208);
 }
 /* categoryCArd panel */
@@ -563,7 +563,11 @@ body{
   font-size: 35px;
 }
 .dashboard_container{
-  padding-bottom: 20rem;
+  padding-bottom: 10rem;
+}
+.inner_dashcard{
+  width: 100%;
+  padding-left: 11px;
 }
 
 
