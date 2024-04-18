@@ -1,7 +1,9 @@
 import React from 'react';
-import Admin from './Pages/Admin';
+
 // import User from './Pages/User';
 // import Vendor from './Pages/Vendor';
+import Admin from './Pages/Admin';
+
 
 
 function App() {

@@ -6,12 +6,12 @@ import { CgProfile } from "react-icons/cg";
 import { CgPlayListAdd } from "react-icons/cg";
 import { IoMdToday } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
-import {FaBars} from "react-icons/fa";
+// import { useState } from 'react';
+// import {FaBars} from "react-icons/fa";
 
-export default function SidebarV() {
-    const[isOpen, setIsOpen]=useState(true);
-  const toggle=()=>setIsOpen(!isOpen);
+export default function SidebarV({isOpen}) {
+  //   const[isOpen, setIsOpen]=useState(true);
+  // const toggle=()=>setIsOpen(!isOpen);
   const menuItem=[
     {
       path:"/",
@@ -44,7 +44,7 @@ export default function SidebarV() {
     <div className="top_section">
       <h2 style={{display: isOpen ? "block": "none"}} className="logo">Moto Parts</h2>
       <div style={{marginLeft: isOpen ? "30px": "0px"}} className="bars">
-        <FaBars onClick={toggle}/>
+        {/* <FaBars onClick={toggle}/> */}
       </div>
     </div>
     {

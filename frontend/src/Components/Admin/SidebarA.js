@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../Styles/App.css'
 import { BiSolidCategory } from "react-icons/bi";
-import { FaBars } from "react-icons/fa";
+// import { FaBars } from "react-icons/fa";
 // import { CgProfile } from "react-icons/cg";
 // import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { LuClipboardCheck } from "react-icons/lu";
@@ -14,9 +14,9 @@ import { RiArrowDownSFill } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 // import Navbar from './Navbar';
 
-export default function SidebarA() {
-    const [isOpen, setIsOpen] = useState(true);
-    const toggle = () => setIsOpen(!isOpen);
+export default function SidebarA({isOpen}) {
+    // const [isOpen, setIsOpen] = useState(true);
+    // const toggle = () => setIsOpen(!isOpen);
     const [children, setChildren] = useState(false);
     const showChildren = () => setChildren(!children);
   
@@ -120,7 +120,7 @@ export default function SidebarA() {
         <div className="top_section">
           <h2 style={{ display: isOpen ? "block" : "none" }} className="logo">Moto Parts</h2>
           <div style={{ marginLeft: isOpen ? "30px" : "0px" }} className="bars">
-            <FaBars onClick={toggle} />
+            {/* <FaBars onClick={toggle} /> */}
           </div>
         </div>
         {

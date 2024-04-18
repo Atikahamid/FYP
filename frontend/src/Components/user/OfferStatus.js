@@ -2,8 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function OfferStatus() {
-  const navigate=useNavigate();
-  const handledetails=()=>{
+  const navigate = useNavigate();
+  const handledetails = () => {
     navigate('/ProductDetails');
   }
   return (
@@ -13,7 +13,7 @@ export default function OfferStatus() {
         <h1>Offer Status</h1>
       </div>
       <div className="inner m-5 p-5 mt-1 pt-1">
-      <div className="inner m-3 p-5 mt-5 pt-1">
+        <div className="inner m-3 p-5 mt-5 pt-1">
           <div className="offerProduct mt-3">
             <div className="product">
               <div className="col-6">
@@ -30,15 +30,15 @@ export default function OfferStatus() {
                   <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint odit nisi, inventore nam laboriosam incidunt.</span>
                 </div>
                 <div className="optionbtn">
-                <button className="btn btn-warning obtn">Edit</button>
-                <button className="btn btn-primary obtn" onClick={handledetails}>Details</button>
-                <button className="btn btn-danger obtn">Delete</button>
-              </div>
+                  <button className="btn btn-warning obtn">Edit</button>
+                  <button className="btn btn-primary obtn" onClick={handledetails}>Details</button>
+                  <button className="btn btn-danger obtn">Delete</button>
+                </div>
               </div>
               <div className="col-6 offer_img">
                 <img src={require('../../assets/images/User/tyres.png')} alt="" />
               </div>
-              
+
             </div>
             <div className="row">
               <div className="col-12">
@@ -65,6 +65,11 @@ export default function OfferStatus() {
                   <h5>Description:</h5>
                   <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint odit nisi, inventore nam laboriosam incidunt.</span>
                 </div>
+                <div className="optionbtn">
+                  <button className="btn btn-warning obtn">Edit</button>
+                  <button className="btn btn-primary obtn" onClick={handledetails}>Details</button>
+                  <button className="btn btn-danger obtn">Delete</button>
+                </div>
               </div>
               <div className="col-6 offer_img">
                 <img src={require('../../assets/images/User/tyre1.webp')} alt="" />
@@ -80,6 +85,6 @@ export default function OfferStatus() {
 
         </div>
       </div>
-      </div>
-      )
+    </div>
+  )
 }

@@ -7,18 +7,19 @@ import { GrCompliance } from "react-icons/gr";
 import { CiBoxList } from "react-icons/ci";
 import { BiSitemap } from "react-icons/bi";
 import { NavLink } from 'react-router-dom';
-import { FaBars } from "react-icons/fa";
+// import { FaBars } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { RiArrowUpSFill, RiArrowDownSFill, RiPassPendingLine} from "react-icons/ri";
 
-export default function SidebarDummy() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+export default function SidebarDummy({isSidebarOpen}) {
+    // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [openMenus, setOpenMenus] = useState({});
     // const [children, setChildren] = useState(false);
     // const showChildren = () => setChildren(!children);
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+   
+    // const toggleSidebar = () => {
+    //     setIsSidebarOpen(!isSidebarOpen);
+    // };
 
     const toggleMenu = (menuName) => {
         setOpenMenus(prevState => ({
@@ -127,7 +128,7 @@ export default function SidebarDummy() {
             <div className="top_section">
                 <h2 className="logo" style={{ display: isSidebarOpen ? "block" : "none" }}>Moto Parts</h2>
                 <div className="bars" style={{ marginLeft: isSidebarOpen ? "30px" : "0px" }}>
-                    <FaBars onClick={toggleSidebar} />
+                    {/* <FaBars onClick={toggleSidebar} /> */}
                 </div>
             </div>
             <div className="inner_sidebar mb-5">

@@ -8,15 +8,15 @@ export default function CategoryCardPanel(props) {
 
         <h1>{props.name}</h1>
       </div>
-      <div className="row">
-        <div className="col"><CategoryCard /></div>
-        <div className="col"><CategoryCard /></div>
-        <div className="col"><CategoryCard /></div>
+      <div className="row d-flex justify-content-evenly">
+        <div className="col-3"><CategoryCard imgSource={require('../../assets/images/User/h2.jpg')}/></div>
+        <div className="col-3"><CategoryCard imgSource={require('../../assets/images/User/tyre1.webp')} /></div>
+        <div className="col-3"><CategoryCard imgSource={require('../../assets/images/User/doors.jpg')}/></div>
       </div>
-      <div className="row">
-        <div className="col"><CategoryCard /></div>
-        <div className="col"><CategoryCard /></div>
-        <div className="col"><CategoryCard /></div>
+      <div className="row d-flex justify-content-evenly">
+        <div className="col-3"><CategoryCard imgSource={require('../../assets/images/User/pic.jpg')}/></div>
+        <div className="col-3"><CategoryCard imgSource={require('../../assets/images/User/pic.jpg')}/></div>
+        <div className="col-3"><CategoryCard imgSource={require('../../assets/images/User/pic.jpg')}/></div>
       </div>
 
     </div>

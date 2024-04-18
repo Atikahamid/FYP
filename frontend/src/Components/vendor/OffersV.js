@@ -47,6 +47,55 @@ export default function OffersV() {
         <button className="btn btn-danger  ">Reject</button>
       </div>
     },
+    {
+      id: 1,
+      pname: 'rollas royas',
+      quantity: 23,
+      price: 546300,
+      offerprice: 45553,
+      b_id: 'khadijaazam@gmail.com',
+      action: <div className='inside_action_btn'>
+        <button className="btn btn-success me-1 ">Accept</button>
+        <button className="btn btn-danger  ">Reject</button>
+      </div>
+    },
+    {
+      id: 2,
+      pname: 'rollas royas',
+      quantity: 23,
+      price: 546300,
+      offerprice: 45553,
+      b_id: 'khadijaazam@gmail.com',
+      action: <div className='inside_action_btn'>
+        <button className="btn btn-success me-1 ">Accept</button>
+        <button className="btn btn-danger  ">Reject</button>
+      </div>
+    },
+    {
+      id: 3,
+      pname: 'rollas royas',
+      quantity: 23,
+      price: 546300,
+      offerprice: 45553,
+      b_id: 'khadijaazam@gmail.com',
+      action: <div className='inside_action_btn'>
+        <button className="btn btn-success me-1 ">Accept</button>
+        <button className="btn btn-danger  ">Reject</button>
+      </div>
+    },
+    {
+      id: 4,
+      pname: 'rollas royas',
+      quantity: 23,
+      price: 546300,
+      offerprice: 45553,
+      b_id: 'khadijaazam@gmail.com',
+      action: <div className='inside_action_btn'>
+        <button className="btn btn-success me-1 ">Accept</button>
+        <button className="btn btn-danger  ">Reject</button>
+      </div>
+    },
+
   ]
   return (
     <div className='categoryContainer'>

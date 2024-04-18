@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import '../Styles/App.css';
 // import PartsCategory from '../Components/user/PartsCategory';
@@ -22,11 +22,18 @@ import UnusedParts from '../Components/user/UnusedParts';
 // import ProductCard from './Components/ProductCard';
 
 export default function User() {
+  const [isOpen, setIsOpen] = useState(true);
+
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   const navigate = useNavigate();
   return (
     <div className="contained">
 
-      <Sidebar
+      <Sidebar isOpen={isOpen}
         onclick={({ path }) => {
           navigate(path);
         }}
@@ -57,7 +64,7 @@ export default function User() {
       </Sidebar>
 
       <div className="main">
-        <Navbar />
+        <Navbar toggleSidebar={toggleSidebar}/>
         <Content className='content' />
       </div>
 

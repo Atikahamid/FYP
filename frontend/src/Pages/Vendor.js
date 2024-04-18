@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 // import Sidebar from '../Components/user/Sidebar'
 import SidebarV from '../Components/vendor/SidebarV'
 import Navbar from '../Components/vendor/Navbar'
@@ -10,11 +10,18 @@ import OffersV from '../Components/vendor/OffersV';
 import MyProfileV from '../Components/vendor/MyProfileV';
 
 export default function Vendor() {
-    const navigate=useNavigate();
+  const [isOpen, setIsOpen] = useState(true);
+
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const navigate=useNavigate();
   return (
     <div className='contained'>
       
-      <SidebarV 
+      <SidebarV isOpen={isOpen}
       onclick={({path})=>{
         navigate(path);
       }}
@@ -38,7 +45,7 @@ export default function Vendor() {
         </SidebarV>
 
         <div className="main">
-        <Navbar/>
+        <Navbar toggleSidebar={toggleSidebar}/>
         <Content className='content'/>
       </div>
 

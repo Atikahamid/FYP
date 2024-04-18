@@ -14,7 +14,7 @@ export default function MyOrders() {
           </div>
           <div className="row justify-content-evenly">
             <div className="col-2 orderproduct_image">
-              <img src={require('../../assets/images/User/steering.jpg')} alt="" />
+              <img src={require('../../assets/images/User/doors.jpg')} alt="" />
             </div>
             <div className="col-8">
               <div>
@@ -35,7 +35,7 @@ export default function MyOrders() {
           <hr />
           <div className="row justify-content-evenly mt-3">
             <div className="col-2 orderproduct_image">
-              <img src={require('../../assets/images/User/sidemirror.png')} alt="" />
+              <img src={require('../../assets/images/User/doors.jpg')} alt="" />
             </div>
             <div className="col-8">
               <div>

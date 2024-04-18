@@ -16,7 +16,7 @@ export default function MyProfileV() {
                 <div className="row mt-3">
                     <div className="col-4">
                         <div className="profile_image">
-                            <img src={require('../../assets/images/User/profileimg.jpeg')} alt="" />
+                            <img src={require('../../assets/images/User/blank-profile.png')} alt="" />
                         </div>
                     </div>
                     <div className="col-8 ">

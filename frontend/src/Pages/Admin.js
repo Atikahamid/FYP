@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../Styles/App.css';
 // import SidebarA from '../Components/Admin/SidebarA'
 import {  Route, Routes,useNavigate } from 'react-router-dom';
@@ -20,11 +20,18 @@ import SidebarDummy from '../Components/Admin/SidebarDummy';
 
 
 export default function Admin() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // const [isOpen,setIsOpen]=useState(true);
+
+  const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
   const navigate=useNavigate();
   return (
     <div className="contained">
 
-      <SidebarDummy
+      <SidebarDummy isSidebarOpen={isSidebarOpen}
         onclick={({ path }) => {
           navigate(path);
         }}
@@ -68,7 +75,7 @@ export default function Admin() {
         ]}>
       </SidebarDummy>
       <div className="main">
-        <NavbarA />
+        <NavbarA  toggleSidebar={toggleSidebar}/>
         <Content className='content' />
       </div>
 
