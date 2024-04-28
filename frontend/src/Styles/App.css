@@ -262,6 +262,13 @@ body{
   padding-bottom: 30px;
   padding-top: 20px;
   background-color: rgb(231, 224, 208);
+  height: 100%;
+}
+.categoryContainer_login{
+  padding-bottom: 20rem;
+  padding-top: 5rem;
+  background-color: rgb(231, 224, 208);
+  height: 100%;
 }
 /* categoryCArd panel */
 /* .one{
@@ -344,7 +351,7 @@ body{
   border-radius: 5px;
   font-size: 14px;
   color: black;
-  box-shadow: 0 5px 13px 2px grey;
+  box-shadow: 0 2px 10px 0px grey;
 }
 .form_control:focus{
   outline: none;
@@ -361,7 +368,7 @@ body{
   padding: 6px 18px;
   font-size: 14px;
   color: black;
-  box-shadow: 0 5px 13px 2px grey;
+  box-shadow:  0 2px 10px 0px grey;
   border-radius: 5px;
 }
 .form_select:focus{
@@ -609,5 +616,43 @@ body{
 }
 .vendor_list_btn{
   padding: 5px 11px 8px 11px;
+  font-size: 14px;
+}
+.radio_button{
+  margin-right: 15px;
+}
+
+/* Login page */
+
+.login_box .user_box{
+  position: relative;
+
+}
+.login_box .user_box input{
+  width: 100%;
+  padding: 10px 0;
+  margin-bottom: 30px;
+  border: none;
+  color: black;
+  font-size: 16px;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+}
+.login_box .user_box label{
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  color: black;
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+}
+.login_box .user_box input:focus ~ label,
+.login_box .user_box input:valid ~ label{
+  top: -20px;
+  left: 0;
+  color:  black;
   font-size: 14px;
 }
