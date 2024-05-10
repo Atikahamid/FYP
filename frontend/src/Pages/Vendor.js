@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 // import Sidebar from '../Components/user/Sidebar'
 import SidebarV from '../Components/vendor/SidebarV'
 import Navbar from '../Components/vendor/Navbar'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate, Outlet } from 'react-router-dom'
 import DashboardV from '../Components/vendor/DashboardV';
 import MyProductsV from '../Components/vendor/MyProductsV';
 import AddProductsV from '../Components/vendor/AddProductsV';
@@ -27,19 +27,19 @@ export default function Vendor() {
       }}
       Item={[
         {
-            path:"/"
+            path:"/vendor/dashboard"
         },
         {
-            path:"/myproducts"
+            path:"/vendor/myproducts"
         },
         {
-            path:"/addproducts"
+            path:"/vendor/addproducts"
         },
         {
-            path:"/offers"
+            path:"/vendor/offers"
         },
         {
-            path:"/profile"
+            path:"/vendor/profile"
         }
       ]}>
         </SidebarV>
@@ -56,16 +56,17 @@ function Content(){
     return(
     <div>
        <Routes>
-            <Route path="/" element={<DashboardV/>} />
-  
-          <Route path="/myproducts" element={<MyProductsV/>} />
-          <Route path="/addproducts" element={<AddProductsV/>} />
-          <Route path="/offers" element={<OffersV/>} />
-          <Route path="/profile" element={<MyProfileV/>} />
+       <Route path="/vendor/dashboard" element={<DashboardV/>} />
+          <Route path="/vendor/dashboard" element={<DashboardV/>} />
+          <Route path="/vendor/myproducts" element={<MyProductsV/>} />
+          <Route path="/vendor/addproducts" element={<AddProductsV/>} />
+          <Route path="/vendor/offers" element={<OffersV/>} />
+          <Route path="/vendor/profile" element={<MyProfileV/>} />
          
   
   
         </Routes>
+        <Outlet/>
     </div>
     )
   }

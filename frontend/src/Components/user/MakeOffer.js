@@ -1,8 +1,10 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 export default function MakeOffer() {
     return (
         <div>
+  <div>
             <div className="categoryContainer">
                 <div className="inner m-5 p-2 mt-3 pt-2 ">
                     <h1>Make Offer</h1>
@@ -50,5 +52,8 @@ export default function MakeOffer() {
 
             </div>
         </div>
+        <Outlet/>
+        </div>
+      
     )
 }

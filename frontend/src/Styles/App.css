@@ -185,7 +185,10 @@ body{
 .first{
   display: flex;
 }
-
+.mycart_btn{
+  border: none;
+  background: white;
+}
 .search-box{
   margin-left: 40px;
   margin-top: 7px;
@@ -265,7 +268,7 @@ body{
   height: 100%;
 }
 .categoryContainer_login{
-  padding-bottom: 20rem;
+  padding-bottom: 5rem;
   padding-top: 5rem;
   background-color: rgb(231, 224, 208);
   height: 100%;
@@ -650,9 +653,15 @@ body{
   transition: .5s;
 }
 .login_box .user_box input:focus ~ label,
-.login_box .user_box input:valid ~ label{
+.login_box .user_box input:valid ~ label,
+.login_box .user_box input:not([name=""]) ~ label {
   top: -20px;
   left: 0;
-  color:  black;
+  color: black;
   font-size: 14px;
+}
+
+.forgetPassword{
+  margin-top: -16px;
+  color: darkred;
 }

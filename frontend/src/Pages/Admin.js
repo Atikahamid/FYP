@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../Styles/App.css';
 // import SidebarA from '../Components/Admin/SidebarA'
-import {  Route, Routes,useNavigate } from 'react-router-dom';
+import { Route, Routes,useNavigate , Outlet} from 'react-router-dom';
 import DashboardA from '../Components/Admin/DashboardA';
 import Category from '../Components/Admin/Category';
 import CurrentProducts from '../Components/Admin/CurrentProducts';
@@ -87,6 +87,7 @@ export default function Admin() {
 function Content() {
   return (
     <div>
+      <div>
       <Routes>
         <Route path="/" element={<DashboardA />} />
 
@@ -101,11 +102,11 @@ function Content() {
         <Route path="/ordermanagement/completedorders" element={<CompleteOrders />} />
         <Route path="/ordermanagement/pendingorders" element={<PendingOrders />} />
         <Route path="/ordermanagement/cancelledorders" element={<CancelOrders />} />
-        
-
-        
       </Routes>
+      </div>
+      <Outlet/>
     </div>
+    
   )
 }
 

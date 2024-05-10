@@ -31,7 +31,7 @@ export default function Sidebar({isOpen}) {
 
   const menuItem = [
     {
-      path: "/",
+      path: "/user/dashboard",
       name: "Dashboard",
       icon: <RxDashboard />
     },
@@ -42,34 +42,34 @@ export default function Sidebar({isOpen}) {
       // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px" ,fontSize:"19px"}}  />,
       childrens: [
         {
-          path: "/partscategory/usedparts",
+          path: "/user/partscategory/usedparts",
           name: "Used Parts",
           icon: <BiSolidCategory />
         },
         {
-          path: "/partscategory/unusedparts",
+          path: "/user/partscategory/unusedparts",
           name: "Unused Parts",
           icon: <BiSolidCategory />
         }
       ]
     },
     {
-      path: "/myorders",
+      path: "/user/myorders",
       name: "My Orders",
       icon: <LuClipboardCheck />
     },
     {
-      path: "/myprofile",
+      path: "/user/myprofile",
       name: "MyProfile",
       icon: <CgProfile />
     },
     {
-      path: "/offerstatus",
+      path: "/user/offerstatus",
       name: "Offer Status",
       icon: <IoMdToday />
     },
     {
-      path: "/askme",
+      path: "/user/askme",
       name: "Ask Me",
       icon: <BsFillQuestionCircleFill />
     }

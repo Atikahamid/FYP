@@ -1,11 +1,17 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 // import { GiShoppingCart } from "react-icons/gi";
 
 export default function ProductCard() {
   const navigate = useNavigate();
+  const addcart =() =>{
+    navigate('/user/addtocart')
+  }
+  const makeOffer =() =>{
+    navigate('/user/partscategory/unusedparts/productCardPanel/makeOffer')
+  }
   const handleviewdetails = () => {
-    navigate('/ProductDetails');
+    navigate('/user/partscategory/unusedparts/productCardPanel/ProductDetails');
   }
   return (
     <div className='productcard mt-5'>
@@ -32,8 +38,8 @@ export default function ProductCard() {
         </div>
         </div>
         <div className="col-10 d-flex">
-        <button className="btn  btn1">Add To Cart</button>
-          <button className="btn  btn2">Make Offer</button>
+        <button onClick={addcart} className="btn  btn1">Add To Cart</button>
+          <button onClick={makeOffer} className="btn  btn2">Make Offer</button>
         </div>
 
         {/* <div className="col-6">
@@ -66,6 +72,7 @@ export default function ProductCard() {
         <button className="viewDetails" onClick={handleviewdetails}>View Details</button>
       </div>
     </div>
+    {/* <Outlet/> */}
     </div>
   )
 }

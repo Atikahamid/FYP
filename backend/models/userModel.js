@@ -3,15 +3,14 @@ const { Schema } = mongoose
 const ObjectId = Schema.Types.ObjectId;
 
 const userShema = new Schema({
-    firstName:{
+    fullName:{
         type: String,
         required:true,
         trim: true
     },
-    lastName:{
+    gender:{
         type: String,
-        required:true,
-        trim: true
+        enum: ['male', 'female', 'other']
     },
     email:{
         type: String,
@@ -36,12 +35,21 @@ const userShema = new Schema({
     },
     addressId:{
         type: ObjectId,
-        ref:'Address'
+        ref:'User_Adress'
     },
     regestrationDate:{
         type: Date,
         default:Date.now
+    },
+    cart:{
+        type: Array,
+        default: [],
+    },
+    refreshToken:{
+        type: String
     }
+},{
+    timestamps:true
 });
 
 const User = mongoose.model('User', userShema);

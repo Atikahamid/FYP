@@ -14,27 +14,27 @@ export default function SidebarV({isOpen}) {
   // const toggle=()=>setIsOpen(!isOpen);
   const menuItem=[
     {
-      path:"/",
+      path:"/vendor/dashboard",
       name:"Dashboard",
       icon:<RxDashboard />
     },
     {
-      path:"/myproducts",
+      path:"/vendor/myproducts",
       name:"My Products",
       icon:<IoColorFilterSharp />
     },
     {
-      path:"/addproducts",
+      path:"/vendor/addproducts",
       name:"Add Product",
       icon:<CgPlayListAdd />
     },
     {
-      path:"/offers",
+      path:"/vendor/offers",
       name:"Offers",
       icon:<IoMdToday />
     },
     {
-      path:"/profile",
+      path:"/vendor/profile",
       name:"My Profile",
       icon:<CgProfile />
     }

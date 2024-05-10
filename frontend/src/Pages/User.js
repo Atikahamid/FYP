@@ -1,5 +1,5 @@
-import React ,{useState}from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import '../Styles/App.css';
 // import PartsCategory from '../Components/user/PartsCategory';
 import MyOrders from '../Components/user/MyOrders';
@@ -19,6 +19,9 @@ import UpdateMyProfile from '../Components/user/UpdateMyProfile';
 import MyProfile from '../Components/user/MyProfile';
 import UsedParts from '../Components/user/UsedParts';
 import UnusedParts from '../Components/user/UnusedParts';
+import SampleUnuseParts from '../Components/user/SampleUnuseParts';
+import SampleProductPanel from '../Components/user/SampleProductPanel';
+import SampleProductDetails from '../Components/user/SampleProductDetails';
 // import ProductCard from './Components/ProductCard';
 
 export default function User() {
@@ -39,32 +42,32 @@ export default function User() {
         }}
         Item={[
           {
-            path: "/"
+            path: "/user/dashboard"
           },
           {
-            path: "/myorders"
+            path: "/user/myorders"
           },
           {
-            path: "/partscategory/usedparts"
+            path: "/user/partscategory/usedparts"
           },
           {
-            path: "/partscategory/unusedparts"
+            path: "/user/partscategory/unusedparts"
           },
           {
-            path: "/myprofile"
+            path: "/user/myprofile"
           },
           {
-            path: "/offerstatus"
+            path: "/user/offerstatus"
           },
           {
-            path: "/askme"
+            path: "/user/askme"
           }
 
         ]}>
       </Sidebar>
 
       <div className="main">
-        <Navbar toggleSidebar={toggleSidebar}/>
+        <Navbar toggleSidebar={toggleSidebar} />
         <Content className='content' />
       </div>
 
@@ -78,30 +81,61 @@ export default function User() {
 
   )
 }
+// function Content() {
+//   return (
+//     <div>
+//       <Routes>
+//         <Route path="/" element={<Dashboard />} />
+
+//         <Route path="/partscategory/usedparts" element={<UsedParts />} />
+//         <Route path="/partscategory/unusedparts" element={<UnusedParts />} />
+
+//         <Route path="/myorders" element={<MyOrders />} />
+//         <Route path="/myprofile" element={<MyProfile />} />
+//         <Route path="/offerstatus" element={<OfferStatus />} />
+//         <Route path="/askme" element={<AskMe />} />
+//         <Route path="/updateprofile" element={<UpdateMyProfile />} />
+
+
+//         {/* Other routes */}
+//       </Routes>
+//     </div>
+//   )
+// }
+
 function Content() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/user/dashboard" element={<Dashboard />} />
 
-        <Route path="/partscategory/usedparts" element={<UsedParts />} />
-        <Route path="/partscategory/unusedparts" element={<UnusedParts />} />
+        <Route path="/user/partscategory/usedparts" element={<UsedParts />} />
+        <Route path="/user/partscategory/unusedparts" element={<SampleUnuseParts />} >
+          <Route index element={<UnusedParts />} />
+          <Route path="productCardPanel" element={<SampleProductPanel />} >
+            <Route index element={<ProductCardPanel />} />
+            <Route path="ProductDetails" element={<SampleProductDetails />} >
+              <Route index element={<ProductDetails />} />
+              <Route path="makeOffer" element={<MakeOffer />} />
+            </Route>
+            <Route path="makeOffer" element={<MakeOffer />} />
+          </Route>
+        </Route>
 
-        <Route path="/myorders" element={<MyOrders />} />
-        <Route path="/myprofile" element={<MyProfile />} />
-        <Route path="/offerstatus" element={<OfferStatus />} />
-        <Route path="/askme" element={<AskMe />} />
-        <Route path="/updateprofile" element={<UpdateMyProfile />} />
+
+        <Route path="/user/addtocart" element={<AddToCart />} />
+        <Route path="/user/myorders" element={<MyOrders />} />
+        <Route path="/user/myprofile" element={<MyProfile />} />
+        <Route path="/user/offerstatus" element={<OfferStatus />} />
+        <Route path="/user/askme" element={<AskMe />} />
+        <Route path="/user/updateprofile" element={<UpdateMyProfile />} />
 
         {/* <Route path="/CategoryCardPanel" element={<CategoryCardPanel/>} /> */}
-        <Route path="/ProductCardPanel" element={<ProductCardPanel />} />
         {/* <Route path="/ProductCard" element={<ProductCard/>} /> */}
-        <Route path="/ProductDetails" element={<ProductDetails />} />
-        <Route path="/makeOffer" element={<MakeOffer />} />
-        <Route path="/addtocart" element={<AddToCart />} />
 
 
       </Routes>
+      <Outlet />
     </div>
   )
 }

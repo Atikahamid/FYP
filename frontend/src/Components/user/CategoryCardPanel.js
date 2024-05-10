@@ -1,5 +1,6 @@
 import React from 'react'
 import CategoryCard from './CategoryCard'
+import { Outlet } from 'react-router-dom'
 
 export default function CategoryCardPanel(props) {
   return (
@@ -18,7 +19,7 @@ export default function CategoryCardPanel(props) {
         <div className="col-3"><CategoryCard imgSource={require('../../assets/images/User/pic.jpg')}/></div>
         <div className="col-3"><CategoryCard imgSource={require('../../assets/images/User/pic.jpg')}/></div>
       </div>
-
+{/* <Outlet/> */}
     </div>
   )
 }

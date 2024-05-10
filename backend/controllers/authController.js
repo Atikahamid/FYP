@@ -1,46 +1,327 @@
-const { validationResult } = require("express-validator");
+// const { validationResult } = require("express-validator");
 const User= require('../models/userModel');
-
+const UserAdress = require('../models/userAddressModel');
+const Vendor = require('../models/vendorModel')
+const VendorAddress = require('../models/vendorAddressModel')
+const Admin = require('../models/adminModel')
+const { hashPassword, comparePassword} = require('../helpers/authPassword')
+const jwt = require('jsonwebtoken');
+const generateToken = require('../helpers/jwt')
+const nodemailer =require('nodemailer')
+const validateMongoId = require('../helpers/validateId')
+const { google} = require('googleapis')
+const generateUniqueToken = require('../helpers/uniqueToken')
 
 const test = (req, res)=>{
     res.json('test is working')
 }
-
+//Register user endpoint
 const registerUser = async(req, res) => {
-    try {
-        const errors = validationResult(req);
-        if(!errors.isEmpty()){
-            return res.status(400).json({
-                success: false,
-                msg:'Errors',
-                errors: errors.array()
-            });
-           }
+    try { 
+        const { fullName,gender, email, password, dateOfBirth, phoneNumber, streetName, regestrationDate, city, postalCode, country} = req.body;
         
-        
-        const { firstName, lastName, email, password, dateOfBirth, phoneNumber, addressId, regestrationDate} = req.body;
-
         // to check that if user has already registered
-        const isExists= await User.findOne({email});
-        if(isExists){
-            return res.status(400).json({
+        const isExistsinUser = await User.findOne({email});
+        const isExistsinVendor = await Vendor.findOne({email});
+        if(isExistsinUser || isExistsinVendor){
+            return res.status(409).json({
                 success: false,
-                msg:'Email already exist'
+                msg: 'Email allready exist plz try with another email',
             });
         }
+        //create Address
+        const address = await UserAdress.create({
+        streetName, city, postalCode, country
+        });
+
+  //hashed password
+         const hashedPassword = await hashPassword(password)
+       
         //to create new user
         const user = await User.create({
-            firstName, lastName, email, password, dateOfBirth, phoneNumber, addressId, regestrationDate  
+            fullName, email, gender,
+            password:hashedPassword,
+            dateOfBirth, phoneNumber,
+            addressId:address._id, 
+            regestrationDate  
         })
 
-        return res.json(user);
+        return res.json({success: true, user});
         
     } catch (error) {
-        console.log(errors)
+        console.log(error)
+        return res.status(500).json({ 
+            success: false, 
+            msg:'Registeration failed plz try again later',
+            error: error
+        });
     }
 }
 
+//register vendor endpoint
+const registerVendor = async (req, res) =>{4
+    try {
+        const {fullName, gender, email, password, dateOfBirth, phoneNumber, streetName, regestrationDate, city, postalCode,entity, country} =req.body;
+
+        //to check if user has already exist
+        const existsinVendor = await Vendor.findOne({email});
+        const existsinUser = await User.findOne({email});
+        if(existsinVendor || existsinUser){
+            return res.status(408).json({
+                success: false,
+                msg: 'Email already exist plz try with another email',
+                error: 'email already existed',
+            });
+        }
+
+        //create address
+        const address= await VendorAddress.create({
+            streetName, city, postalCode, country
+        });
+
+        //hashed password
+        const hashedPassord = await hashPassword(password)
+
+        //to create new vendor
+        const vendor = await Vendor.create({
+            fullName, email, gender,
+            password: hashedPassord,
+            dateOfBirth, phoneNumber,
+            addressId: address._id,
+            entity,
+            regestrationDate
+        })
+
+        return res.json({success:true, vendor});
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            msg: 'Registeration failed plz try again later',
+            error: error
+        });
+    }
+}
+
+//register  Admin endpoint
+const registerAdmin = async (req, res) =>{
+    try {
+        const {fullName, gender, email, password, phoneNumber, regestrationDate} = req.body;
+
+        // to check if user has alreay registered
+        const isExists= await Admin.findOne({email});
+        if(isExists){
+            return res.status(409).json({
+                success: false,
+                msg: 'Email allready exist',
+            });
+        }
+  //hashed password
+         const hashedPassword = await hashPassword(password)
+       
+        //to create new user
+        const admin = await Admin.create({
+             fullName, email, gender,
+            password:hashedPassword,
+            phoneNumber, 
+            regestrationDate  
+        })
+
+        return res.json({success: true, admin});
+        
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ 
+            success: false, 
+            msg:'Registeration failed plz try again later',
+            error: error
+        });
+    }
+}
+
+
+//login endpioint
+const loginUser = async(req, res) =>{
+
+    try {
+        const {email, password} = req.body;
+        
+        // check if user exist in vendor table 
+        let user = await Vendor.findOne({ email });
+        let role = 'vendor';
+
+        //if not found in vemndor tavble check customer table
+        if(!user){
+            user = await User.findOne({email});
+            role = 'customer';
+        }
+
+        //check in admin table
+        if(!user){
+            user = await Admin.findOne({email});
+            role = 'admin';
+        }
+
+        if(!user){
+            return res.status(404).json({
+                error:'No user found with this email'
+            });
+        }
+        //check if password matches
+        const match = await comparePassword(password, user.password);
+        if(match){
+           const token = generateToken(user._id, user.email, role, user.fullName);
+            res.cookie('token', token).json({success: true, token, role,userId: user._id, email: user.email, fullName: user.fullName});
+        }else{
+            res.status(401).json({
+                success: false, error: 'Password do not match'
+            });
+        }
+
+    } catch (error) {
+     console.log(error);
+     return res.status(501).json({
+        success: false,
+        msg:'Login failed plz try again later '
+     });   
+    }
+
+}
+
+//get all user endpoint
+const getAllUser = async(req, res) =>{
+    try {
+        const getUsers= await User.find();
+        res.json(getUsers);
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+//get all vendors endpoint
+const getAllVendor = async(req, res) =>{
+    try {
+        const getVendors= await Vendor.find();
+        res.json(getVendors);
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+//get a single user
+
+const getaUser = async (req, res) =>{
+    const {id} = req.params;
+    validateMongoId(id);
+    try {
+        const getaUser = await User.findById(id);
+        res.json({
+            getaUser,
+        });
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+//to delete a single user 
+const deleteaUser = async (req, res) =>{
+    const {id} = req.params;
+
+    try {
+        const deleteaUser = await User.findByIdAndDelete(id);
+        res.json({
+            deleteaUser,
+        });
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+//to update a user
+const updateaUser = async (req, res) => {
+    const {_id } = req.user;
+    validateMongoId(_id);
+    try {
+        const updateUser = await User.findByIdAndUpdate(
+            _id,
+            {
+                fullName: req?.body?.fullName,
+                email: req?.body?.email,
+                dateOfBirth:req?.body?.dateOfBirth,
+                phoneNumber:req?.body?.phoneNumber,
+                streetName:req?.body?.streetName,
+                city:req?.body?.city,
+                postalCode:req?.body?.postalCode,
+                country:req?.body?.country,
+            },
+            {
+                new: true,
+            }
+        );
+        res.json(updateUser) ;     
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+const forgetPassword = async (req, res) =>{
+    
+    try {
+        const {email} = req.body;
+        let user = await Vendor.findOne({email});
+        
+        if(!user){
+            user = await User.findOne({email});
+        }   
+        if(!user){
+            return res.json({
+                message: 'user not registered'
+            })
+        }
+
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn:'5m' });
+        
+        //send email through nodemailer
+
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'hafizaatika965@gmail.com',
+              pass: 'ati965429'
+            }
+          });
+          
+          var mailOptions = {
+            from: 'hafizaatika965@gmail.com',
+            to: email,
+            subject: 'Password reset',
+            text: `http://localhost:3000/resetPassword/${token}`
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+             return res.json({message: 'error sending email', error: error})
+            } else {
+             return res.json({status: true, message: 'error sending email'})
+            }
+          });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 module.exports = {
     test,
-    registerUser
+    registerUser,
+    loginUser,
+    registerVendor,
+    registerAdmin,
+    getAllUser,
+    getAllVendor,
+    getaUser,
+    forgetPassword,
+    deleteaUser,
+    updateaUser
 }
