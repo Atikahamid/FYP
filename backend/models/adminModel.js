@@ -29,6 +29,9 @@ const adminSchema = new Schema ({
         required:true,
         trim: true
     },
+    refreshToken:{
+        type: String
+    },
     regestrationDate:{
         type: Date,
         default:Date.now

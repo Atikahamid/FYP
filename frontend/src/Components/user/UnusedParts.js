@@ -1,6 +1,6 @@
 import React from 'react'
 import CategoryCardPanel from './CategoryCardPanel'
-import { Outlet } from 'react-router-dom'
+// import { Outlet } from 'react-router-dom'
 
 export default function UnusedParts() {
   return (

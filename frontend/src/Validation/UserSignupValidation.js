@@ -15,7 +15,7 @@ export const UserSignupValidation = Yup.object({
     ),
     cpassword: Yup.string().oneOf([Yup.ref('password')], "Password does not match"),
     dateOfBirth: Yup.date().required('Date of birth is required'),
-    phoneNumber: Yup.string().max(11, 'phone number shoould contain 11 digits')
+    phoneNumber: Yup.string()
         .required('Phone number is required'),
     streetName: Yup.string().required('address is required'),
     city: Yup.string().required('city is required'),

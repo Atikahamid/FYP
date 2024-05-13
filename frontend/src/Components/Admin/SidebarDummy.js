@@ -30,12 +30,12 @@ export default function SidebarDummy({isSidebarOpen}) {
 
     const menuItem = [
         {
-            path: "/",
+            path: "/admin/dashboard",
             name: "Dashboard",
             icon: <RxDashboard />
         },
         {
-            path: "/categorymanagement",
+            path: "/admin/categorymanagement",
             name: "Category ",
             icon: <MdOutlineCategory />
         },
@@ -44,12 +44,12 @@ export default function SidebarDummy({isSidebarOpen}) {
             icon: <BiSitemap />,
             childrens: [
                 {
-                    path: "/productsmanagement/currentproducts",
+                    path: "/admin/productsmanagement/currentproducts",
                     name: "Current Products",
                     icon: <BsFillLayersFill />
                 },
                 {
-                    path: "/productsmanagement/soldproducts",
+                    path: "/admin/productsmanagement/soldproducts",
                     name: "Sold Products",
                     icon:<BsJournalCheck />
                 }
@@ -62,12 +62,12 @@ export default function SidebarDummy({isSidebarOpen}) {
             // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
             childrens: [
                 {
-                    path: "/accountmanagement/userlist",
+                    path: "/admin/accountmanagement/userlist",
                     name: "User List",
                     icon: <BsFillPersonLinesFill />
                 },
                 {
-                    path: "/accountmanagement/vendorlist",
+                    path: "/admin/accountmanagement/vendorlist",
                     name: "Vendor List",
                     icon: <BsFillPersonCheckFill />
                 }
@@ -80,17 +80,17 @@ export default function SidebarDummy({isSidebarOpen}) {
             // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
             childrens: [
                 {
-                    path: "/offermanagement/pendingoffers",
+                    path: "/admin/offermanagement/pendingoffers",
                     name: "Pending Offers",
                     icon: <MdPendingActions />
                 },
                 {
-                    path: "/offermanagement/acceptedoffers",
+                    path: "/admin/offermanagement/acceptedoffers",
                     name: "Accepted Offers",
                     icon: <CiBoxList />
                 },
                 {
-                    path: "/offermanagement/rejectedoffers",
+                    path: "/admin/offermanagement/rejectedoffers",
                     name: "Rejected Offers",
                     icon:<TbDeviceTabletCancel />
                 }
@@ -103,18 +103,18 @@ export default function SidebarDummy({isSidebarOpen}) {
             // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
             childrens: [
                 {
-                    path: "/ordermanagement/completedorders",
+                    path: "/admin/ordermanagement/completedorders",
                     name: "Completed Orders",
                     icon: <GrCompliance />
                 },
                 {
-                    path: "/ordermanagement/pendingorders",
+                    path: "/admin/ordermanagement/pendingorders",
                     name: "Pending Orders",
                     icon: <RiPassPendingLine />
 
                 },
                 {
-                    path: "/ordermanagement/cancelledorders",
+                    path: "/admin/ordermanagement/cancelledorders",
                     name: "Cancelled Orders",
                     icon:<MdFreeCancellation />
                 }

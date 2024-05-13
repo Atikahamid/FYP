@@ -1,6 +1,6 @@
 import React from 'react'
 import CategoryCard from './CategoryCard'
-import { Outlet } from 'react-router-dom'
+// import { Outlet } from 'react-router-dom'
 
 export default function CategoryCardPanel(props) {
   return (

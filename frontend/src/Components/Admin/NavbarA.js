@@ -2,8 +2,39 @@ import React from 'react'
 import '../../Styles/App.css'
 import { FaBars } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 export default function NavbarA({toggleSidebar}) {
+  const navigate= useNavigate();
+
+  axios.defaults.withCredentials = true;
+    const handleLogout = async () => {
+      try {
+        const response = await axios.get('/logout');
+        if (response) {
+          navigate('/login');
+          localStorage.removeItem('token');
+        } else {
+         console.log(response.data.error)
+        }
+      } catch (error) {
+          console.error("Error:", error);
+
+        // if (error.response && error.response.data) {
+        //   const errorMessage = error.response.data;
+        //   if (errorMessage.includes('There is no token attached to header')) {
+        //     toast.error("There is no token attach to header plz login first")
+        //     navigate('/login')
+        //   } else {
+        //     console.error("Error: ", errorMessage);
+        //   }
+        // } else {
+        //   console.error("Error:", error);
+        // }
+      };
+    }
   return (
     <div className='topbar'>
       <div className="first">
@@ -19,7 +50,7 @@ export default function NavbarA({toggleSidebar}) {
       </div>
       <div className="side">
         <h3 className='name'>Atika Hamid </h3>
-        <button type="button" className="btn  logoutbtn">Logout</button>
+        <button type="button" className="btn logoutbtn" onClick={handleLogout}>Logout</button>
       </div>
     </div>
 

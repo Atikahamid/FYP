@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../Styles/App.css';
 // import SidebarA from '../Components/Admin/SidebarA'
 import { Route, Routes,useNavigate , Outlet} from 'react-router-dom';
@@ -16,10 +16,52 @@ import PendingOrders from '../Components/Admin/PendingOrders';
 import CancelOrders from '../Components/Admin/CancelOrders';
 import NavbarA from '../Components/Admin/NavbarA';
 import SidebarDummy from '../Components/Admin/SidebarDummy';
+import axios from 'axios'
+import toast from 'react-hot-toast';
 
 
 
 export default function Admin() {
+  const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const tokenExists = !!localStorage.getItem('token');
+        if(tokenExists){
+          return;
+        }
+        const response = await axios.get('/verify');
+        if (response.data.status) {
+
+        } else {
+          toast.error("You are not logged in");
+          navigate('/login');
+        }
+      } catch (error) {
+          console.error("Error:", error);
+
+        // if (error.response && error.response.data) {
+        //   const errorMessage = error.response.data;
+        //   if (errorMessage.includes('There is no token attached to header')) {
+        //     toast.error("There is no token attach to header plz login first")
+        //     navigate('/login')
+        //   } else {
+        //     console.error("Error: ", errorMessage);
+        //   }
+        // } else {
+        //   console.error("Error:", error);
+        // }
+      };
+    }
+      fetchData();
+    }, [navigate]);
+
+
+
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   // const [isOpen,setIsOpen]=useState(true);
 
@@ -27,7 +69,6 @@ export default function Admin() {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-  const navigate=useNavigate();
   return (
     <div className="contained">
 
@@ -37,40 +78,40 @@ export default function Admin() {
         }}
         Item={[
           {
-            path: "/"
+            path: "/admin/dashboard"
           },
           {
-            path: "/categorymanagement"
+            path: "/admin/categorymanagement"
           },
           {
-            path: "/productsmanagement/currentproducts"
+            path: "/admin/productsmanagement/currentproducts"
           },
           {
-            path: "/productsmanagement/soldproducts"
+            path: "/admin/productsmanagement/soldproducts"
           },
           {
-            path: "/accountmanagement/userlist"
+            path: "/admin/accountmanagement/userlist"
           },
           {
-            path: "/accountmanagement/vendorlist"
+            path: "/admin/accountmanagement/vendorlist"
           },
           {
-            path: "/offermanagement/pendingoffers"
+            path: "/admin/offermanagement/pendingoffers"
           },
           {
-            path: "/offermanagement/acceptedoffers"
+            path: "/admin/offermanagement/acceptedoffers"
           },
           {
-            path: "/offermanagement/rejectedoffers"
+            path: "/admin/offermanagement/rejectedoffers"
           },
           {
-            path: "/ordermanagement/completedorders"
+            path: "/admin/ordermanagement/completedorders"
           },
           {
-            path: "/ordermanagement/pendingorders"
+            path: "/admin/ordermanagement/pendingorders"
           },
           {
-            path: "/ordermanagement/cancelledorders"
+            path: "/admin/ordermanagement/cancelledorders"
           }
         ]}>
       </SidebarDummy>
@@ -89,19 +130,19 @@ function Content() {
     <div>
       <div>
       <Routes>
-        <Route path="/" element={<DashboardA />} />
+        <Route path="/admin/dashboard" element={<DashboardA />} />
 
-        <Route path="/categorymanagement" element={<Category />} />
-        <Route path="/productsmanagement/currentproducts" element={<CurrentProducts />} />
-        <Route path="/productsmanagement/soldproducts" element={<SoldProducts />} />
-        <Route path="/accountmanagement/userlist" element={<UserList />} />
-        <Route path="/accountmanagement/vendorlist" element={<VendorList />} />
-        <Route path="/offermanagement/pendingoffers" element={<PendingOffers />} />
-        <Route path="/offermanagement/acceptedoffers" element={<AcceptOffers />} />
-        <Route path="/offermanagement/rejectedoffers" element={<RejectOffers />} />
-        <Route path="/ordermanagement/completedorders" element={<CompleteOrders />} />
-        <Route path="/ordermanagement/pendingorders" element={<PendingOrders />} />
-        <Route path="/ordermanagement/cancelledorders" element={<CancelOrders />} />
+        <Route path="/admin/categorymanagement" element={<Category />} />
+        <Route path="/admin/productsmanagement/currentproducts" element={<CurrentProducts />} />
+        <Route path="/admin/productsmanagement/soldproducts" element={<SoldProducts />} />
+        <Route path="/admin/accountmanagement/userlist" element={<UserList />} />
+        <Route path="/admin/accountmanagement/vendorlist" element={<VendorList />} />
+        <Route path="/admin/offermanagement/pendingoffers" element={<PendingOffers />} />
+        <Route path="/admin/offermanagement/acceptedoffers" element={<AcceptOffers />} />
+        <Route path="/admin/offermanagement/rejectedoffers" element={<RejectOffers />} />
+        <Route path="/admin/ordermanagement/completedorders" element={<CompleteOrders />} />
+        <Route path="/admin/ordermanagement/pendingorders" element={<PendingOrders />} />
+        <Route path="/admin/ordermanagement/cancelledorders" element={<CancelOrders />} />
       </Routes>
       </div>
       <Outlet/>

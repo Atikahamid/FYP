@@ -25,8 +25,21 @@ import UpdateMyProfile from './Components/user/UpdateMyProfile';
 import MyProfile from './Components/user/MyProfile';
 import UsedParts from './Components/user/UsedParts';
 import UnusedParts from './Components/user/UnusedParts';
+//admin routes
+import DashboardA from './Components/Admin/DashboardA';
+import Category from './Components/Admin/Category';
+import CurrentProducts from './Components/Admin/CurrentProducts';
+import SoldProducts from './Components/Admin/SoldProducts';
+import UserList from './Components/Admin/UserList';
+import VendorList from './Components/Admin/VendorList';
+import PendingOffers from './Components/Admin/PendingOffers';
+import AcceptOffers from './Components/Admin/AcceptOffers';
+import RejectOffers from './Components/Admin/RejectOffers';
+import CompleteOrders from './Components/Admin/CompleteOrders';
+import PendingOrders from './Components/Admin/PendingOrders';
+import CancelOrders from './Components/Admin/CancelOrders';
 
-
+//app routes
 import { Route, Routes } from 'react-router-dom';
 import User from './Pages/User';
 import Vendor from './Pages/Vendor';
@@ -40,6 +53,7 @@ import ForgetPassword from './Pages/ForgetPassword';
 import SampleUnuseParts from './Components/user/SampleUnuseParts';
 import SampleProductPanel from './Components/user/SampleProductPanel';
 import SampleProductDetails from './Components/user/SampleProductDetails';
+import ResetPassword from './Pages/ResetPassword';
 
 
 axios.defaults.baseURL = 'http://localhost:8000'
@@ -57,6 +71,7 @@ function App() {
         <Route path="/registerUser" element={<SignUpUser />} />
         <Route path="/registerVendor" element={<SignUpVendor />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/resetPassword/:token" element={<ResetPassword />} />
 
         <Route path="/user/*" element={<User />} >
           <Route path="dashboard" element={<Dashboard />} />
@@ -101,7 +116,20 @@ function App() {
           <Route path="offers" element={<OffersV />} />
           <Route path="profile" element={<MyProfileV />} />
         </Route>
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/*" element={<Admin />} >
+          <Route path="dashboard" element={<DashboardA />} />
+        <Route path="categorymanagement" element={<Category />} />
+        <Route path="productsmanagement/currentproducts" element={<CurrentProducts />} />
+        <Route path="productsmanagement/soldproducts" element={<SoldProducts />} />
+        <Route path="accountmanagement/userlist" element={<UserList />} />
+        <Route path="accountmanagement/vendorlist" element={<VendorList />} />
+        <Route path="offermanagement/pendingoffers" element={<PendingOffers />} />
+        <Route path="offermanagement/acceptedoffers" element={<AcceptOffers />} />
+        <Route path="offermanagement/rejectedoffers" element={<RejectOffers />} />
+        <Route path="ordermanagement/completedorders" element={<CompleteOrders />} />
+        <Route path="ordermanagement/pendingorders" element={<PendingOrders />} />
+        <Route path="ordermanagement/cancelledorders" element={<CancelOrders />} />
+        </Route>
 
 
       </Routes>

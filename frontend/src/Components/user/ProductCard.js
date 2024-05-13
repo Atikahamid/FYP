@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // import { GiShoppingCart } from "react-icons/gi";
 
 export default function ProductCard() {

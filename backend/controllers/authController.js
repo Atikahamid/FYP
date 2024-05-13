@@ -11,6 +11,7 @@ const nodemailer =require('nodemailer')
 const validateMongoId = require('../helpers/validateId')
 const { google} = require('googleapis')
 const generateUniqueToken = require('../helpers/uniqueToken')
+const generateRefreshToken = require('../helpers/refreshToken')
 
 const test = (req, res)=>{
     res.json('test is working')
@@ -170,9 +171,13 @@ const loginUser = async(req, res) =>{
         }
         //check if password matches
         const match = await comparePassword(password, user.password);
+
         if(match){
            const token = generateToken(user._id, user.email, role, user.fullName);
-            res.cookie('token', token).json({success: true, token, role,userId: user._id, email: user.email, fullName: user.fullName});
+            res.cookie('token', token,{
+                httpOnly: true,
+                maxAge: 72*60*60*1000,
+            }).json({success: true, token, role,userId: user._id, email: user.email, fullName: user.fullName});
         }else{
             res.status(401).json({
                 success: false, error: 'Password do not match'
@@ -187,6 +192,31 @@ const loginUser = async(req, res) =>{
      });   
     }
 
+}
+
+
+
+//refresh token 
+const handleRefreshToken = async(req, res) => {
+    const cookie = req.cookies;
+    console.log("cookie: ", cookie);
+    if(!cookie?.token) throw new Error('No Refresh Token in cookies');
+    const refreshToken = cookie.token;
+    console.log("refreshToken",refreshToken);
+    let user = await User.findOne({refreshToken});
+    if(!user){
+        user = await Vendor.findOne({refreshToken});
+    }
+    if(!user) throw new Error('No user found')
+    jwt.verify(refreshToken, process.env.JWT_SECRET, (err, decoded)=>{
+console.log("decoded1: ", decoded);
+        if(err || user.id !== decoded.id){
+            console.log("decoded : ",decoded);
+            throw new Error('There is something wrong with refresh Token');
+        }
+        const accessToken = generateToken(user?._id);
+        res.json({accessToken});
+    })
 }
 
 //get all user endpoint
@@ -241,7 +271,7 @@ const deleteaUser = async (req, res) =>{
 //to update a user
 const updateaUser = async (req, res) => {
     const {_id } = req.user;
-    validateMongoId(_id);
+    // validateMongoId(_id);
     try {
         const updateUser = await User.findByIdAndUpdate(
             _id,
@@ -288,7 +318,7 @@ const forgetPassword = async (req, res) =>{
             service: 'gmail',
             auth: {
               user: 'hafizaatika965@gmail.com',
-              pass: 'ati965429'
+              pass: 'uuvf vjtk oudd dawg'
             }
           });
           
@@ -303,13 +333,88 @@ const forgetPassword = async (req, res) =>{
             if (error) {
              return res.json({message: 'error sending email', error: error})
             } else {
-             return res.json({status: true, message: 'error sending email'})
+             return res.json({
+                success: true,
+                msg: 'email sent', info})
             }
           });
     } catch (error) {
         console.log(error);
     }
 }
+
+
+//reset password endpoint
+const resetPassword = async (req, res) => {
+    const token = req.params.token;
+    const {password} = req.body;
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET );
+        const id =decoded.id;
+        // console.log(decoded);
+        let user = await User.findById(id);
+        if(user){
+            //Id exists in user table
+        const hashedPassword = await hashPassword(password);
+        await User.findByIdAndUpdate({_id: id}, {password: hashedPassword})
+        return res.json({status: true, msg: "password updated"})
+        }
+
+        let vendor = await Vendor.findById(id);
+        if(vendor){
+            const hashedPassword = await hashPassword(password);
+            await Vendor.findByIdAndUpdate({_id: id}, {password: hashedPassword})
+            return res.json({status: true, msg: "password updated"})
+        }
+
+        let admin = await Admin.findById(id);
+        if(admin){
+            const hashedPassword = await hashPassword(password);
+            await Admin.findByIdAndUpdate({_id: id}, {password: hashedPassword})
+            return res.json({status: true, msg: "password updated"})
+        }
+    } catch (error) {
+        return res.json({msg:"invalid token"})
+    }
+}
+
+//verify token endpoint
+const verifyToken = async (req, res) =>{
+    return res.json({
+        status: true,
+        msg:'Authorized'
+    })
+};
+
+//logout end point
+
+const logout = async (req, res) =>{
+    res.clearCookie('token');
+    return res.json({status: true, msg: 'Logout successfully'});
+
+    // const cookie = req.cookies;
+    // console.log(cookie);
+    // if(!cookie?.token) throw new Error("No refreshToken in cookie");
+    // const refreshToken = cookie.token;
+    // const user= await User.findOne({refreshToken});
+    // if(!user){
+    //     res.clearCookie("refresToken", {
+    //         hhtpOnly: true,
+    //         secure: true,
+    //     });
+    //     return res.status(204);
+    // }
+    // await User.findOneAndUpdate(refreshToken, {
+    //     refreshToken: "",
+    // });
+    // res.clearCookie("refresToken", {
+    //     hhtpOnly: true,
+    //     secure: true,
+    // });
+    // return res.status(204);
+
+
+};
 
 
 module.exports = {
@@ -323,5 +428,9 @@ module.exports = {
     getaUser,
     forgetPassword,
     deleteaUser,
-    updateaUser
+    updateaUser,
+    handleRefreshToken,
+    logout,
+    resetPassword,
+    verifyToken
 }

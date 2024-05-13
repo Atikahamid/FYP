@@ -41,6 +41,9 @@ const vendorSchema = new Schema({
         type: ObjectId,
         ref:'Vendor_Adress'
     },
+    refreshToken:{
+        type: String
+    },
     regestrationDate:{
         type: Date,
         default:Date.now

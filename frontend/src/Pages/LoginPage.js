@@ -31,6 +31,10 @@ export default function LoginPage() {
     });
 
     if(response && response.data.success){
+console.log(response.data);
+const token = response.data.token;
+      localStorage.setItem('token', token);
+      console.log(token);
       toast.success('Login successful');
       const {role} = response.data;
       if(role === 'vendor'){

@@ -1,19 +1,38 @@
 const  User = require('../models/userModel')
+const Vendor = require('../models/vendorModel')
+const Admin = require('../models/adminModel')
+
+
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 
 const authMiddleware =asyncHandler(async (req, res, next) => {
     let token;
-    if(req?.headers?.authorization?.startsWith('Bearer')){
-        token = req.headers.authorization.split(" ")[1];
+    if(req.cookies && req.cookies.token){
+        token = req.cookies.token;
         try {
             if(token){
                 const decoded = jwt.verify(token, process.env.JWT_SECRET);
                 // console.log(decoded);
-                const user = await User.findById(decoded?.userId);
-                // console.log(user)
-                req.user = user;
-                next();
+                const id = decoded.userId;
+                let user;
+
+                user= await User.findById(id);
+                if(user){
+                    req.user = user;
+                    return next();
+                }
+                user = await Vendor.findById(id);
+                if(user){
+                    req.user = user;
+                    return next();
+                }
+                user =await Admin.findById(id);
+                if(user){
+                    req.user = user;
+                    return next();
+                }
+                throw new Error ('User not found');   
             }
         } catch (error) {
             throw new Error("Not authorized token expired, plz login again");

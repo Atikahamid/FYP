@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import '../Styles/App.css';
 // import PartsCategory from '../Components/user/PartsCategory';
@@ -23,16 +23,42 @@ import SampleUnuseParts from '../Components/user/SampleUnuseParts';
 import SampleProductPanel from '../Components/user/SampleProductPanel';
 import SampleProductDetails from '../Components/user/SampleProductDetails';
 // import ProductCard from './Components/ProductCard';
+import axios from 'axios'
+import { toast } from 'react-hot-toast'
+
 
 export default function User() {
+  const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    const fetchData = async () =>{
+      try {
+        const tokenExists = !!localStorage.getItem('token');
+        if(tokenExists){
+          return;
+        }
+        const response = await axios.get('/verify');
+        if(response.data.status){
+
+        }else{
+          toast.error('You are not logged in');
+          navigate('/login');
+        }
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    }
+    fetchData();
+  }, [navigate]);
+
   const [isOpen, setIsOpen] = useState(true);
 
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
-  const navigate = useNavigate();
   return (
     <div className="contained">
 
