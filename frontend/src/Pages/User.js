@@ -25,6 +25,10 @@ import SampleProductDetails from '../Components/user/SampleProductDetails';
 // import ProductCard from './Components/ProductCard';
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
+import OrderSummary from '../Components/user/OrderSummary';
+import SampleAddtoCart from '../Components/user/SampleAddtoCart';
+import SampleProfile from '../Components/vendor/SampleProfile';
+
 
 
 export default function User() {
@@ -33,16 +37,17 @@ export default function User() {
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
-    const fetchData = async () =>{
+    const fetchData = async () => {
       try {
         const tokenExists = !!localStorage.getItem('token');
-        if(tokenExists){
+        const role = localStorage.getItem('role');
+        if (tokenExists && role === 'customer') {
           return;
         }
         const response = await axios.get('/verify');
-        if(response.data.status){
+        if (response.data.status) {
 
-        }else{
+        } else {
           toast.error('You are not logged in');
           navigate('/login');
         }
@@ -149,13 +154,18 @@ function Content() {
         </Route>
 
 
-        <Route path="/user/addtocart" element={<AddToCart />} />
+        <Route path="/user/addtocart" element={<SampleAddtoCart />} >
+          <Route index element={<AddToCart />} />
+          <Route path="ordersummary" element={<OrderSummary />} />
+        </Route>
         <Route path="/user/myorders" element={<MyOrders />} />
-        <Route path="/user/myprofile" element={<MyProfile />} />
+        <Route path="/user/myprofile" element={<SampleProfile />} >
+            <Route index element={<MyProfile />} />
+            <Route path="update-profile" element={<UpdateMyProfile />} />
+          </Route>
         <Route path="/user/offerstatus" element={<OfferStatus />} />
         <Route path="/user/askme" element={<AskMe />} />
-        <Route path="/user/updateprofile" element={<UpdateMyProfile />} />
-
+       
         {/* <Route path="/CategoryCardPanel" element={<CategoryCardPanel/>} /> */}
         {/* <Route path="/ProductCard" element={<ProductCard/>} /> */}
 

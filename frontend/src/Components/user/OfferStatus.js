@@ -7,6 +7,7 @@ export default function OfferStatus() {
     navigate('/ProductDetails');
   }
   return (
+    
     <div className='categoryContainer'>
       <div className="inner m-5 p-2 mt-3 pt-2 ">
 

@@ -18,7 +18,8 @@
     "styled-components": "^6.1.8",
     "sweetalert2": "^11.6.13",
     "web-vitals": "^2.1.4",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "yup-phone": "^1.3.2"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",

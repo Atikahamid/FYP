@@ -11,7 +11,7 @@ export default function DashboardA() {
         <DashCard name='Sold Products' imgsource={require('../../assets/images/User/cart.png')} />
         <DashCard name='Total Users' imgsource={require('../../assets/images/User/cargo.png')} />
       </div>
-      <div className="row d-flex inner_dashcard">
+      {/* <div className="row d-flex inner_dashcard">
         <DashCard name='Total Vendors' imgsource={require('../../assets/images/User/pending offers.jpg')} />
         <DashCard name='Pending Offers' imgsource={require('../../assets/images/User/complte.jpg')} />
         <DashCard name='Accepted Offers' imgsource={require('../../assets/images/User/cart.png')} />
@@ -22,7 +22,7 @@ export default function DashboardA() {
         <DashCard name='Pending Orders' imgsource={require('../../assets/images/User/complte.jpg')} />
         <DashCard name='Cancel Orders' imgsource={require('../../assets/images/User/cart.png')} />
         <DashCard name='Total Revenue' imgsource={require('../../assets/images/User/cargo.png')} />
-      </div>
+      </div> */}
     </div>
   )
 }

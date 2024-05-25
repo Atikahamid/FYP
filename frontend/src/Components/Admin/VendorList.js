@@ -1,14 +1,17 @@
-import React , { useState }from 'react'
+import React , { useEffect, useState }from 'react'
 import DataTable from 'react-data-table-component';
 import { MdDelete } from "react-icons/md";
 import { BiDetail } from "react-icons/bi";
 import { FaPen } from "react-icons/fa";
+import axios from 'axios'
 
 export default function VendorList() {
+  const [records,setRecords]= useState([]);
+  const[searchTerm, setSearchTerm] = useState('');
   const columns = [
     {
       name: 'User Name',
-      selector: row => row.user_name,
+      selector: row => row.fullName,
       maxWidth:"120px",
       // minWidth:"100px",
       sortable:true
@@ -20,125 +23,135 @@ export default function VendorList() {
       sortable:true
     },
     {
-      name: 'Password',
-      selector: row => row.paswword,
-      maxWidth:"10px"
-    },
-    {
       name: 'Contact No.',
-      selector: row => row.phone,
+      selector: row => row.phoneNumber,
       maxWidth:"20px"
     },
     {
       name: 'Address',
-      selector: row => row.address,
+      selector:row => row.addressId ? `${row.addressId.streetName} ${row.addressId.city} ${row.addressId.country}` : 'N/A',
       maxWidth:"20px"
     },
     {
-      name: 'User Category',
-      selector: row => row.user_category,
+      name: 'Seller Type',
+      selector: row => row.entity,
       maxWidth:"10px"
     },
     {
       name: 'Action',
-      selector: row => row.action,
+      selector: row => (
+        <div className='inside_action_btn'>
+        <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
+        <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
+        <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
+      </div>
+      ),
       maxWidth:"300px"
     }
   ]
-  const data = [
-    {
-      id: 1,
-      user_name: 'Khadija Azam',
-      email: 'khadija@gmail.com',
-      paswword: '1233',
-      phone: '03244826836',
-      address: 'block-A street no.354',
-      user_category:'individual',
-      action: <div className='inside_action_btn'>
-        <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
-        <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
-        <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
-      </div>
-    },
-    {
-      id: 2,
-      user_name: 'Atika Hamid',
-      email: 'atika@gmail.com',
-      paswword: '1233',
-      phone: '03244826836',
-      address: 'block-A street no.354',
-      user_category:'individual',
-      action: <div className='inside_action_btn'>
-         <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
-        <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
-        <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
-      </div>
-    },
-    {
-      id: 3,
-      user_name: 'Khadija Azam',
-      email: 'khadija@gmail.com',
-      paswword: '1233',
-      phone: '03244826836',
-      address: 'block-A street no.354',
-      user_category:'individual',
-      action: <div className='inside_action_btn'>
-        <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
-        <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
-        <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
-      </div>
-    },
-    {
-      id: 4,
-      user_name: 'Khadija Azam',
-      email: 'khadija@gmail.com',
-      paswword: '1233',
-      phone: '03244826836',
-      address: 'block-A street no.354',
-      user_category:'Business',
-      action: <div className='inside_action_btn'>
-         <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
-        <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
-        <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
-      </div>
-    },
-    {
-      id: 5,
-      user_name: 'Khadija Azam',
-      email: 'khadija@gmail.com',
-      paswword: '1233',
-      phone: '03244826836',
-      address: 'block-A street no.354',
-      user_category:'individual',
-      action: <div className='inside_action_btn'>
-        <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
-        <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
-        <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
-      </div>
-    },
-    {
-      id: 6,
-      user_name: 'Khadija Azam',
-      email: 'khadija@gmail.com',
-      paswword: '1233',
-      phone: '03244826836',
-      address: 'block-A street no.354',
-      user_category:'individual',
-      action: <div className='inside_action_btn'>
-         <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
-        <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
-        <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
-      </div>
-    }
-  ]
-  const [records,setRecords]= useState(data);
+  // const data = [
+  //   {
+  //     id: 1,
+  //     user_name: 'Khadija Azam',
+  //     email: 'khadija@gmail.com',
+  //     paswword: '1233',
+  //     phone: '03244826836',
+  //     address: 'block-A street no.354',
+  //     user_category:'individual',
+  //     action: <div className='inside_action_btn'>
+  //       <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
+  //       <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
+  //       <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
+  //     </div>
+  //   },
+  //   {
+  //     id: 2,
+  //     user_name: 'Atika Hamid',
+  //     email: 'atika@gmail.com',
+  //     paswword: '1233',
+  //     phone: '03244826836',
+  //     address: 'block-A street no.354',
+  //     user_category:'individual',
+  //     action: <div className='inside_action_btn'>
+  //        <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
+  //       <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
+  //       <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
+  //     </div>
+  //   },
+  //   {
+  //     id: 3,
+  //     user_name: 'Khadija Azam',
+  //     email: 'khadija@gmail.com',
+  //     paswword: '1233',
+  //     phone: '03244826836',
+  //     address: 'block-A street no.354',
+  //     user_category:'individual',
+  //     action: <div className='inside_action_btn'>
+  //       <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
+  //       <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
+  //       <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
+  //     </div>
+  //   },
+  //   {
+  //     id: 4,
+  //     user_name: 'Khadija Azam',
+  //     email: 'khadija@gmail.com',
+  //     paswword: '1233',
+  //     phone: '03244826836',
+  //     address: 'block-A street no.354',
+  //     user_category:'Business',
+  //     action: <div className='inside_action_btn'>
+  //        <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
+  //       <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
+  //       <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
+  //     </div>
+  //   },
+  //   {
+  //     id: 5,
+  //     user_name: 'Khadija Azam',
+  //     email: 'khadija@gmail.com',
+  //     paswword: '1233',
+  //     phone: '03244826836',
+  //     address: 'block-A street no.354',
+  //     user_category:'individual',
+  //     action: <div className='inside_action_btn'>
+  //       <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
+  //       <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
+  //       <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
+  //     </div>
+  //   },
+  //   {
+  //     id: 6,
+  //     user_name: 'Khadija Azam',
+  //     email: 'khadija@gmail.com',
+  //     paswword: '1233',
+  //     phone: '03244826836',
+  //     address: 'block-A street no.354',
+  //     user_category:'individual',
+  //     action: <div className='inside_action_btn'>
+  //        <button className="btn btn-primary  vendor_list_btn me-2 "><BiDetail /></button>
+  //       <button className="btn btn-success vendor_list_btn  me-2 "><FaPen /></button>
+  //       <button className="btn btn-danger  vendor_list_btn  "><MdDelete /></button>
+  //     </div>
+  //   }
+  // ]
+  useEffect(() => {
+    axios.get('/accountmanagement/vendorlist')
+    .then(response => {
+      setRecords(response.data);
+    })
+    .catch(error => {
+      console.error('Error fetching data: ', error)
+    })
+  }, []);
+
 
   function handleFilter(event){
-    const newData=data.filter(row=>{
-      return row.user_name.toLowerCase().includes(event.target.value.toLowerCase())
-    })
-    setRecords(newData);
+    setSearchTerm(event.target.value);
   }
+  const filteredRecords = records.filter(row =>
+    row.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div className='categoryContainer'>
     <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
@@ -147,7 +160,7 @@ export default function VendorList() {
       <div className="tableContainer mt-3">
         <DataTable
          columns={columns}
-         data={records}
+         data={filteredRecords}
          selectableRows
          fixedHeader
          fixedHeaderScrollHeight='300px'

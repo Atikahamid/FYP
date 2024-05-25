@@ -9,7 +9,7 @@
     border-radius: 50%;
 }
 .myprofile_label label{
-    font-weight: 700;
+    font-weight: 400;
 }
 .Editprofile_btn{
     width: 121px;
@@ -44,11 +44,54 @@
 }
 .order_label{
     margin-right: 43px;
-    font-weight: 600;
+    font-weight: 400;
+    margin-bottom: 14px;
+
+}
+.label_span{
+    margin-left: 10px;
 }
 .order_ptag{
-    font-weight: 600;
+    font-weight: 400;
 }
 .orderstatus_span{
     margin-left: 60px;
+}
+.sub_total{
+    margin-left: 5rem;
+}
+.sub_total p{
+    margin-right: 7rem;
+}
+.address_info{
+    margin-left: 5rem;
+}
+.address_info span{
+    margin-left: 2rem;
+}
+.edit_address_btn{
+    padding: 8px 11px;
+    background: dimgrey;
+    border-radius: 8px;
+    color: white;
+    border: none;
+}
+.complete_order_btn{
+    border: none;
+    width: 100%;
+    background: linear-gradient(40deg, rgb(150, 66, 66), #470606);
+    color: white;
+    font-size: 18px;
+    padding: 8px 30px;
+    font-weight: 400;
+    border-radius: 5px;
+}
+.complete_order_btn:hover{
+    background: linear-gradient(40deg, rgb(141, 60, 60), #3d0606);
+    color: white;
+}
+.complete_order_btn:active{
+    background: linear-gradient(40deg, rgb(141, 60, 60), #3d0606);
+    color: white;
+    transform: translateY(5px);
 }

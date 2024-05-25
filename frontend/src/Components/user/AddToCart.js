@@ -3,8 +3,10 @@ import DataTable from 'react-data-table-component';
 // import { FaPen } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { BiDetail } from "react-icons/bi";
+import { Outlet, useNavigate } from 'react-router-dom';
 
 export default function AddToCart() {
+  const navigate = useNavigate();
   const columns = [
     {
       name: 'Name',
@@ -111,16 +113,24 @@ export default function AddToCart() {
    
   ]
   const [records,setRecords]= useState(data);
-
+  const [showCheckButton, setShowCheckButton] = useState(false);
   function handleFilter(event){
     const newData=data.filter(row=>{
       return row.name.toLowerCase().includes(event.target.value.toLowerCase())
     })
     setRecords(newData);
   }
+  const handleCheckout =()=>{
+    navigate('/user/addtocart/ordersummary');
+  }
+  const handleSelected =({selectedRows}) =>{
+    console.log({selectedRows});
+    setShowCheckButton(selectedRows.length > 0);
+  }
 
   return (
-    <div>
+   <div>
+     <div>
       <div className='categoryContainer'>
         <div className="inner m-5 p-2 mt-3 pt-2">
           <h1>My Cart</h1>
@@ -132,13 +142,19 @@ export default function AddToCart() {
              columns={columns}
              data={records}
              selectableRows
+             onSelectedRowsChange={handleSelected}
              fixedHeader
              fixedHeaderScrollHeight='300px'
              pagination
             ></DataTable>
+            {showCheckButton && (
+              <button className='btn checkOut_btn' onClick={handleCheckout}>Check Out</button>
+            )}
           </div>
         </div>
       </div>
     </div>
+    <Outlet/>
+   </div>
   )
 }

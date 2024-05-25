@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../Styles/App.css'
 import { FaBars } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
@@ -8,14 +8,23 @@ import axios from 'axios';
 
 export default function NavbarA({toggleSidebar}) {
   const navigate= useNavigate();
+  const [userName, setUserName] = useState('');
 
-  axios.defaults.withCredentials = true;
+  useEffect(() => {
+    const fullName = localStorage.getItem('fullName');
+    if (fullName) {
+      setUserName(fullName);
+    }
+  }, []);
+
     const handleLogout = async () => {
       try {
         const response = await axios.get('/logout');
         if (response) {
           navigate('/login');
           localStorage.removeItem('token');
+          localStorage.removeItem('role');
+          localStorage.removeItem('fullName');
         } else {
          console.log(response.data.error)
         }
@@ -49,7 +58,7 @@ export default function NavbarA({toggleSidebar}) {
         </div>
       </div>
       <div className="side">
-        <h3 className='name'>Atika Hamid </h3>
+        <h3 className='name'>{userName}</h3>
         <button type="button" className="btn logoutbtn" onClick={handleLogout}>Logout</button>
       </div>
     </div>

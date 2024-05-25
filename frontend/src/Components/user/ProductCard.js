@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { GiShoppingCart } from "react-icons/gi";
 
-export default function ProductCard() {
+export default function ProductCard(props) {
   const navigate = useNavigate();
   const addcart =() =>{
     navigate('/user/addtocart')
@@ -15,7 +15,7 @@ export default function ProductCard() {
   }
   return (
     <div className='productcard mt-5'>
-      <img src={require('../../assets/images/User/pic.jpg')} alt="" />
+      <img src={props.imgSource} alt="" />
       <div className="row justify-content-evenly">
         <div className="col-10 d-flex flex-column">
           <span>Name</span>

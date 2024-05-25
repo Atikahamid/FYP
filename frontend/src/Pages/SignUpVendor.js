@@ -138,7 +138,7 @@ export default function SignUpVendor() {
                 </div>
               </div>
               <div className="col-12 d-grid   mt-3  me-1 pe-5 p-3 ">
-                <button type='submit' className="updatebtn p-2">Sign Up</button>
+                <button type='submit' className="btn updatebtn p-2">Sign Up</button>
                 <p className='text-center pt-2'>Already has an account? <Link to="/login" className='text-black'>Login</Link> </p>
               </div>
             </Form>

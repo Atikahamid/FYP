@@ -1,19 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './User.css'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 export default function MyProfile() {
     const navigate=useNavigate();
+    const [userData, setUserData] = useState(null);
+    const [addressData, setAddressData] = useState(null);
+    const [formatdate, setFormatdate] = useState(null);
+
+    //fetchData 
+    const fetchData = async () =>{
+        try {
+            const response = await axios.get('/get-user');
+            const formattedDate = new Date(response.data.getaUser.regestrationDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+            // Set formatted registration date back to the user data
+            response.data.getaUser.regestrationDate = formattedDate;
+            setFormatdate(formattedDate);
+            setUserData(response.data.getaUser);
+            setAddressData(response.data.address);
+        } catch (error) {
+            console.error('Error fetching user Data', error);
+        }
+    };
+
+    //useeffect function
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     const handleeditprofile=()=>{
-        navigate('/updateprofile');
+        navigate('/user/myprofile/update-profile', { state: {userData, addressData}});
     }
     return (
-        <div className='categoryContainer'>
+       <div>
+         <div className='categoryContainer'>
             <div className="inner m-5 p-2 mt-3 pt-2">
 
                 <h1>My Profile</h1>
             </div>
-            <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
+            {userData && formatdate && addressData &&(
+                <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
                 <div className="row mt-3">
                     <div className="col-4">
                         <div className="profile_image">
@@ -22,7 +53,7 @@ export default function MyProfile() {
                     </div>
                     <div className="col-8 ">
                         <div className='d-flex justify-content-between'>
-                            <h2>Atika Hamid</h2>
+                            <h2>{userData.fullName}</h2>
                             <button className='Editprofile_btn' onClick={handleeditprofile} >Edit Profile</button>
                         </div>
                         <hr />
@@ -31,7 +62,7 @@ export default function MyProfile() {
                                 <label>User Name</label>
                             </div>
                             <div className="col-6">
-                                <p>Atika Hamid</p>
+                                <p>{userData.fullName}</p>
                             </div>
                         </div>
                         <div className="row d-flex myprofile_label">
@@ -39,7 +70,7 @@ export default function MyProfile() {
                                 <label>Email ID</label>
                             </div>
                             <div className="col-6">
-                                <p>hafizaatikahamid965@gmail.com</p>
+                                <p>{userData.email}</p>
                             </div>
                         </div>
                         <div className="row d-flex myprofile_label">
@@ -47,7 +78,7 @@ export default function MyProfile() {
                                 <label>Phone Number</label>
                             </div>
                             <div className="col-6">
-                                <p>0324-4826836</p>
+                                <p>{userData.phoneNumber} </p>
                             </div>
                         </div>
                         <div className="row d-flex myprofile_label">
@@ -55,7 +86,7 @@ export default function MyProfile() {
                                 <label>Registered Date</label>
                             </div>
                             <div className="col-6">
-                                <p>03/2/2024</p>
+                                <p>{formatdate}</p>
                             </div>
                         </div>
                         <div className="row d-flex myprofile_label">
@@ -63,13 +94,17 @@ export default function MyProfile() {
                                 <label>Address</label>
                             </div>
                             <div className="col-6">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, cumque.</p>
+                                <p>{`${addressData.streetName} ${addressData.city} ${addressData.country}`}</p>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
+            )}
+            
         </div>
+        <Outlet/>
+       </div>
     )
 }

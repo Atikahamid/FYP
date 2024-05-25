@@ -8,8 +8,11 @@ import MyProductsV from '../Components/vendor/MyProductsV';
 import AddProductsV from '../Components/vendor/AddProductsV';
 import OffersV from '../Components/vendor/OffersV';
 import MyProfileV from '../Components/vendor/MyProfileV';
+import SampleProfile from '../Components/vendor/SampleProfile';
+// import UpdateMyProfile from '../Components/user/UpdateMyProfile';
 import axios from 'axios'
 import toast from 'react-hot-toast';
+import UpdateMyProfileV from '../Components/vendor/UpdateMyProfileV';
 
 export default function Vendor() {
   const navigate = useNavigate();
@@ -20,9 +23,10 @@ export default function Vendor() {
     const fetchData = async () => {
       try {
         const tokenExists = !!localStorage.getItem('token');
-        if(tokenExists){
+        const role= localStorage.getItem('role');
+        if (tokenExists && role ==='vendor') {
           return;
-        }
+        } 
         const response = await axios.get('/verify');
         if (response.data.status) {
 
@@ -31,7 +35,7 @@ export default function Vendor() {
           navigate('/login');
         }
       } catch (error) {
-          console.error("Error:", error);
+        console.error("Error:", error);
 
         // if (error.response && error.response.data) {
         //   const errorMessage = error.response.data;
@@ -46,8 +50,8 @@ export default function Vendor() {
         // }
       };
     }
-      fetchData();
-    }, [navigate]);
+    fetchData();
+  }, [navigate]);
 
   //   .then(res =>{
   //     if(res.data.status){
@@ -103,13 +107,16 @@ function Content() {
   return (
     <div>
       <Routes>
+        <Route path="/vendor/" element={<DashboardV />} />
         <Route path="/vendor/dashboard" element={<DashboardV />} />
         <Route path="/vendor/dashboard" element={<DashboardV />} />
         <Route path="/vendor/myproducts" element={<MyProductsV />} />
         <Route path="/vendor/addproducts" element={<AddProductsV />} />
         <Route path="/vendor/offers" element={<OffersV />} />
-        <Route path="/vendor/profile" element={<MyProfileV />} />
-
+        <Route path="/vendor/profile" element={<SampleProfile />} >
+            <Route index element={<MyProfileV />} />
+            <Route path="update-profile" element={<UpdateMyProfileV />} />
+          </Route>
 
 
       </Routes>

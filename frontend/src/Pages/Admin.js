@@ -30,7 +30,8 @@ export default function Admin() {
     const fetchData = async () => {
       try {
         const tokenExists = !!localStorage.getItem('token');
-        if(tokenExists){
+        const role = localStorage.getItem('role');
+        if(tokenExists && role === 'admin'){
           return;
         }
         const response = await axios.get('/verify');

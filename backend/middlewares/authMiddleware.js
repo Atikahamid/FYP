@@ -1,6 +1,6 @@
-const  User = require('../models/userModel')
-const Vendor = require('../models/vendorModel')
-const Admin = require('../models/adminModel')
+const  User = require('../models/Users/userModel')
+const Vendor = require('../models/Users/vendorModel')
+const Admin = require('../models/Users/adminModel')
 
 
 const jwt = require('jsonwebtoken');

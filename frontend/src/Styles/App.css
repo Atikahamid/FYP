@@ -215,11 +215,19 @@ body{
   transform: translateY(4px);
 }
 .bars2{
+  color: rgb(94, 37, 37);
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 14px;
   font-size: 25px;
+  
+}
+.bars2:hover{
+  cursor: pointer;
+}
+.bars2:active{
   color: rgb(94, 37, 37);
+  transform: translateY(5px);
 }
 .search-icon{
   width: 50px;
@@ -248,17 +256,23 @@ body{
   height: 34px;
   font-size: 14px;
 }
-.logout:hover{
+.logoutbtn:hover{
   background-color: rgb(94, 37, 37);
   border: 2px solid rgb(94, 37, 37);
   color: white;
 }
-.logout:active{
+.logoutbtn:active{
   background-color: rgb(94, 37, 37);
   border: 2px solid rgb(94, 37, 37);
   color: white;
   box-shadow: 0 9px 8px grey;
   transform: translateY(4px);
+}
+.checkOut_btn{
+  background: rgb(94, 37, 37);
+  color: white;
+  margin: 5px;
+  margin-bottom: 12px;
 }
 
 .categoryContainer{
@@ -390,8 +404,18 @@ body{
   color: white;
   font-size: 14px;
   padding: 8px 30px;
+
   font-weight: 400;
   border-radius: 5px;
+}
+.updatebtn:hover{
+  background: linear-gradient(40deg, rgb(141, 60, 60), #3d0606);
+  color: white;
+}
+.updatebtn:active{
+  background: linear-gradient(40deg, rgb(141, 60, 60), #3d0606);
+  color: white;
+  transform: translateY(5px);
 }
 
 /* offer status */

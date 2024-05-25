@@ -31,13 +31,17 @@ export default function LoginPage() {
     });
 
     if(response && response.data.success){
-console.log(response.data);
+// console.log(response.data);
 const token = response.data.token;
+const fullName = response.data.fullName;
+const {role} = response.data;
+
       localStorage.setItem('token', token);
-      console.log(token);
+      localStorage.setItem("fullName", fullName);
+      localStorage.setItem('role', role);
       toast.success('Login successful');
-      const {role} = response.data;
       if(role === 'vendor'){
+
         navigate('/vendor');
       }else if(role === 'customer'){
         navigate('/user');
@@ -126,7 +130,7 @@ const token = response.data.token;
                 {errors.password && touched.password && <p className='text-danger w-100 p-0 '>{errors.password}</p>}
 
                 <div className="col-12 d-grid   mt-3  me-1 pe-5 p-3 ">
-                  <button className="updatebtn p-2" type='submit'>Login</button>
+                  <button className=" btn updatebtn p-2" type='submit'>Login</button>
                   <p className='text-center pt-2'>Don't have  an account? <Link className='text-black' onClick={handleOnclick}>Sign Up</Link> </p>
                 </div>
               </Form>

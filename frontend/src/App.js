@@ -54,6 +54,10 @@ import SampleUnuseParts from './Components/user/SampleUnuseParts';
 import SampleProductPanel from './Components/user/SampleProductPanel';
 import SampleProductDetails from './Components/user/SampleProductDetails';
 import ResetPassword from './Pages/ResetPassword';
+import OrderSummary from './Components/user/OrderSummary';
+import SampleAddtoCart from './Components/user/SampleAddtoCart';
+import SampleProfile from './Components/vendor/SampleProfile';
+import UpdateMyProfileV from './Components/vendor/UpdateMyProfileV';
 
 
 axios.defaults.baseURL = 'http://localhost:8000'
@@ -74,6 +78,7 @@ function App() {
         <Route path="/resetPassword/:token" element={<ResetPassword />} />
 
         <Route path="/user/*" element={<User />} >
+          <Route path="" element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="partscategory/usedparts" element={<UsedParts />} />
           <Route path="partscategory/unusedparts" element={<SampleUnuseParts />} >
@@ -92,9 +97,16 @@ function App() {
           </Route>
 
 
-          <Route path="addtocart" element={<AddToCart />} />
+
+          <Route path="addtocart" element={<SampleAddtoCart />} >
+            <Route index element={<AddToCart />} />
+            <Route path="ordersummary" element={<OrderSummary />} />
+          </Route>
           <Route path="myorders" element={<MyOrders />} />
-          <Route path="myprofile" element={<MyProfile />} />
+          <Route path="myprofile" element={<SampleProfile />} >
+            <Route index element={<MyProfile />} />
+            <Route path="update-profile" element={<UpdateMyProfile />} />
+          </Route>
           <Route path="offerstatus" element={<OfferStatus />} />
           <Route path="askme" element={<AskMe />} />
           <Route path="updateprofile" element={<UpdateMyProfile />} />
@@ -109,26 +121,30 @@ function App() {
 
         </Route>
         <Route path="/vendor/*" element={<Vendor />} >
+          <Route path="" element={<DashboardV />} />
           <Route path="dashboard" element={<DashboardV />} />
-
           <Route path="myproducts" element={<MyProductsV />} />
           <Route path="addproducts" element={<AddProductsV />} />
           <Route path="offers" element={<OffersV />} />
-          <Route path="profile" element={<MyProfileV />} />
+          <Route path="profile" element={<SampleProfile />} >
+            <Route index element={<MyProfileV />} />
+            <Route path="update-profile" element={<UpdateMyProfileV />} />
+          </Route>
         </Route>
         <Route path="/admin/*" element={<Admin />} >
+          <Route path="" element={<DashboardA />} />
           <Route path="dashboard" element={<DashboardA />} />
-        <Route path="categorymanagement" element={<Category />} />
-        <Route path="productsmanagement/currentproducts" element={<CurrentProducts />} />
-        <Route path="productsmanagement/soldproducts" element={<SoldProducts />} />
-        <Route path="accountmanagement/userlist" element={<UserList />} />
-        <Route path="accountmanagement/vendorlist" element={<VendorList />} />
-        <Route path="offermanagement/pendingoffers" element={<PendingOffers />} />
-        <Route path="offermanagement/acceptedoffers" element={<AcceptOffers />} />
-        <Route path="offermanagement/rejectedoffers" element={<RejectOffers />} />
-        <Route path="ordermanagement/completedorders" element={<CompleteOrders />} />
-        <Route path="ordermanagement/pendingorders" element={<PendingOrders />} />
-        <Route path="ordermanagement/cancelledorders" element={<CancelOrders />} />
+          <Route path="categorymanagement" element={<Category />} />
+          <Route path="productsmanagement/currentproducts" element={<CurrentProducts />} />
+          <Route path="productsmanagement/soldproducts" element={<SoldProducts />} />
+          <Route path="accountmanagement/userlist" element={<UserList />} />
+          <Route path="accountmanagement/vendorlist" element={<VendorList />} />
+          <Route path="offermanagement/pendingoffers" element={<PendingOffers />} />
+          <Route path="offermanagement/acceptedoffers" element={<AcceptOffers />} />
+          <Route path="offermanagement/rejectedoffers" element={<RejectOffers />} />
+          <Route path="ordermanagement/completedorders" element={<CompleteOrders />} />
+          <Route path="ordermanagement/pendingorders" element={<PendingOrders />} />
+          <Route path="ordermanagement/cancelledorders" element={<CancelOrders />} />
         </Route>
 
 

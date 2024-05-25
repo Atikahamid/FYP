@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../Styles/App.css'
 import { FaShoppingCart } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
@@ -7,6 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 export default function Navbar({ toggleSidebar }) {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const fullName = localStorage.getItem('fullName');
+    if (fullName) {
+      setUserName(fullName);
+    }
+  }, []);
   const handlecart = () => {
     navigate('/user/addtocart');
   }
@@ -16,11 +24,13 @@ export default function Navbar({ toggleSidebar }) {
       if (response) {
         navigate('/login');
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        localStorage.removeItem('fullName');
       } else {
-       console.log(response.data.error)
+        console.log(response.data.error)
       }
     } catch (error) {
-        console.error("Error:", error);
+      console.error("Error:", error);
     };
   }
   return (
@@ -39,7 +49,7 @@ export default function Navbar({ toggleSidebar }) {
       </div>
       <div className="side">
         <button className='mycart_btn' onClick={handlecart}> <FaShoppingCart className='cart' /></button>
-        <h3 className='name'>Atika Hamid </h3>
+        <h3 className='name'>{userName}</h3>
         <button type="button" className="btn  logoutbtn" onClick={handleLogout}>Logout</button>
       </div>
     </div>
