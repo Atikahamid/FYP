@@ -264,6 +264,30 @@ const getaUser = async (req, res) => {
     }
 }
 
+//get user based on id from params
+const getaUserID = async (req, res) => {
+    const { id } = req.params;
+      validateMongoId(id);
+    try {
+        const getaUser = await User.findById(id);
+        if(!getaUser){
+            return res.status(404).json({error: 'User not found'});
+        }
+        const address = await UserAdress.findById(getaUser.addressId);
+        if(!address){
+            return res.status(404).json({
+                error: 'Address not fund'
+            });
+        }
+        res.json({
+            getaUser,
+            address
+        });
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 //get a vendor
 
 const getaVendor = async (req, res) => {
@@ -376,6 +400,30 @@ const updateaVendor = async (req, res) => {
         res.json({success: true, data: updateVendor});
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+// find vendor by id
+const getaVendorID = async (req, res) => {
+    const { id } = req.params;
+      validateMongoId(id);
+    try {
+        const getaUser = await Vendor.findById(id);
+        if(!getaUser){
+            return res.status(404).json({error: 'User not found'});
+        }
+        const address = await VendorAddress.findById(getaUser.addressId);
+        if(!address){
+            return res.status(404).json({
+                error: 'Address not fund'
+            });
+        }
+        res.json({
+            getaUser,
+            address
+        });
+    } catch (error) {
+        throw new Error(error);
     }
 }
 
@@ -520,5 +568,7 @@ module.exports = {
     verifyToken,
     getaVendor,
     deleteaVendor,
-    updateaVendor
+    updateaVendor,
+    getaUserID,
+    getaVendorID
 }

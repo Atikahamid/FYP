@@ -689,3 +689,23 @@ body{
   margin-top: -16px;
   color: darkred;
 }
+/* //category css  */
+.swal2-custom-input{
+  width: 75%;
+  border: 2px solid black;
+  box-sizing: border-box;
+  padding: 14px 13px;
+  margin: 13px 12px;
+  border-radius: 8px;
+}
+.swal2-custom-textarea{
+  width: 75%;
+  border: 2px solid black;
+  box-sizing: border-box;
+  padding: 9px 11px;
+  border-radius: 8px;
+  height: 115px;
+}
+.profile_padding{
+  padding-bottom: 8rem !important;
+}

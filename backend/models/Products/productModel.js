@@ -29,8 +29,12 @@ const productShema = new Schema({
         trim: true
     },
     brand:{
-        type: string,
+        type: String,
         required:true
+    },
+    sold:{
+        type: Number,
+        default: 0
     },
     regestrationDate:{
         type: Date,
@@ -43,7 +47,14 @@ const productShema = new Schema({
     category_id:{
         type: ObjectId,
         ref: 'Category'
-    }
+    },
+    subcategory_id:{
+        type: ObjectId,
+        ref:'Subcategory'
+    },
+    images:[{
+        type: String
+    }]
 },{
     timestamps:true
 });

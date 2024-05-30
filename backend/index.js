@@ -4,6 +4,7 @@ const cors= require('cors')
 const {mongoose} = require('mongoose')
 const cookieParser = require('cookie-parser')
 const authRouter= require('./routes/authRoute')
+const productRouter= require('./routes/ProductRoutes')
 const app=express();
 
 //databse connected
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended: false}))
 
 
 app.use('/', authRouter)
+app.use('/product', productRouter )
 
 const port = 8000;
 app.listen(port,()=>{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../Styles/App.css';
 // import SidebarA from '../Components/Admin/SidebarA'
-import { Route, Routes,useNavigate , Outlet} from 'react-router-dom';
+import { Route, Routes, useNavigate, Outlet } from 'react-router-dom';
 import DashboardA from '../Components/Admin/DashboardA';
 import Category from '../Components/Admin/Category';
 import CurrentProducts from '../Components/Admin/CurrentProducts';
@@ -18,6 +18,10 @@ import NavbarA from '../Components/Admin/NavbarA';
 import SidebarDummy from '../Components/Admin/SidebarDummy';
 import axios from 'axios'
 import toast from 'react-hot-toast';
+import SampleUserList from '../Components/Admin/SampleUserList';
+import Profile from '../Components/Admin/Profile';
+import SampleVendorList from '../Components/Admin/SampleVendorList';
+import ProfileV from '../Components/Admin/ProfileV';
 
 
 
@@ -31,7 +35,7 @@ export default function Admin() {
       try {
         const tokenExists = !!localStorage.getItem('token');
         const role = localStorage.getItem('role');
-        if(tokenExists && role === 'admin'){
+        if (tokenExists && role === 'admin') {
           return;
         }
         const response = await axios.get('/verify');
@@ -42,7 +46,7 @@ export default function Admin() {
           navigate('/login');
         }
       } catch (error) {
-          console.error("Error:", error);
+        console.error("Error:", error);
 
         // if (error.response && error.response.data) {
         //   const errorMessage = error.response.data;
@@ -57,8 +61,8 @@ export default function Admin() {
         // }
       };
     }
-      fetchData();
-    }, [navigate]);
+    fetchData();
+  }, [navigate]);
 
 
 
@@ -67,8 +71,8 @@ export default function Admin() {
   // const [isOpen,setIsOpen]=useState(true);
 
   const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   return (
     <div className="contained">
@@ -117,12 +121,12 @@ export default function Admin() {
         ]}>
       </SidebarDummy>
       <div className="main">
-        <NavbarA  toggleSidebar={toggleSidebar}/>
+        <NavbarA toggleSidebar={toggleSidebar} />
         <Content className='content' />
       </div>
 
-     
-</div>
+
+    </div>
   )
 }
 
@@ -130,25 +134,31 @@ function Content() {
   return (
     <div>
       <div>
-      <Routes>
-        <Route path="/admin/dashboard" element={<DashboardA />} />
+        <Routes>
+          <Route path="/admin/dashboard" element={<DashboardA />} />
 
-        <Route path="/admin/categorymanagement" element={<Category />} />
-        <Route path="/admin/productsmanagement/currentproducts" element={<CurrentProducts />} />
-        <Route path="/admin/productsmanagement/soldproducts" element={<SoldProducts />} />
-        <Route path="/admin/accountmanagement/userlist" element={<UserList />} />
-        <Route path="/admin/accountmanagement/vendorlist" element={<VendorList />} />
-        <Route path="/admin/offermanagement/pendingoffers" element={<PendingOffers />} />
-        <Route path="/admin/offermanagement/acceptedoffers" element={<AcceptOffers />} />
-        <Route path="/admin/offermanagement/rejectedoffers" element={<RejectOffers />} />
-        <Route path="/admin/ordermanagement/completedorders" element={<CompleteOrders />} />
-        <Route path="/admin/ordermanagement/pendingorders" element={<PendingOrders />} />
-        <Route path="/admin/ordermanagement/cancelledorders" element={<CancelOrders />} />
-      </Routes>
+          <Route path="/admin/categorymanagement" element={<Category />} />
+          <Route path="/admin/productsmanagement/currentproducts" element={<CurrentProducts />} />
+          <Route path="/admin/productsmanagement/soldproducts" element={<SoldProducts />} />
+          <Route path="/admin/accountmanagement/userlist" element={<SampleUserList />} >
+            <Route index element={<UserList />} />
+            <Route path='profile/:id' element={<Profile />} />
+          </Route>
+          <Route path="/admin/accountmanagement/vendorlist" element={<SampleVendorList />} >
+            <Route index element={<VendorList />} />
+            <Route path='profile/:id' element={<ProfileV />} />
+          </Route>
+          <Route path="/admin/offermanagement/pendingoffers" element={<PendingOffers />} />
+          <Route path="/admin/offermanagement/acceptedoffers" element={<AcceptOffers />} />
+          <Route path="/admin/offermanagement/rejectedoffers" element={<RejectOffers />} />
+          <Route path="/admin/ordermanagement/completedorders" element={<CompleteOrders />} />
+          <Route path="/admin/ordermanagement/pendingorders" element={<PendingOrders />} />
+          <Route path="/admin/ordermanagement/cancelledorders" element={<CancelOrders />} />
+        </Routes>
       </div>
-      <Outlet/>
+      <Outlet />
     </div>
-    
+
   )
 }
 

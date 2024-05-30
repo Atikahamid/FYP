@@ -58,6 +58,10 @@ import OrderSummary from './Components/user/OrderSummary';
 import SampleAddtoCart from './Components/user/SampleAddtoCart';
 import SampleProfile from './Components/vendor/SampleProfile';
 import UpdateMyProfileV from './Components/vendor/UpdateMyProfileV';
+import SampleUserList from './Components/Admin/SampleUserList';
+import Profile from './Components/Admin/Profile';
+import SampleVendorList from './Components/Admin/SampleVendorList';
+import ProfileV from './Components/Admin/ProfileV';
 
 
 axios.defaults.baseURL = 'http://localhost:8000'
@@ -137,8 +141,14 @@ function App() {
           <Route path="categorymanagement" element={<Category />} />
           <Route path="productsmanagement/currentproducts" element={<CurrentProducts />} />
           <Route path="productsmanagement/soldproducts" element={<SoldProducts />} />
-          <Route path="accountmanagement/userlist" element={<UserList />} />
-          <Route path="accountmanagement/vendorlist" element={<VendorList />} />
+          <Route path="accountmanagement/userlist" element={<SampleUserList />} >
+            <Route index element={<UserList />} />
+            <Route path='profile/:id' element={<Profile/>}/>
+          </Route>
+          <Route path="accountmanagement/vendorlist" element={<SampleVendorList />} >
+            <Route index element={<VendorList />} />
+            <Route path='profile/:id' element={<ProfileV />} />
+          </Route>
           <Route path="offermanagement/pendingoffers" element={<PendingOffers />} />
           <Route path="offermanagement/acceptedoffers" element={<AcceptOffers />} />
           <Route path="offermanagement/rejectedoffers" element={<RejectOffers />} />

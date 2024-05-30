@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import axios from 'axios'
+import Swal from 'sweetalert2';
+import { Outlet, useNavigate } from 'react-router-dom';
+
 
 export default function UserList() {
+  const navigate= useNavigate();
   const [records, setRecords] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const columns = [
@@ -33,9 +37,8 @@ export default function UserList() {
       name: 'Action',
       cell: row => (
         <div className='inside_action_btn'>
-          <button className="btn btn-primary  category_admin_btn me-1 ">Details</button>
-          <button className="btn btn-success category_admin_btn  me-1 ">Update</button>
-          <button className="btn btn-danger  category_admin_btn  ">Delete</button>
+          <button className="btn btn-primary  category_admin_btn me-1" onClick={() => handleDetailsUser(row._id)}>Details</button>
+          <button className="btn btn-danger  category_admin_btn " onClick={() => handleDeleteUser(row._id)}>Delete</button>
         </div>
       ),
       maxWidth: "300px"
@@ -52,88 +55,35 @@ export default function UserList() {
         console.error('Error fetching data', error);
       });
   }, []);
-  // const data = [
-  //   {
-  //     id: 1,
-  //     user_name: 'Khadija Azam',
-  //     email: 'khadija@gmail.com',
-  //     paswword: '1233',
-  //     phone: '03244826836',
-  //     address: 'block-A street no.354',
-  //     action: <div className='inside_action_btn'>
-  //       <button className="btn btn-primary  category_admin_btn me-1 ">Details</button>
-  //       <button className="btn btn-success category_admin_btn  me-1 ">Update</button>
-  //       <button className="btn btn-danger  category_admin_btn  ">Delete</button>
-  //     </div>
-  //   },
-  //   {
-  //     id: 2,
-  //     user_name: 'Atika Hamid',
-  //     email: 'atika@gmail.com',
-  //     paswword: '1233',
-  //     phone: '03244826836',
-  //     address: 'block-A street no.354',
-  //     action: <div className='inside_action_btn'>
-  //       <button className="btn btn-primary  category_admin_btn me-1 ">Details</button>
-  //       <button className="btn btn-success category_admin_btn  me-1 ">Update</button>
-  //       <button className="btn btn-danger  category_admin_btn  ">Delete</button>
-  //     </div>
-  //   },
-  //   {
-  //     id: 3,
-  //     user_name: 'Khadija Azam',
-  //     email: 'khadija@gmail.com',
-  //     paswword: '1233',
-  //     phone: '03244826836',
-  //     address: 'block-A street no.354',
-  //     action: <div className='inside_action_btn'>
-  //       <button className="btn btn-primary  category_admin_btn me-1 ">Details</button>
-  //       <button className="btn btn-success category_admin_btn  me-1 ">Update</button>
-  //       <button className="btn btn-danger  category_admin_btn  ">Delete</button>
-  //     </div>
-  //   },
-  //   {
-  //     id: 4,
-  //     user_name: 'Khadija Azam',
-  //     email: 'khadija@gmail.com',
-  //     paswword: '1233',
-  //     phone: '03244826836',
-  //     address: 'block-A street no.354',
-  //     action: <div className='inside_action_btn'>
-  //       <button className="btn btn-primary  category_admin_btn me-1 ">Details</button>
-  //       <button className="btn btn-success category_admin_btn  me-1 ">Update</button>
-  //       <button className="btn btn-danger  category_admin_btn  ">Delete</button>
-  //     </div>
-  //   },
-  //   {
-  //     id: 5,
-  //     user_name: 'Khadija Azam',
-  //     email: 'khadija@gmail.com',
-  //     paswword: '1233',
-  //     phone: '03244826836',
-  //     address: 'block-A street no.354',
-  //     action: <div className='inside_action_btn'>
-  //       <button className="btn btn-primary  category_admin_btn me-1 ">Details</button>
-  //       <button className="btn btn-success category_admin_btn  me-1 ">Update</button>
-  //       <button className="btn btn-danger  category_admin_btn  ">Delete</button>
-  //     </div>
-  //   },
-  //   {
-  //     id: 6,
-  //     user_name: 'Khadija Azam',
-  //     email: 'khadija@gmail.com',
-  //     paswword: '1233',
-  //     phone: '03244826836',
-  //     address: 'block-A street no.354',
-  //     action: <div className='inside_action_btn'>
-  //       <button className="btn btn-primary  category_admin_btn me-1 ">Details</button>
-  //       <button className="btn btn-success category_admin_btn  me-1 ">Update</button>
-  //       <button className="btn btn-danger  category_admin_btn  ">Delete</button>
-  //     </div>
-  //   }
-  // ]
+  
 
 
+  const handleDetailsUser = async( id) =>{
+    navigate(`/admin/accountmanagement/userlist/profile/${id}`)
+  }
+//delete user
+const handleDeleteUser = async (id) => {
+  const {isConfirmed } =await Swal.fire({
+    title: 'Are you sure?',
+    text:"You want be able to revert this!",
+    icon:"warning",
+    showCancelButton: true,
+    confirmButtonText:'Yes, delete it!',
+    cancelButtonText:'No, cancel',
+    confirmButtonColor: 'rgb(94, 37, 37)',
+    cancelButtonColor: '#d33'
+  });
+
+  if(isConfirmed){
+    try {
+      await axios.delete(`/delete-user/${id}`);
+      setRecords(records.filter(record => record._id !== id));
+      // Swal.fire('Deleted!', 'Category has been deleted', 'Succesfully');
+    } catch (error) {
+      Swal.fire('Error!', error.message, 'error');
+    }
+  }
+};
   function handleFilter(event) {
     setSearchTerm(event.target.value);
   }
@@ -142,12 +92,14 @@ export default function UserList() {
   );
 
   return (
-    <div className='categoryContainer'>
+    <div>
+      <div className='categoryContainer pb-5'>
       <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
         <h1>User List</h1>
         <div className=" pt-1 text-end"><label className='me-2 fs-6'>Search</label><input type="text" onChange={handleFilter} /></div>
         <div className="tableContainer mt-3">
           <DataTable
+            keyField='_id'
             columns={columns}
             data={filteredRecords}
             selectableRows
@@ -157,6 +109,8 @@ export default function UserList() {
           ></DataTable>
         </div>
       </div>
+    </div>
+    <Outlet/>
     </div>
   )
 }
