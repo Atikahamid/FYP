@@ -62,6 +62,10 @@ import SampleUserList from './Components/Admin/SampleUserList';
 import Profile from './Components/Admin/Profile';
 import SampleVendorList from './Components/Admin/SampleVendorList';
 import ProfileV from './Components/Admin/ProfileV';
+import SampleCategory from './Components/Admin/SampleCategory';
+import SubCategory from './Components/Admin/SubCategory';
+import SampleProductV from './Components/vendor/SampleProductV';
+import ProductDeatil from './Components/vendor/ProductDeatil';
 
 
 axios.defaults.baseURL = 'http://localhost:8000'
@@ -127,7 +131,10 @@ function App() {
         <Route path="/vendor/*" element={<Vendor />} >
           <Route path="" element={<DashboardV />} />
           <Route path="dashboard" element={<DashboardV />} />
-          <Route path="myproducts" element={<MyProductsV />} />
+          <Route path="myproducts" element={<SampleProductV />} >
+            <Route index element={<MyProductsV />} />
+            <Route path="product-detail/:id" element={<ProductDeatil />} />
+        </Route>
           <Route path="addproducts" element={<AddProductsV />} />
           <Route path="offers" element={<OffersV />} />
           <Route path="profile" element={<SampleProfile />} >
@@ -138,7 +145,10 @@ function App() {
         <Route path="/admin/*" element={<Admin />} >
           <Route path="" element={<DashboardA />} />
           <Route path="dashboard" element={<DashboardA />} />
-          <Route path="categorymanagement" element={<Category />} />
+          <Route path="categorymanagement" element={<SampleCategory />} >
+            <Route index element={<Category />} />
+            <Route path='subcategory/:id' element={<SubCategory />} />
+          </Route>
           <Route path="productsmanagement/currentproducts" element={<CurrentProducts />} />
           <Route path="productsmanagement/soldproducts" element={<SoldProducts />} />
           <Route path="accountmanagement/userlist" element={<SampleUserList />} >

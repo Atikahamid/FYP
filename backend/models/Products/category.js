@@ -14,7 +14,7 @@ const categorySchema = new Schema({
     regestrationDate:{
         type: Date,
         default:Date.now
-    },
+    }
 
 }, {
     timestamps: true

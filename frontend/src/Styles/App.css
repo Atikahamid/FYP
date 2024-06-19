@@ -709,3 +709,38 @@ body{
 .profile_padding{
   padding-bottom: 8rem !important;
 }
+.login_error{
+  margin-top: -19px;
+}
+.swal2-file-label button {
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.swal_input_file button{
+  background-color: #007bff;
+}
+
+.my-custom-button{
+  background-color: rgb(94, 37, 37) !important; 
+  color: white !important;
+  border: 0;
+  border-radius: .25em;
+  background: initial;
+  font-size: 1em;
+  padding: 0.5rem 2rem;
+}
+.my-custom-button_error{
+  background-color: rgb(73, 66, 66) !important; 
+  color: white !important;
+  border: 0;
+  border-radius: .25em;
+  background: initial;
+  font-size: 1em;
+  padding: 0.5rem 2rem;
+}

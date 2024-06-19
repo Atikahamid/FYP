@@ -35,10 +35,12 @@ export default function LoginPage() {
 const token = response.data.token;
 const fullName = response.data.fullName;
 const {role} = response.data;
+const id = response.data.userId
 
       localStorage.setItem('token', token);
       localStorage.setItem("fullName", fullName);
       localStorage.setItem('role', role);
+      localStorage.setItem('id', id);
       toast.success('Login successful');
       if(role === 'vendor'){
 
@@ -121,13 +123,13 @@ const {role} = response.data;
                 <Field type="email"  name='email'  required></Field>
                   <label>Email</label>
                 </div>
-                {errors.email && touched.email && <p className='text-danger w-100 p-0 '>{errors.email}</p>}
+                {errors.email && touched.email && <p className='text-danger w-100 p-0 login_error '>{errors.email}</p>}
                 <div className="user_box">
                   <Field type="password"  name='password' required ></Field>
                   <label>Password</label>
                   {fpassword && <p className='text-end forgetPassword'><Link style={{color: 'darkred'}} to='/forget-password'>Forgot Password</Link></p> }
                 </div>
-                {errors.password && touched.password && <p className='text-danger w-100 p-0 '>{errors.password}</p>}
+                {errors.password && touched.password && <p className='text-danger w-100 p-0 login_error'>{errors.password}</p>}
 
                 <div className="col-12 d-grid   mt-3  me-1 pe-5 p-3 ">
                   <button className=" btn updatebtn p-2" type='submit'>Login</button>

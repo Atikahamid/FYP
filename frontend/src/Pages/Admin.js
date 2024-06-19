@@ -22,6 +22,8 @@ import SampleUserList from '../Components/Admin/SampleUserList';
 import Profile from '../Components/Admin/Profile';
 import SampleVendorList from '../Components/Admin/SampleVendorList';
 import ProfileV from '../Components/Admin/ProfileV';
+import SampleCategory from '../Components/Admin/SampleCategory';
+import SubCategory from '../Components/Admin/SubCategory';
 
 
 
@@ -137,7 +139,10 @@ function Content() {
         <Routes>
           <Route path="/admin/dashboard" element={<DashboardA />} />
 
-          <Route path="/admin/categorymanagement" element={<Category />} />
+          <Route path="/admin/categorymanagement" element={<SampleCategory />} >
+            <Route index element={<Category />} />
+            <Route path='subcategory/:id' element={<SubCategory />} />
+          </Route>
           <Route path="/admin/productsmanagement/currentproducts" element={<CurrentProducts />} />
           <Route path="/admin/productsmanagement/soldproducts" element={<SoldProducts />} />
           <Route path="/admin/accountmanagement/userlist" element={<SampleUserList />} >

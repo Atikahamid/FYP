@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+const ImageSchema = new mongoose.Schema({
+    public_id: {
+      type: String,
+      required: true
+    },
+    url: {
+      type: String,
+      required: true
+    }
+  });
+  
+
 const subcategorySchema = new Schema({
     name: {
         type: String,
@@ -15,7 +27,8 @@ const subcategorySchema = new Schema({
     description: {
         type: String,
         trim: true
-    }
+    },
+    image: ImageSchema 
 }, {
     timestamps: true
 });

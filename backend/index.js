@@ -4,6 +4,7 @@ const cors= require('cors')
 const {mongoose} = require('mongoose')
 const cookieParser = require('cookie-parser')
 const authRouter= require('./routes/authRoute')
+const imageRoutes = require('./routes/imageRoutes')
 const productRouter= require('./routes/ProductRoutes')
 const app=express();
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({extended: false}))
 
 app.use('/', authRouter)
 app.use('/product', productRouter )
+app.use('/api', imageRoutes)
 
 const port = 8000;
 app.listen(port,()=>{

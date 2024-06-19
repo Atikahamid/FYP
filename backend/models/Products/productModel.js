@@ -34,7 +34,8 @@ const productShema = new Schema({
     },
     sold:{
         type: Number,
-        default: 0
+        default: 0,
+        select:false
     },
     regestrationDate:{
         type: Date,
@@ -53,7 +54,14 @@ const productShema = new Schema({
         ref:'Subcategory'
     },
     images:[{
-        type: String
+       public_id: {
+        type: String,
+        required: true
+       },
+       url: {
+        type: String,
+        required: true
+       }
     }]
 },{
     timestamps:true

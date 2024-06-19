@@ -9,10 +9,12 @@ import AddProductsV from '../Components/vendor/AddProductsV';
 import OffersV from '../Components/vendor/OffersV';
 import MyProfileV from '../Components/vendor/MyProfileV';
 import SampleProfile from '../Components/vendor/SampleProfile';
-// import UpdateMyProfile from '../Components/user/UpdateMyProfile';
+// import UpdateMyPro file from '../Components/user/UpdateMyProfile';
 import axios from 'axios'
 import toast from 'react-hot-toast';
 import UpdateMyProfileV from '../Components/vendor/UpdateMyProfileV';
+import SampleProductV from '../Components/vendor/SampleProductV';
+import ProductDeatil from '../Components/vendor/ProductDeatil';
 
 export default function Vendor() {
   const navigate = useNavigate();
@@ -110,7 +112,10 @@ function Content() {
         <Route path="/vendor/" element={<DashboardV />} />
         <Route path="/vendor/dashboard" element={<DashboardV />} />
         <Route path="/vendor/dashboard" element={<DashboardV />} />
-        <Route path="/vendor/myproducts" element={<MyProductsV />} />
+        <Route path="/vendor/myproducts" element={<SampleProductV />} >
+            <Route index element={<MyProductsV />} />
+            <Route path="product-detail/:id" element={<ProductDeatil />} />
+        </Route>
         <Route path="/vendor/addproducts" element={<AddProductsV />} />
         <Route path="/vendor/offers" element={<OffersV />} />
         <Route path="/vendor/profile" element={<SampleProfile />} >
