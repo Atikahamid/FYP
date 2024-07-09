@@ -245,7 +245,7 @@ const getAllVendor = async (req, res) => {
 const getaUser = async (req, res) => {
     const { _id } = req.user;
     try {
-        const getaUser = await User.findById(_id);
+        const getaUser = await User.findById(_id).populate('addressId');
         if(!getaUser){
             return res.status(404).json({error: 'User not found'});
         }
@@ -354,27 +354,46 @@ const updateaUser = async (req, res) => {
     const { _id } = req.user;
     // validateMongoId(_id);
     try {
+        // Fetch the user to get the addressId
+        const user = await User.findById(_id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        // Update the user information
         const updateUser = await User.findByIdAndUpdate(
             _id,
             {
-                fullName: req?.body?.fullName,
-                email: req?.body?.email,
-                dateOfBirth: req?.body?.dateOfBirth,
-                phoneNumber: req?.body?.phoneNumber,
-                streetName: req?.body?.streetName,
-                city: req?.body?.city,
-                postalCode: req?.body?.postalCode,
-                country: req?.body?.country,
+                fullName: req.body.fullName,
+                email: req.body.email,
+                dateOfBirth: req.body.dateOfBirth,
+                phoneNumber: req.body.phoneNumber,
             },
             {
                 new: true,
             }
         );
-        res.json({ success: true, data: updateUser });
+
+        // Update the address information
+        const updateAddress = await UserAdress.findByIdAndUpdate(
+            user.addressId,
+            {
+                streetName: req.body.streetName,
+                city: req.body.city,
+                postalCode: req.body.postalCode,
+                country: req.body.country,
+            },
+            {
+                new: true,
+            }
+        );
+
+        res.json({ success: true, data: { updateUser, updateAddress } });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
 }
+
 
 //update -vendor endpoint
 const updateaVendor = async (req, res) => {

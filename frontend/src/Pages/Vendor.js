@@ -15,6 +15,7 @@ import toast from 'react-hot-toast';
 import UpdateMyProfileV from '../Components/vendor/UpdateMyProfileV';
 import SampleProductV from '../Components/vendor/SampleProductV';
 import ProductDeatil from '../Components/vendor/ProductDeatil';
+import UpdateProduct from '../Components/vendor/UpdateProduct';
 
 export default function Vendor() {
   const navigate = useNavigate();
@@ -115,6 +116,7 @@ function Content() {
         <Route path="/vendor/myproducts" element={<SampleProductV />} >
             <Route index element={<MyProductsV />} />
             <Route path="product-detail/:id" element={<ProductDeatil />} />
+            <Route path='update-product/:id' element={<UpdateProduct/>}/>
         </Route>
         <Route path="/vendor/addproducts" element={<AddProductsV />} />
         <Route path="/vendor/offers" element={<OffersV />} />

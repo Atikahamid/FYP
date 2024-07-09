@@ -24,6 +24,7 @@ export default function Navbar({toggleSidebar}) {
           localStorage.removeItem('token');
           localStorage.removeItem('role');
           localStorage.removeItem('fullName');
+          localStorage.removeItem('id');
         } else {
          console.log(response.data.error)
         }

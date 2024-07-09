@@ -8,6 +8,7 @@ export default function VendorList() {
   const navigate= useNavigate();
   const [records,setRecords]= useState([]);
   const[searchTerm, setSearchTerm] = useState('');
+  const [loading,setLoading] = useState(true);
   const columns = [
     {
       name: 'User Name',
@@ -53,9 +54,11 @@ export default function VendorList() {
     axios.get('/accountmanagement/vendorlist')
     .then(response => {
       setRecords(response.data);
+      setLoading(false);
     })
     .catch(error => {
       console.error('Error fetching data: ', error)
+      setLoading(false);
     })
   }, []);
 
@@ -92,6 +95,13 @@ export default function VendorList() {
   const filteredRecords = records.filter(row =>
     row.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  if(loading){
+    return <div class="d-flex justify-content-center">
+    <div class="spinner-border" style={{color:'rgb(94, 37, 37)',width:'3rem', height:'3rem', marginTop:'10rem'}} role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}
   return (
   <div>
       <div className='categoryContainer pb-5'>

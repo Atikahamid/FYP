@@ -41,10 +41,20 @@ const userShema = new Schema({
         type: Date,
         default:Date.now
     },
-    cart:{
-        type: Array,
-        default: [],
-    },
+    cart: [{
+        productId: {
+            type: ObjectId,
+            ref: 'Product'
+        },
+        quantity: {
+            type: Number,
+            default: 1
+        },
+        offer_price: {
+          type: Number,
+          default: 0
+        }
+    }],
     refreshToken:{
         type: String
     }

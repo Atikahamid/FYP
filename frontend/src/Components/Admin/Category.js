@@ -13,15 +13,18 @@ export default function Category() {
   const [records, setRecords] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate= useNavigate();
+  const [loading, setLoading] =useState(true);
 
   //use effect fetchinfg data
   useEffect(() => {
     axios.get('/get_category')
       .then(response => {
         setRecords(response.data);
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching data', error);
+        setLoading(false);
       });
   }, []);
 
@@ -364,6 +367,13 @@ export default function Category() {
   const filteredRecords = records.filter(row =>
     row.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  if(loading){
+    return <div class="d-flex justify-content-center">
+    <div class="spinner-border" style={{color:'rgb(94, 37, 37)',width:'3rem', height:'3rem', marginTop:'10rem'}} role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}
   return (
     <div>
       <div className='categoryContainer'>

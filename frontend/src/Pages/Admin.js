@@ -24,6 +24,7 @@ import SampleVendorList from '../Components/Admin/SampleVendorList';
 import ProfileV from '../Components/Admin/ProfileV';
 import SampleCategory from '../Components/Admin/SampleCategory';
 import SubCategory from '../Components/Admin/SubCategory';
+// import Footer from '../Components/Admin/Footer';
 
 
 
@@ -125,6 +126,7 @@ export default function Admin() {
       <div className="main">
         <NavbarA toggleSidebar={toggleSidebar} />
         <Content className='content' />
+        {/* <Footer/> */}
       </div>
 
 

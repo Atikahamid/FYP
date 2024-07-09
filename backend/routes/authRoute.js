@@ -11,6 +11,8 @@ const { test, registerVendor, registerAdmin, forgetPassword, deleteaUser, update
 const {registerUser, loginUser, getAllUser, getAllVendor,getaUser} = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const { createCategory, createSubCategory, getAllCategory, deleteCategory, deleteSubCategory, getAllSubcategory, updateCategory, updateSubCategory, getsubcategoryOnCatId } = require('../controllers/categoryController');
+const { addToCart, getUserCart, updateCart, deleteCart, deleteaSingle } = require('../controllers/cartController');
+const { getAProduct } = require('../controllers/ProductController');
 
 // const Grid = require('gridfs-stream');
 // require('dotenv').config();
@@ -43,6 +45,7 @@ router.get('/accountmanagement/userlist', getAllUser)
 router.get('/accountmanagement/vendorlist',getAllVendor)
 router.get('/refreshToken', handleRefreshToken)
 router.get('/get-user' ,authMiddleware, getaUser)
+router.post('/getAProduct', getAProduct);
 router.get('/get-userId/:id',getaUserID )
 router.get('/get-vendorId/:id', getaVendorID)
 router.get('/get-vendor',authMiddleware, getaVendor)
@@ -63,4 +66,10 @@ router.get('/get_category', getAllCategory)
 router.get('/get_subcategory', getAllSubcategory)
 router.get('/subCategoryOnId/:id', getsubcategoryOnCatId)
 
+//cart
+router.post('/add-to-cart', authMiddleware, addToCart)
+router.get('/user-cart', authMiddleware, getUserCart)
+router.put('/update-cart', authMiddleware, updateCart)
+router.delete('/delete-cart', authMiddleware, deleteCart)
+router.delete('/deleteCart/:id', authMiddleware, deleteaSingle)
 module.exports = router

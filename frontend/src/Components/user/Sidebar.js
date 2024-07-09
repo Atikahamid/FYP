@@ -2,7 +2,7 @@ import React from 'react';
 import { BiSolidCategory } from "react-icons/bi";
 // import { FaBars } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-import { BsFillQuestionCircleFill } from "react-icons/bs";
+// import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { LuClipboardCheck } from "react-icons/lu";
 import { IoMdToday } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
@@ -36,22 +36,9 @@ export default function Sidebar({isOpen}) {
       icon: <RxDashboard />
     },
     {
+      path: "/user/partscategory",
       name: "Parts Category",
-      icon: <BiSolidCategory />,
-      // iconClosed: <RiArrowDownSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px",fontSize:"19px" }}  />,
-      // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px" ,fontSize:"19px"}}  />,
-      childrens: [
-        {
-          path: "/user/partscategory/usedparts",
-          name: "Used Parts",
-          icon: <BiSolidCategory />
-        },
-        {
-          path: "/user/partscategory/unusedparts",
-          name: "Unused Parts",
-          icon: <BiSolidCategory />
-        }
-      ]
+      icon: <BiSolidCategory />
     },
     {
       path: "/user/myorders",
@@ -68,11 +55,7 @@ export default function Sidebar({isOpen}) {
       name: "Offer Status",
       icon: <IoMdToday />
     },
-    {
-      path: "/user/askme",
-      name: "Ask Me",
-      icon: <BsFillQuestionCircleFill />
-    }
+   
   ]
   return (
 
@@ -80,13 +63,13 @@ export default function Sidebar({isOpen}) {
       <div className="top_section">
         <h2 style={{ display: isOpen ? "block" : "none" }} className="logo">Moto Parts</h2>
         <div style={{ marginLeft: isOpen ? "30px" : "0px" }} className="bars">
-          {/* <FaBars onClick={toggle} /> */}
+          {/* <img src={require('../../assets/images/logo/logoblack.jpeg')} style={{width:'50px', height:'50px'}} alt="" /> */}
         </div>
       </div>
       <div className="inner_sidebar mb-5">
                 <div className="inside_sidebar">
                     {menuItem.map((item, index) => (
-                        <NavLink to={item.path} key={index} className={!item.childrens ? "link" : "link_partscategory"}>
+                        <NavLink to={item.path} key={index} className={!item.childrens ? "link" : "link_partscategory"} activeClassname='active'>
                             <div className="main_menue" onClick={() => toggleMenu(item.name.toLowerCase())}>
                                 <div className="col-2">
                                     <div style={{ fontSize: isOpen ? "17px" : "20px" }} className={!item.childrens ? "icon" : "parts_icon"}>{item.icon}</div>

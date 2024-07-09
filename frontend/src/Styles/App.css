@@ -3,9 +3,11 @@
   padding: 0;
   text-decoration: none;
 }
+
 body{
   font-size: 14px;
   font-weight: 400;
+  font-family: sans-serif;
 }
 .container{
   margin-left: 0;
@@ -152,11 +154,11 @@ body{
   padding-left: 17px;
   padding-top: 3px;
 }
-/* .active{
+.active{
   background: #fff;
   color: rgb(94, 37, 37);
-  border: 2px solid rgb(94, 37, 37);
-}  */
+  /* border: 2px solid rgb(94, 37, 37); */
+} 
 /* .icon, .link-text{
   /* font-size: 15px;
 
@@ -274,6 +276,16 @@ body{
   margin: 5px;
   margin-bottom: 12px;
 }
+.checkOut_btn:hover{
+  background: rgb(94, 37, 37);
+  color: white;
+}
+.checkOut_btn:active{
+  background: rgb(94, 37, 37);
+  color: white;
+  transform: translateY(4px);
+
+}
 
 .categoryContainer{
   padding-bottom: 30px;
@@ -304,7 +316,8 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(184, 168, 168);
+  border-radius: 10px;
+  background-color: rgb(173 87 145 / 1%);
   box-shadow: 0 8px 9px grey;
   margin-right: 10px;
 }
@@ -312,6 +325,7 @@ body{
   width: 100%;
   background-color: white;
   height: 171px;
+  border-radius: 10px 10px 0px 0px;
   margin-bottom: 5px;
 }
 .name{
@@ -323,7 +337,7 @@ body{
   margin-bottom: 13px;
   width: 189px;
   border: none;
-  background-color: saddlebrown;
+  background-color: #836651;;
   color: white;
   padding: 3px 5px;
 }
@@ -331,9 +345,18 @@ body{
   margin: 2px 2px 13px 26px;
   width: 80%;
   border: none;
-  background-color: brown;
+  background-color: rgb(94, 37, 37);
   color: white;
   padding: 3px 5px;
+}
+.viewDetails:hover{
+  background-color: #3d0606;
+  color: white;
+}
+.viewDetails:active{
+  background-color: #3d0606;
+  color: white;
+  transform: translateY(4px);
 }
 
 /* my profile */
@@ -434,10 +457,12 @@ body{
 }
 .oprice h5{
   font-size: 14px;
+  font-weight: bold;
 }
 .oprice span{
   font-size: 14px;
   padding-bottom: 20px;
+  margin-top: -5px;
 }
 .offerdesc{
   display: flex;
@@ -445,18 +470,20 @@ body{
 }
 .offerdesc h5{
   font-size: 14px;
+  font-weight: bold;
 }
 .offerdesc span{
   text-align: left;
 }
-.offerStatusbtn{
+.offerStatusdiv{
   width: 100%;
   margin: 6px 0px;
   border: none;
   background-color: brown;
   color: white;
+  text-align: center;
   border-radius: 5px;
-  padding: 10px 8px;
+  padding: 11px 8px;
 }
 .offerProduct{
   display: flex;
@@ -551,33 +578,63 @@ body{
   display: flex;
   flex-direction: column;
   background-color: white;
+  width: 16rem;
+  border-radius: 4px;
   box-shadow: 0 8px 9px grey;
  
 }
+.product_padding{
+  padding-bottom: 11px;
+}
+.upper_ppadding{
+  padding-top: 5px;
+}
+.buttons_padding{
+  padding-top: 12px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+}
 .productcard img{
   width: 100%;
-  height: 171px;
-  margin-bottom: 5px;
+  height: 179px;
+  margin-bottom: -14px;
+  border-radius: 4px 4px 0px 0px;
 }
-.quantity_div{
-  margin-top: 3px;
-}
+
 .btn1{
   margin: 6px 0px;
   padding: 2px 5px;
   padding-left: 4px;
   border: 1px solid brown;
-  font-size: 12px;
+  font-size: 14px;
   color: brown;
   /* border: 2px solid black; */
 }
+.btn1:hover{
+  background-color: brown;
+  color: white;
+}
+.btn1:active{
+  background-color: brown;
+  color: white;
+  transform: translateY(4px);
+}
 .btn2{
-  font-size: 12px;
+  font-size: 14px;
   padding: 2px 5px;
   margin: 6px 5px;
   border: 1px solid brown;
   color: brown;
   /* border: 2px solid black; */
+}
+.btn2:hover{
+  background-color: brown;
+  color: white;
+}
+.btn2:active{
+  background-color: brown;
+  color: white;
+  transform: translateY(4px);
 }
 /* Add to cart */
 /* .tableContainer{
@@ -743,4 +800,23 @@ body{
   background: initial;
   font-size: 1em;
   padding: 0.5rem 2rem;
+}
+
+
+/* //footer */
+
+.footer{
+  background: white;
+  width: 100%;
+  height: 3rem;
+}
+.footer p{
+  position: absolute;
+  right: 8rem;
+  padding: 6px 4px;
+  color: grey;
+}
+
+.total_order{
+  margin-right: 34px !important; 
 }

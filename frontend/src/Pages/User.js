@@ -17,8 +17,8 @@ import AddToCart from '../Components/user/AddToCart';
 import Dashboard from '../Components/user/Dashboard';
 import UpdateMyProfile from '../Components/user/UpdateMyProfile';
 import MyProfile from '../Components/user/MyProfile';
-import UsedParts from '../Components/user/UsedParts';
-import UnusedParts from '../Components/user/UnusedParts';
+// import UsedParts from '../Components/user/UsedParts';
+
 import SampleUnuseParts from '../Components/user/SampleUnuseParts';
 import SampleProductPanel from '../Components/user/SampleProductPanel';
 import SampleProductDetails from '../Components/user/SampleProductDetails';
@@ -28,6 +28,7 @@ import { toast } from 'react-hot-toast'
 import OrderSummary from '../Components/user/OrderSummary';
 import SampleAddtoCart from '../Components/user/SampleAddtoCart';
 import SampleProfile from '../Components/vendor/SampleProfile';
+import CategoryCardPanel from '../Components/user/CategoryCardPanel';
 
 
 
@@ -79,20 +80,15 @@ export default function User() {
             path: "/user/myorders"
           },
           {
-            path: "/user/partscategory/usedparts"
+            path: "/user/partscategory"
           },
-          {
-            path: "/user/partscategory/unusedparts"
-          },
+          
           {
             path: "/user/myprofile"
           },
           {
             path: "/user/offerstatus"
           },
-          {
-            path: "/user/askme"
-          }
 
         ]}>
       </Sidebar>
@@ -140,16 +136,15 @@ function Content() {
       <Routes>
         <Route path="/user/dashboard" element={<Dashboard />} />
 
-        <Route path="/user/partscategory/usedparts" element={<UsedParts />} />
-        <Route path="/user/partscategory/unusedparts" element={<SampleUnuseParts />} >
-          <Route index element={<UnusedParts />} />
-          <Route path="productCardPanel" element={<SampleProductPanel />} >
+        <Route path="/user/partscategory" element={<SampleUnuseParts />} >
+          <Route index element={<CategoryCardPanel />} />
+          <Route path=":id/productCardPanel" element={<SampleProductPanel />} >
             <Route index element={<ProductCardPanel />} />
-            <Route path="ProductDetails" element={<SampleProductDetails />} >
+            <Route path="ProductDetails/:id" element={<SampleProductDetails />} >
               <Route index element={<ProductDetails />} />
-              <Route path="makeOffer" element={<MakeOffer />} />
+              <Route path="makeOffer/:id" element={<MakeOffer />} />
             </Route>
-            <Route path="makeOffer" element={<MakeOffer />} />
+            <Route path="makeOffer/:id" element={<MakeOffer />} />
           </Route>
         </Route>
 

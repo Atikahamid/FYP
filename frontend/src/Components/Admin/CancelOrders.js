@@ -1,7 +1,12 @@
-import React , { useState }from 'react'
+import React , { useState, useEffect }from 'react'
 import DataTable from 'react-data-table-component';
+import axios from 'axios';
 
 export default function CancelOrders() {
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+
   const columns = [
     {
       name: 'Product',
@@ -36,82 +41,53 @@ export default function CancelOrders() {
       name: 'Total Price',
       selector: row => row.tprice,
       maxWidth:"10px"
-    },
-    {
-      name: 'Cancelled Date',
-      selector: row => row.cancel_date,
-      maxWidth:"50px"
     }
   ]
-  const data = [
-    {
-      id: 1,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      cancel_date:'23/4/2022'
-    },
-    {
-      id: 2,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      cancel_date:'23/4/2022'
-    },
-    {
-      id: 3,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      cancel_date:'23/4/2022'
-    },
-    {
-      id: 4,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      cancel_date:'23/4/2022'
-    },
-    {
-      id: 5,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      cancel_date:'23/4/2022'
-    },
-    {
-      id: 6,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      cancel_date:'23/4/2022' 
-    }
-  ]
-  const [records,setRecords]= useState(data);
+ 
 
-  function handleFilter(event){
-    const newData=data.filter(row=>{
-      return row.product.toLowerCase().includes(event.target.value.toLowerCase())
-    })
-    setRecords(newData);
+  //fetch data
+  useEffect(() => {
+    const fetchCancelledOrders = async () => {
+      try {
+        const response = await axios.get('/product/order-cancel', {
+
+        });
+        // Transform data to match DataTable's columns
+        const transformedData = response.data.map(order => ({
+          product: order.items.map(item => item.product.title).join(', '),
+          vendor_id: order.vendor.email,
+          customer_id: order.user.email,
+          uprice: order.items.map(item => item.product.price).join(', '),
+          quantity: order.items.length,
+          tprice: order.totalAmount,
+          
+        }));
+
+        setRecords(transformedData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching completed orders', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCancelledOrders();
+  }, []);
+
+  const handleFilter = (event) => {
+    setSearch(event.target.value);
+  }
+  const filteredRecords = records.filter(row =>
+    row.product.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (loading) {
+    return <div class="d-flex justify-content-center">
+      <div class="spinner-border" style={{ color: 'rgb(94, 37, 37)', width: '3rem', height: '3rem', marginTop: '10rem' }} role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
   }
   return (
     <div className='categoryContainer'>
@@ -120,8 +96,9 @@ export default function CancelOrders() {
     <div className=" pt-1 text-end"><label className='me-2 fs-6'>Search</label><input type="text" onChange={handleFilter} /></div>
       <div className="tableContainer mt-3">
         <DataTable
+        keyField='_id'
          columns={columns}
-         data={records}
+         data={filteredRecords}
          selectableRows
          fixedHeader
          fixedHeaderScrollHeight='300px'

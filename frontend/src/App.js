@@ -23,8 +23,8 @@ import AddToCart from './Components/user/AddToCart';
 import Dashboard from './Components/user/Dashboard';
 import UpdateMyProfile from './Components/user/UpdateMyProfile';
 import MyProfile from './Components/user/MyProfile';
-import UsedParts from './Components/user/UsedParts';
-import UnusedParts from './Components/user/UnusedParts';
+// import UsedParts from './Components/user/UsedParts';
+
 //admin routes
 import DashboardA from './Components/Admin/DashboardA';
 import Category from './Components/Admin/Category';
@@ -66,6 +66,8 @@ import SampleCategory from './Components/Admin/SampleCategory';
 import SubCategory from './Components/Admin/SubCategory';
 import SampleProductV from './Components/vendor/SampleProductV';
 import ProductDeatil from './Components/vendor/ProductDeatil';
+import UpdateProduct from './Components/vendor/UpdateProduct';
+import CategoryCardPanel from './Components/user/CategoryCardPanel';
 
 
 axios.defaults.baseURL = 'http://localhost:8000'
@@ -88,17 +90,17 @@ function App() {
         <Route path="/user/*" element={<User />} >
           <Route path="" element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="partscategory/usedparts" element={<UsedParts />} />
-          <Route path="partscategory/unusedparts" element={<SampleUnuseParts />} >
-            <Route index element={<UnusedParts />} />
-            <Route path="productCardPanel" element={<SampleProductPanel />} >
+          
+          <Route path="partscategory" element={<SampleUnuseParts />} >
+            <Route index element={<CategoryCardPanel />} />
+            <Route path=":id/productCardPanel" element={<SampleProductPanel />} >
               <Route index element={<ProductCardPanel />} />
-              <Route path="ProductDetails" element={<SampleProductDetails />} >
+              <Route path="ProductDetails/:id" element={<SampleProductDetails />} >
                 <Route index element={<ProductDetails />} />
-                <Route path="makeOffer" element={<MakeOffer />} />
+                <Route path="makeOffer/:id" element={<MakeOffer />} />
                 <Route path="addtocart" element={<AddToCart />} />
               </Route>
-              <Route path="makeOffer" element={<MakeOffer />} />
+              <Route path="makeOffer/:id" element={<MakeOffer />} />
               <Route path="addtocart" element={<AddToCart />} />
             </Route>
 
@@ -134,6 +136,7 @@ function App() {
           <Route path="myproducts" element={<SampleProductV />} >
             <Route index element={<MyProductsV />} />
             <Route path="product-detail/:id" element={<ProductDeatil />} />
+            <Route path='update-product/:id' element={<UpdateProduct/>}/>
         </Route>
           <Route path="addproducts" element={<AddProductsV />} />
           <Route path="offers" element={<OffersV />} />

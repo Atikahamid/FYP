@@ -31,11 +31,11 @@ export default function LoginPage() {
     });
 
     if(response && response.data.success){
-// console.log(response.data);
+console.log(response.data);
 const token = response.data.token;
 const fullName = response.data.fullName;
 const {role} = response.data;
-const id = response.data.userId
+const id = response.data.userId 
 
       localStorage.setItem('token', token);
       localStorage.setItem("fullName", fullName);

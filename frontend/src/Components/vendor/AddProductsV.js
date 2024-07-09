@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../Styles/App.css'
 import {  Formik, Form, Field } from 'formik'
-import axios from 'axios'
+import axios from 'axios' 
 // import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import { addProductValidation } from '../../Validation/addproductvalidation'
@@ -48,6 +48,7 @@ export default function AddProductsV() {
 
   const onSubmit = async(values, {resetForm}) => {
     const formData = new FormData();
+    console.log(formData);
     for(let key in values){
       if(key === 'images'){
         for(let i = 0; i< values.images.length; i++){
@@ -61,13 +62,23 @@ export default function AddProductsV() {
     axios.post('/product/create-product', formData)
     .then(response => {
       console.log('Product created successfully', response.data)
-      Swal.fire('Product added successfully', '', 'success');
-
+      Swal.fire({
+        title: 'Product added successfully',
+        icon: 'success',
+        confirmButtonText: 'OK',
+        confirmButtonColor: 'rgb(94, 37, 37)'
+    });
       resetForm();
     })
     .catch(error => {
-      console.error('error creating product', error)
-      Swal.fire('Error adding Product', error.message, 'error');
+      console.error('error creating product', error);
+      Swal.fire({
+        title: 'Error adding product',
+        text: error.message,
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: 'rgb(94, 37, 37)'
+    });
     });
   };
 

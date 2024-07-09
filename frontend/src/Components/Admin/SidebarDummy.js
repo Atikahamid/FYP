@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import '../../Styles/App.css'
-import { MdOutlineCategory,MdFreeCancellation, MdManageAccounts,MdOutlinePlaylistAddCheck,MdPendingActions } from "react-icons/md";
-import { TbMenuOrder,TbDeviceTabletCancel } from "react-icons/tb";
+import { MdOutlineCategory,MdFreeCancellation,MdPendingActions } from "react-icons/md";
+import { TbDeviceTabletCancel } from "react-icons/tb";
 import { BsFillLayersFill ,BsJournalCheck,BsFillPersonCheckFill,BsFillPersonLinesFill} from "react-icons/bs";
 import { GrCompliance } from "react-icons/gr";
 import { CiBoxList } from "react-icons/ci";
-import { BiSitemap } from "react-icons/bi";
+// import { BiSitemap } from "react-icons/bi";
 import { NavLink } from 'react-router-dom';
 // import { FaBars } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
@@ -40,86 +40,137 @@ export default function SidebarDummy({isSidebarOpen}) {
             icon: <MdOutlineCategory />
         },
         {
-            name: "Products",
-            icon: <BiSitemap />,
-            childrens: [
-                {
-                    path: "/admin/productsmanagement/currentproducts",
-                    name: "Current Products",
-                    icon: <BsFillLayersFill />
-                },
-                {
-                    path: "/admin/productsmanagement/soldproducts",
-                    name: "Sold Products",
-                    icon:<BsJournalCheck />
-                }
-            ]
+            path: "/admin/productsmanagement/currentproducts",
+            name: "Current Products",
+            icon: <BsFillLayersFill />
         },
         {
-            name: "Account ",
-            icon: <MdManageAccounts />,
-            // iconClosed: <RiArrowDownSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
-            // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
-            childrens: [
-                {
-                    path: "/admin/accountmanagement/userlist",
-                    name: "User List",
-                    icon: <BsFillPersonLinesFill />
-                },
-                {
-                    path: "/admin/accountmanagement/vendorlist",
-                    name: "Vendor List",
-                    icon: <BsFillPersonCheckFill />
-                }
-            ]
+            path: "/admin/productsmanagement/soldproducts",
+            name: "Sold Products",
+            icon:<BsJournalCheck />
         },
         {
-            name: "Offers ",
-            icon: <MdOutlinePlaylistAddCheck />,
-            // iconClosed: <RiArrowDownSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
-            // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
-            childrens: [
-                {
-                    path: "/admin/offermanagement/pendingoffers",
-                    name: "Pending Offers",
-                    icon: <MdPendingActions />
-                },
-                {
-                    path: "/admin/offermanagement/acceptedoffers",
-                    name: "Accepted Offers",
-                    icon: <CiBoxList />
-                },
-                {
-                    path: "/admin/offermanagement/rejectedoffers",
-                    name: "Rejected Offers",
-                    icon:<TbDeviceTabletCancel />
-                }
-            ]
+            path: "/admin/accountmanagement/userlist",
+            name: "User List",
+            icon: <BsFillPersonLinesFill />
         },
         {
-            name: "Orders ",
-            icon:<TbMenuOrder />,
-            // iconClosed: <RiArrowDownSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
-            // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
-            childrens: [
-                {
-                    path: "/admin/ordermanagement/completedorders",
-                    name: "Completed Orders",
-                    icon: <GrCompliance />
-                },
-                {
-                    path: "/admin/ordermanagement/pendingorders",
-                    name: "Pending Orders",
-                    icon: <RiPassPendingLine />
+            path: "/admin/accountmanagement/vendorlist",
+            name: "Vendor List",
+            icon: <BsFillPersonCheckFill />
+        },
+        {
+            path: "/admin/offermanagement/pendingoffers",
+            name: "Pending Offers",
+            icon: <MdPendingActions />
+        },
+        {
+            path: "/admin/offermanagement/acceptedoffers",
+            name: "Accepted Offers",
+            icon: <CiBoxList />
+        },
+        {
+            path: "/admin/offermanagement/rejectedoffers",
+            name: "Rejected Offers",
+            icon:<TbDeviceTabletCancel />
+        },
+        {
+            path: "/admin/ordermanagement/completedorders",
+            name: "Complete Orders",
+            icon: <GrCompliance />
+        },
+        {
+            path: "/admin/ordermanagement/pendingorders",
+            name: "Pending Orders",
+            icon: <RiPassPendingLine />
 
-                },
-                {
-                    path: "/admin/ordermanagement/cancelledorders",
-                    name: "Cancelled Orders",
-                    icon:<MdFreeCancellation />
-                }
-            ]
+        },
+        {
+            path: "/admin/ordermanagement/cancelledorders",
+            name: "Cancelled Orders",
+            icon:<MdFreeCancellation />
         }
+        // {
+        //     name: "Products",
+        //     icon: <BiSitemap />,
+        //     childrens: [
+        //         {
+        //             path: "/admin/productsmanagement/currentproducts",
+        //             name: "Current Products",
+        //             icon: <BsFillLayersFill />
+        //         },
+        //         {
+        //             path: "/admin/productsmanagement/soldproducts",
+        //             name: "Sold Products",
+        //             icon:<BsJournalCheck />
+        //         }
+        //     ]
+        // },
+        // {
+        //     name: "Account ",
+        //     icon: <MdManageAccounts />,
+        //     // iconClosed: <RiArrowDownSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
+        //     // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
+        //     childrens: [
+        //         {
+        //             path: "/admin/accountmanagement/userlist",
+        //             name: "User List",
+        //             icon: <BsFillPersonLinesFill />
+        //         },
+        //         {
+        //             path: "/admin/accountmanagement/vendorlist",
+        //             name: "Vendor List",
+        //             icon: <BsFillPersonCheckFill />
+        //         }
+        //     ]
+        // },
+        // {
+        //     name: "Offers ",
+        //     icon: <MdOutlinePlaylistAddCheck />,
+        //     // iconClosed: <RiArrowDownSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
+        //     // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
+        //     childrens: [
+        //         {
+        //             path: "/admin/offermanagement/pendingoffers",
+        //             name: "Pending Offers",
+        //             icon: <MdPendingActions />
+        //         },
+        //         {
+        //             path: "/admin/offermanagement/acceptedoffers",
+        //             name: "Accepted Offers",
+        //             icon: <CiBoxList />
+        //         },
+        //         {
+        //             path: "/admin/offermanagement/rejectedoffers",
+        //             name: "Rejected Offers",
+        //             icon:<TbDeviceTabletCancel />
+        //         }
+        //     ]
+        // },
+        // {
+        //     name: "Orders ",
+        //     icon:<TbMenuOrder />,
+        //     // iconClosed: <RiArrowDownSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
+        //     // iconOpened: <RiArrowUpSFill style={{ display: isOpen ? "block" : "none", "paddingTop": "5px", fontSize: "19px" }} />,
+        //     childrens: [
+        //         {
+        //             path: "/admin/ordermanagement/completedorders",
+        //             name: "Completed Orders",
+        //             icon: <GrCompliance />
+        //         },
+        //         {
+        //             path: "/admin/ordermanagement/pendingorders",
+        //             name: "Pending Orders",
+        //             icon: <RiPassPendingLine />
+
+        //         },
+        //         {
+        //             path: "/admin/ordermanagement/cancelledorders",
+        //             name: "Cancelled Orders",
+        //             icon:<MdFreeCancellation />
+        //         }
+        //     ]
+        // }
         // other menu items...
     ];
 

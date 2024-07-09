@@ -1,145 +1,122 @@
-import React , { useState }from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import DataTable from 'react-data-table-component';
 
 export default function CompleteOrders() {
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+
   const columns = [
     {
       name: 'Product',
       selector: row => row.product,
-      maxWidth:"100px",
-      // minWidth:"100px",
-      sortable:true
+      maxWidth: "100px",
+      sortable: true
     },
     {
       name: 'Vendor ID',
       selector: row => row.vendor_id,
-      maxWidth:"100px",
-      sortable:true
+      maxWidth: "100px",
+      sortable: true
     },
     {
       name: 'Customer ID',
       selector: row => row.customer_id,
-      maxWidth:"100px",
-      sortable:true
+      maxWidth: "100px",
+      sortable: true
     },
     {
       name: 'Unit Price',
       selector: row => row.uprice,
-      maxWidth:"10px"
+      maxWidth: "10px"
     },
     {
-      name: 'quantity',
+      name: 'Quantity',
       selector: row => row.quantity,
-      maxWidth:"10px"
+      maxWidth: "10px"
     },
     {
       name: 'Total Price',
       selector: row => row.tprice,
-      maxWidth:"10px"
+      maxWidth: "10px"
     },
     {
       name: 'Delivery Date',
       selector: row => row.delivery_date,
-      maxWidth:"10px"
+      maxWidth: "10px"
     },
     {
       name: 'Return Statement',
       selector: row => row.return_statement,
-      maxWidth:"10px"
+      maxWidth: "10px"
     }
-  ]
-  const data = [
-    {
-      id: 1,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      delivery_date:'23/4/2022',
-      return_statement:'3d left'
-    },
-    {
-      id: 2,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      delivery_date:'23/4/2022',
-      return_statement:'3d left'
-    },
-    {
-      id: 3,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      delivery_date:'23/4/2022',
-      return_statement:'3d left'
-    },
-    {
-      id: 4,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      delivery_date:'23/4/2022',
-      return_statement:'3d left'
-    },
-    {
-      id: 5,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      delivery_date:'23/4/2022',
-      return_statement:'3d left'
-    },
-    {
-      id: 6,
-      product: 'Car Brakes Honda 2016 Model',
-      vendor_id: 'khadija@gmail.com',
-      customer_id: 'khadija@gmail.com',
-      uprice: 4650000,
-      quantity: 34,
-      tprice:87487,
-      delivery_date:'23/4/2022',
-      return_statement:'3d left' 
-    },
-  ]
-  const [records,setRecords]= useState(data);
+  ];
 
-  function handleFilter(event){
-    const newData=data.filter(row=>{
-      return row.product.toLowerCase().includes(event.target.value.toLowerCase())
-    })
-    setRecords(newData);
+  useEffect(() => {
+    const fetchCompletedOrders = async () => {
+      try {
+        const response = await axios.get('/product/order-deliver', {
+
+        });
+        // Transform data to match DataTable's columns
+        const transformedData = response.data.map(order => ({
+          product: order.items.map(item => item.product.title).join(', '),
+          vendor_id: order.vendor._id,
+          customer_id: order.user._id,
+          uprice: order.items.map(item => item.product.price).join(', '),
+          quantity: order.items.length,
+          tprice: order.totalAmount,
+          delivery_date: order.deliveryDate, // Assuming you have deliveryDate in your schema
+          return_statement: 'N/A' // Adjust as per your data
+        }));
+
+        setRecords(transformedData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching completed orders', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCompletedOrders();
+  }, []);
+
+  const handleFilter = (event) => {
+    setSearch(event.target.value);
   }
-  return (
-    <div className='categoryContainer'>
-    <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
-      <h1>Completed Orders</h1>
-    <div className=" pt-1 text-end"><label className='me-2 fs-6'>Search</label><input type="text" onChange={handleFilter} /></div>
-      <div className="tableContainer mt-3">
-        <DataTable
-         columns={columns}
-         data={records}
-         selectableRows
-         fixedHeader
-         fixedHeaderScrollHeight='300px'
-         pagination
-        ></DataTable>
+  const filteredRecords = records.filter(row =>
+    row.product.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (loading) {
+    return <div class="d-flex justify-content-center">
+      <div class="spinner-border" style={{ color: 'rgb(94, 37, 37)', width: '3rem', height: '3rem', marginTop: '10rem' }} role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-  </div>
-  )
+  }
+
+  return (
+    <div className='categoryContainer'>
+      <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
+        <h1>Completed Orders</h1>
+        <div className="pt-1 text-end">
+          <label className='me-2 fs-6'>Search</label>
+          <input type="text" onChange={handleFilter} value={search} />
+        </div>
+        <div className="tableContainer mt-3">
+          <DataTable
+            keyField='_id'
+            columns={columns}
+            data={filteredRecords}
+            fixedHeader
+            fixedHeaderScrollHeight='300px'
+            pagination
+          />
+        </div>
+      </div>
+    </div>
+  );
 }

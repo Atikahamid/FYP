@@ -8,6 +8,7 @@ export default function MyProfile() {
     const [userData, setUserData] = useState(null);
     const [addressData, setAddressData] = useState(null);
     const [formatdate, setFormatdate] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     //fetchData 
     const fetchData = async () =>{
@@ -23,8 +24,10 @@ export default function MyProfile() {
             setFormatdate(formattedDate);
             setUserData(response.data.getaUser);
             setAddressData(response.data.address);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching user Data', error);
+            setLoading(false);
         }
     };
 
@@ -35,6 +38,14 @@ export default function MyProfile() {
 
     const handleeditprofile=()=>{
         navigate('/user/myprofile/update-profile', { state: {userData, addressData}});
+    }
+
+    if(loading){
+        return <div class="d-flex justify-content-center">
+        <div class="spinner-border" style={{color:'rgb(94, 37, 37)',width:'3rem', height:'3rem', marginTop:'10rem'}} role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
     }
     return (
        <div>

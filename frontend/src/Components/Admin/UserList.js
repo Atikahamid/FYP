@@ -9,6 +9,8 @@ export default function UserList() {
   const navigate= useNavigate();
   const [records, setRecords] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
+
   const columns = [
     {
       name: 'User Name',
@@ -50,9 +52,11 @@ export default function UserList() {
     axios.get('/accountmanagement/userlist')
       .then(response => {
         setRecords(response.data);
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching data', error);
+        setLoading(false);
       });
   }, []);
   
@@ -90,6 +94,13 @@ const handleDeleteUser = async (id) => {
   const filteredRecords = records.filter(row =>
     row.fullName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  if(loading){
+    return <div class="d-flex justify-content-center">
+    <div class="spinner-border" style={{color:'rgb(94, 37, 37)',width:'3rem', height:'3rem', marginTop:'10rem'}} role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}
 
   return (
     <div>

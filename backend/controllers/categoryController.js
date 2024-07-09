@@ -130,7 +130,7 @@ const getAllSubcategory = async(req, res) =>{
         const getsubcategories = await Subcategory.find();
         res.json(getsubcategories);
     } catch (error) {
-        throw new Error( error);
+      res.status(500).json({ success: false, msg: 'Failed to get subcategories', error: error.message });
     }
 } 
 

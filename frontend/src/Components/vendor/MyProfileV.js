@@ -7,6 +7,7 @@ export default function MyProfileV() {
     const [userData, setUserData] = useState(null);
     const [address, setAddress] = useState(null);
     const [formatdate, setFormatdate] = useState(null);
+    const [loading, setLoading]= useState(true);
 
     //fetch data
     const fetchData = async () => {
@@ -22,8 +23,10 @@ export default function MyProfileV() {
             setFormatdate(formattedDate);
             setUserData(response.data.getaVendor);
             setAddress(response.data.address);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching use data', error);
+            setLoading(false);
         }
     };
     //useEffect function
@@ -33,6 +36,14 @@ export default function MyProfileV() {
     }, []);
     const handleeditprofile = () => {
         navigate('/vendor/profile/update-profile');
+    }
+
+    if(loading){
+        return <div class="d-flex justify-content-center">
+        <div class="spinner-border" style={{color:'rgb(94, 37, 37)',width:'3rem', height:'3rem', marginTop:'10rem'}} role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
     }
     return (
         <div>
