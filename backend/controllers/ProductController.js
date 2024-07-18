@@ -224,11 +224,38 @@ const getProductOnvendorId = async(req, res) =>{
     const {id} =req.params;
     // validateMongoId(id);
     try {
-        const getproductonsubcategory = await Product.find({vendor_id:id}).populate('category_id subcategory_id');
+        const getproductonsubcategory = await Product.find({vendor_id:id})
+        .select('sold title description price quantity condition makes_model_year brand vendor_id category_id subcategory_id images')
+        .populate('category_id subcategory_id');
         res.json(getproductonsubcategory);
     } catch (error) {
         throw new Error(error);
     }
+}
+
+//get all product on vendor id with middleware
+const getProductOnvendorIdMiddleware = async(req, res) =>{
+  const vendorId =req.user;
+  // validateMongoId(id);
+  try {
+      const getproductonsubcategory = await Product.find({vendor_id:vendorId}).populate('category_id subcategory_id');
+      res.json(getproductonsubcategory);
+  } catch (error) {
+      throw new Error(error);
+  }
+}
+
+
+//get sold products\
+const getSoldProductOnvendorId = async(req, res) =>{
+  const vendorId =req.user;
+  // validateMongoId(id);
+  try {
+      const getproductonsubcategory = await Product.find({vendor_id:vendorId,  sold: { $gt: 0 } }).populate('category_id subcategory_id');
+      res.json(getproductonsubcategory);
+  } catch (error) {
+      throw new Error(error);
+  }
 }
 
 
@@ -242,5 +269,7 @@ module.exports= {
     deleteProduct,
     getProductOnvendorId,
     getAProduct,
-    getAllSoldProducts
+    getAllSoldProducts,
+    getProductOnvendorIdMiddleware,
+    getSoldProductOnvendorId
 }

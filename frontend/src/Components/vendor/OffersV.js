@@ -95,27 +95,29 @@ export default function OffersV() {
     {
       name: 'Product Name',
       selector: row => row.pname,
-      // maxWidth:"150px"
+      maxWidth:"200px"
     },
     {
       name: ' Offer Quantity',
       selector: row => row.quantity,
-      maxWidth:"100px"
+      maxWidth:"20px"
     },
     {
       name: 'Offer Price',
       selector: row => row.offerprice,
-      maxWidth:"100px"
+      maxWidth:"50px"
     },
     {
       name: 'Total Original Price',
       selector: row => row.price,
-      maxWidth:"100px"
+      maxWidth:"50px"
     },
     
     {
       name: 'Buyer Id',
-      selector: row => row.b_id
+      selector: row => row.b_id,
+      maxWidth:"150px"
+
     },
     {
       name: 'Action',

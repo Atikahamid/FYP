@@ -41,12 +41,13 @@ export default function SidebarV({isOpen}) {
   ]
   return (
     <div style={{width: isOpen ?"20%": "5%"}} className="sidebar">
-    <div className="top_section">
-      <h2 style={{display: isOpen ? "block": "none"}} className="logo">Moto Parts</h2>
-      <div style={{marginLeft: isOpen ? "30px": "0px"}} className="bars">
-        {/* <FaBars onClick={toggle}/> */}
+   <div className="top_section">
+      <div style={{ marginLeft: isOpen ? "-10px" : "-10px" }} className="bars">
+          <img src={require('../../assets/images/logo/hexalogo.jpg')} style={{width:'50px', height:'50px'}} alt="" /> 
+        </div>
+        <h2 style={{ display: isOpen ? "block" : "none" }} className="logo">Moto Parts</h2>
+       
       </div>
-    </div>
     {
       menuItem.map((item,index)=>(
         <NavLink to={item.path} key={index} className="link_vendor" activeClassName="active">

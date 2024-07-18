@@ -54,7 +54,7 @@ export default function SoldProducts() {
   useEffect(() => {
     const fetchProducts = async() =>{
       try {
-        const response= await axios.get('/product/getAllSoldProducts')
+        const response = await axios.get('/product/getAllSoldProducts')
         setRecords(response.data);
         setLoading(false);
         // console.log("product data", response.data);

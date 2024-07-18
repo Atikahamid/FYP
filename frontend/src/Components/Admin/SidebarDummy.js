@@ -177,11 +177,12 @@ export default function SidebarDummy({isSidebarOpen}) {
     return (
         <div className="sidebar" style={{ width: isSidebarOpen ? "20%" : "5%" }}>
             <div className="top_section">
-                <h2 className="logo" style={{ display: isSidebarOpen ? "block" : "none" }}>Moto Parts</h2>
-                <div className="bars" style={{ marginLeft: isSidebarOpen ? "30px" : "0px" }}>
-                    {/* <FaBars onClick={toggleSidebar} /> */}
-                </div>
-            </div>
+      <div style={{ marginLeft: isSidebarOpen ? "-10px" : "-10px" }} className="bars">
+          <img src={require('../../assets/images/logo/hexalogo.jpg')} style={{width:'50px', height:'50px'}} alt="" /> 
+        </div>
+        <h2 style={{ display: isSidebarOpen ? "block" : "none" }} className="logo">Moto Parts</h2>
+       
+      </div>
             <div className="inner_sidebar mb-5">
                 <div className="inside_sidebar">
                     {menuItem.map((item, index) => (

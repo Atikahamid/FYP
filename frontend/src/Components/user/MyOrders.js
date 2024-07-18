@@ -2,94 +2,96 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function MyOrders() {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [completedOrders, setCompletedOrders] = useState([]);
+    const [cancelledOrders, setCancelledOrders] = useState([]);
+    const [pendingOrders, setPendingOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('/product/get-user-order', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          validateStatus: function (status) {
-            // Resolve only if the status code is less than 500
-            return status < 500;
-          }
-        });
+    useEffect(() => {
+        const fetchOrders = async () => {
+            const userId = localStorage.getItem('id'); // Assuming userId is stored in local storage
+            try {
+                const response = await axios.get(`/product/get-user-order/${userId}`);
+                if (response.data.success) {
+                    const orders = response.data.getorderuid;
+                    setCompletedOrders(orders.filter(order => order.status === 'Delivered'));
+                    setCancelledOrders(orders.filter(order => order.status === 'Cancelled'));
+                    setPendingOrders(orders.filter(order => order.status === 'Pending'));
+                } else {
+                    setError(response.data.msg);
+                }
+            } catch (error) {
+                setError('Error fetching orders');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        if (response.data.success) {
-          setOrders(response.data.getorderuid);
-          console.log(response.data.getorderuid);
-        } else {
-          console.error(response.data.msg);
-        }
-      } catch (error) {
-        console.error('Error fetching user orders', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+        fetchOrders();
+    }, []);
 
-    fetchOrders();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  const renderOrder = (order) => {
-    return (
-      <div key={order._id} className="order_Container">
-        <div className="row justify-content-evenly">
-          {order.items.map((item) => (
-            <div key={item.product._id} className="col-2 orderproduct_image">
-              <img src={item.product.images[0].url} alt={item.product.name} />
-            </div>
-          ))}
-          <div className="col-8">
-            <div>
-              <p className='order_ptag'>{order.items.map((item) => item.product.title).join(', ')}</p>
-              <div className="row d-flex">
-                <div className='col-6 d-flex flex-column'>
-                  <div> <label className='order_label'>Price:</label><span>Rs.{order.totalAmount}</span></div>
-                  <div><label className='order_label'>Items:</label><span>{order.items.length}</span></div>
-                </div>
-                <div className="col-6 d-flex flex-column">
-                  <div> <label className='order_label'>Status:</label><span className='orderstatus_span'>{order.status}</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr />
-      </div>
-    );
-  };
-
-  return (
-    <div className='categoryContainer'>
-      <div className="inner m-5 p-2 mt-3 pt-2">
-        <h1>My Orders</h1>
-      </div>
-      <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
-        <div className="order_Container">
-          <div className="order_category">
-            <h1>Pending Orders</h1>
-          </div>
-          {orders.filter(order => order.status === 'Pending').map(renderOrder)}
-          <div className="order_category">
-            <h1>Completed Orders</h1>
-          </div>
-          {orders.filter(order => order.status === 'Delivered').map(renderOrder)}
-          <div className="order_category">
-            <h1>Cancelled Orders</h1>
-          </div>
-          {orders.filter(order => order.status === 'Cancelled').map(renderOrder)}
-
-        </div>
+    if(loading){
+      return <div class="d-flex justify-content-center">
+      <div class="spinner-border" style={{color:'rgb(94, 37, 37)',width:'3rem', height:'3rem', marginTop:'10rem'}} role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-  );
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    const renderOrder = (order) => (
+        <div key={order._id}>
+            <div className="row justify-content-evenly">
+                <div className="col-2 orderproduct_image">
+                    <img src={order.items[0].product.images[0].url} alt="" />
+                </div>
+                <div className="col-8">
+                    <div>
+                        <p className='order_ptag'>{order.items[0].product.description}</p>
+                        <div className="row d-flex">
+                            <div className='col-6 d-flex flex-column'>
+                                <div> <label className='order_label'>Price</label><span>Rs.{order.totalAmount}</span></div>
+                                <div><label className='order_label'>Items</label><span>{order.items.length}</span></div>
+                            </div>
+                            <div className="col-6 d-flex flex-column">
+                                {/* <div> <label className='order_label'>Delivered Date</label><span>{order.deliveryDate}</span></div> */}
+                                <div><label className='order_label'>Status</label><span className='orderstatus_span'>{order.status}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </div>
+    );
+
+    return (
+        <div className='categoryContainer'>
+            <div className="inner m-5 p-2 mt-3 pt-2">
+                <h1>My Orders</h1>
+            </div>
+            <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
+                <div className="order_Container">
+                    <div className="order_category">
+                        <h1>Completed Orders</h1>
+                    </div>
+                    {completedOrders.length > 0 ? completedOrders.map(renderOrder) : <p>No completed orders.</p>}
+                    
+                    <div className="order_category">
+                        <h1>Cancelled Orders</h1>
+                    </div>
+                    {cancelledOrders.length > 0 ? cancelledOrders.map(renderOrder) : <p>No cancelled orders.</p>}
+                    
+                    <div className="order_category">
+                        <h1>Pending Orders</h1>
+                    </div>
+                    {pendingOrders.length > 0 ? pendingOrders.map(renderOrder) : <p>No pending orders.</p>}
+                </div>
+            </div>
+        </div>
+    );
 }

@@ -60,7 +60,8 @@ body{
   padding: 20px 15px;
 }
 .logo{
-  font-size: 25px;
+  font-size: 23px;
+  margin-left: 2px;
 }
 .bars{
   display: flex;
@@ -662,7 +663,7 @@ body{
   font-size: 35px;
 }
 .dashboard_container{
-  padding-bottom: 21rem;
+  padding-bottom: 19rem;
 }
 .inner_dashcard{
   width: 100%;
@@ -819,4 +820,11 @@ body{
 
 .total_order{
   margin-right: 34px !important; 
+}
+
+.currency{
+  font-size: 9px;
+}
+.totalRevenue{
+  font-size: 20px;
 }

@@ -152,6 +152,20 @@ const getOfferPending = async(req, res) => {
     }
 }
 
+//get offer pending on user id
+const getOfferPendingMiddleware = async(req, res) => {
+    const userId = req.user;
+    try {
+        const getOffer = await Offer.find({user_id: userId, status: 'pending'}).populate('vendor_id user_id product_id');
+        if(!getOffer){
+            res.json({msg: 'No data Available'});
+        }
+        res.json(getOffer);
+    } catch (error) {
+        return res. status(404).json({msg:'internal server error', success: false, error: error.message});
+    }
+}
+
 //get offer on status = accept
 const getOfferAccept = async(req, res) => {
     try {
@@ -253,5 +267,6 @@ module.exports = {
     getOfferAccept,
     getOfferReject,
     acceptOffer,
-    rejectOffer
+    rejectOffer,
+    getOfferPendingMiddleware
 }

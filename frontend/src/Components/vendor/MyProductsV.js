@@ -32,12 +32,17 @@ export default function MyProductsV() {
     {
       name: 'Quantity',
       selector: row => row.quantity,
-      maxWidth: "100px"
+      maxWidth: "50px"
+    },
+    {
+      name: 'Sold',
+      selector: row => row.sold,
+      maxWidth: "50px"
     },
     {
       name: 'Unit Price',
       selector: row => row.price,
-      maxWidth: "170px"
+      maxWidth: "50px"
     },
     {
       name: 'Action',

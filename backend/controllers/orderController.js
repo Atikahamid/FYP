@@ -83,19 +83,62 @@ const getAllOrders = async(req, res) => {
 }
 
 //get order by userId
-const getOrderByUId = async(req, res) => {
+const getOrderByUId = async (req, res) => {
+    const { id: userId } = req.params;
+    validateMongoId(userId);
     try {
-        const userId = req.user;
-        const getorderuid = await Order.find({user:userId}).populate('user vendor items.product');
-        if(!getorderuid){
-            return res.status(200).json({success: false,  msg: 'this user has no order'});
+        const getorderuid = await Order.find({ user: userId }).populate('user vendor items.product');
+        if (!getorderuid) {
+            return res.status(200).json({ success: false, msg: 'This user has no orders' });
         }
         if (getorderuid.length === 0) {
             return res.status(200).json({ success: false, msg: 'This user has no orders' });
         }
-        res.status(300).json({success: true, getorderuid});
+        res.status(200).json({ success: true, getorderuid });
     } catch (error) {
-        return res.status(500).json({success: false, msg: 'error geeting user order', error: error.message});
+        return res.status(500).json({ success: false, msg: 'Error getting user order', error: error.message });
+    }
+};
+
+const getPendingOrderByUId = async(req, res) => {
+    try {
+        const {id} = req.params;
+        validateMongoId(id);
+        const getorderuid = await Order.find({user:id, status:'Pending'}).populate('user vendor items.product');
+        if(getorderuid.length === 0){
+            return res.status(200).json({success: false, msg: 'This user has no pending orders'});
+        }
+        res.json({success: true, getorderuid});
+    } catch (error) {
+        return res.status(500).json({success: false, msg: 'Error getting user pending order', error: error.message});
+    }
+}
+
+const getCancelledOrderByUId = async(req, res) => {
+    try {
+        const {id} = req.params;
+        validateMongoId(id);
+        const getorderuid = await Order.find({user:id, status:'Cancelled'}).populate('user vendor items.product');
+        if(getorderuid.length === 0){
+            return res.status(200).json({success: false, msg: 'This user has no cancelled orders'});
+        }
+        res.json({success: true, getorderuid});
+    } catch (error) {
+        return res.status(500).json({success: false, msg: 'Error getting user cancel order', error: error.message});
+    }
+}
+
+const getDeliveredOrderByUId = async(req, res) => {
+    try {
+        const{id} = req.params;
+        validateMongoId(id);
+        const getorderuid = await Order.find({user:id, status:'Delivered'}).populate('user vendor items.product');
+        if(getorderuid.length === 0){
+            return res.status(200).json({success: false, msg: 'This user has no delivered orders'});
+        }
+        res.json({success: true, getorderuid: getorderuid});
+    } catch (error) {
+        return res.status(500).json({success: false, msg: 'Error getting user deliver order', error: error.message});
     }
 }
 
@@ -153,6 +196,36 @@ const getOrderDeliver = async(req, res) => {
     }
 }
 
+//get order complete by middleware
+const getOrderDeliverMiddleware = async(req, res) => {
+    const userId = req.user;
+    try {
+        const getorder = await Order.find({user: userId, status: 'Delivered'}).populate('user vendor items.product');
+        if(!getorder){
+            res.json({msg: 'No data available'});
+        }
+        res.json(getorder);
+    } catch (error) {
+        return res.status(404).json({msg: 'Internal server error', error: error.message});
+    }
+}
+
+
+//get order pending by middleware
+const getOrderPendingMiddleware = async(req, res) => {
+    const userId = req.user;
+    try {
+        const getorder = await Order.find({user: userId, status: 'Pending'}).populate('user vendor items.product');
+        if(!getorder){
+            res.json({msg: 'No data available'});
+        }
+        res.json(getorder);
+    } catch (error) {
+        return res.status(404).json({msg: 'Internal server error', error: error.message});
+    }
+}
+
+
 //get single order by id
 const getOrderDeatils = async(req, res) => {
     const {id} = req.params;
@@ -171,40 +244,73 @@ const getOrderDeatils = async(req, res) => {
 // update status of order
 const updateStatus = async(req, res) => {
     const {id} = req.params;
-    const {status} = req.body;
-    try {
-        const getorder = await  Order.findById(id);
-        if(!getorder){
-            return res.json({msg: 'no order with this id available'});
-        }
-        getorder.status = status;
-        await getorder.save();
-        res.status(200).json({success: true, msg: 'order status updated successfully', getorder});
-    } catch (error) {
-        return res.status(500).json({success: false, msg: 'internal  server error', error: error.message}); 
-    }
-}
-
-//cancel order
-const cancelOrder = async(req, res) => {
-    const {id} = req.params;
     validateMongoId(id);
     try {
         const getorder = await  Order.findById(id);
         if(!getorder){
             return res.json({msg: 'no order with this id available'});
         }
-        if(getorder.status === 'Delivered'){
-            return res.json({msg: 'order cannot be cancelled'});
-        }
-        getorder.status = 'Cancelled';
+        getorder.status = 'Delivered';
         await getorder.save();
-        res.status(200).json({success: true, msg: 'order cancelled successfully', getorder});
+        res.status(200).json({success: true, msg: 'order completed successfully', getorder});
     } catch (error) {
         return res.status(500).json({success: false, msg: 'internal  server error', error: error.message}); 
     }
 }
 
+//cancel order
+const cancelOrder = async (req, res) => {
+    const { id } = req.params;
+    validateMongoId(id);
+    try {
+        const getorder = await Order.findById(id).populate('items.product');
+        if (!getorder) {
+            return res.status(404).json({ msg: 'no order with this id available' });
+        }
+        if (getorder.status === 'Delivered') {
+            return res.status(400).json({ msg: 'order cannot be cancelled' });
+        }
+
+        // Update the order status to 'Cancelled'
+        getorder.status = 'Cancelled';
+        await getorder.save();
+
+        // Increment the quantity of each product in the order
+        const updatePromises = getorder.items.map(async item => {
+            const product = item.product;
+            product.quantity += item.quantity;
+            return product.save();
+        });
+        await Promise.all(updatePromises);
+
+        res.status(200).json({ success: true, msg: 'order cancelled successfully', getorder });
+    } catch (error) {
+        return res.status(500).json({ success: false, msg: 'internal server error', error: error.message });
+    }
+};
+
+
+//get revenue of vendor
+const revenueCalculation = async(req, res) => {
+    try {
+        const userId = req.user;
+        const orders = await Order.find({vendor: userId});
+        if(!orders || orders.length === 0){
+            return res.status(200).json({  msg: 'this vendor has no order', totalAmount: 0});
+        }
+
+        // Calculate the total amount
+        const totalAmount = orders.reduce((sum, order) => sum + order.totalAmount, 0);
+
+        res.json({
+            success: true,
+            msg: 'Total revenue calculated successfully',
+            totalAmount: totalAmount
+        });
+    } catch (error) {
+        return res.status(500).json({success: false, msg: 'error getting vendor orders revenue', error: error.message});
+    }
+}
 
 
 module.exports = {
@@ -217,5 +323,11 @@ module.exports = {
     cancelOrder,
     getOrderCancel,
     getOrderDeliver,
-    getAllOrders
+    getAllOrders,
+    revenueCalculation,
+    getOrderDeliverMiddleware,
+    getOrderPendingMiddleware,
+    getPendingOrderByUId,
+    getCancelledOrderByUId,
+    getDeliveredOrderByUId
 }

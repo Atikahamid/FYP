@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../Styles/App.css'
 import { FaBars } from "react-icons/fa";
-import { IoMdSearch } from "react-icons/io";
+// import { IoMdSearch } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -49,14 +49,14 @@ export default function NavbarA({toggleSidebar}) {
     <div className='topbar'>
       <div className="first">
         <FaBars className='bars2' onClick={toggleSidebar} />
-        <div className="row">
+        {/* <div className="row">
           <div className="col-8">
             <input type="text" className='search-box' placeholder='search...' />
           </div>
           <div className="col-2">
             <button type='submit' className='search-icon'><IoMdSearch /> </button>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="side">
         <h3 className='name'>{userName}</h3>

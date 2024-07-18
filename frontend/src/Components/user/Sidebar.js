@@ -61,10 +61,11 @@ export default function Sidebar({isOpen}) {
 
     <div style={{ width: isOpen ? "20%" : "5%" }} className="sidebar">
       <div className="top_section">
-        <h2 style={{ display: isOpen ? "block" : "none" }} className="logo">Moto Parts</h2>
-        <div style={{ marginLeft: isOpen ? "30px" : "0px" }} className="bars">
-          {/* <img src={require('../../assets/images/logo/logoblack.jpeg')} style={{width:'50px', height:'50px'}} alt="" /> */}
+      <div style={{ marginLeft: isOpen ? "-10px" : "-10px" }} className="bars">
+          <img src={require('../../assets/images/logo/hexalogo.jpg')} style={{width:'50px', height:'50px'}} alt="" /> 
         </div>
+        <h2 style={{ display: isOpen ? "block" : "none" }} className="logo">Moto Parts</h2>
+       
       </div>
       <div className="inner_sidebar mb-5">
                 <div className="inside_sidebar">

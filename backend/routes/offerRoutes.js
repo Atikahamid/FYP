@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middlewares/authMiddleware');
-const { createOffer, getOfferByOId, getOfferByVId ,getOfferByUId ,getAllOffers, updateOffer, deleteOffer, getOfferPending, getOfferAccept, getOfferReject, acceptOffer, rejectOffer} = require('../controllers/offerController');
+const { createOffer, getOfferByOId, getOfferByVId ,getOfferByUId ,getAllOffers, updateOffer, deleteOffer, getOfferPending, getOfferAccept, getOfferReject, acceptOffer, rejectOffer, getOfferPendingMiddleware} = require('../controllers/offerController');
 
 
 
@@ -13,6 +13,7 @@ router.get('/getOffer-User', authMiddleware, getOfferByUId)
 router.get('/getOffer-Vendor', authMiddleware, getOfferByVId)
 router.put('/update-offer/:id', updateOffer )
 router.delete('/delete-offer/:id', deleteOffer)
+router.get('/get-pending-offer', authMiddleware, getOfferPendingMiddleware)
 router.get('/get-pending', getOfferPending);
 router.get('/get-accept', getOfferAccept)
 router.get('/get-reject', getOfferReject)
