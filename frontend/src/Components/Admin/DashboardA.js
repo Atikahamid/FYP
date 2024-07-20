@@ -47,10 +47,10 @@ export default function DashboardA() {
    <div>
      <div className='categoryContainer dashboard_container'>
       <div className="row d-flex inner_dashcard">
-        <DashCard name='Total Category' num={data.totalCategories} imgsource={require('../../assets/images/User/pending offers.jpg')} />
-        <DashCard name='Total Products' num={data.totalProducts} imgsource={require('../../assets/images/User/complte.jpg')} />
-        <DashCard name='Sold Products' num={data.soldProducts} imgsource={require('../../assets/images/User/cart.png')} />
-        <DashCard name='Total Users' num={data.totalUsers} imgsource={require('../../assets/images/User/cargo.png')} />
+        <DashCard name='Total Category' num={data.totalCategories} imgsource={require('../../assets/images/Admin/total category.png')} />
+        <DashCard name='Total Products' num={data.totalProducts} imgsource={require('../../assets/images/Admin/total products.png')} />
+        <DashCard name='Sold Products' num={data.soldProducts} imgsource={require('../../assets/images/Admin/sold.png')} />
+        <DashCard name='Total Users' num={data.totalUsers} imgsource={require('../../assets/images/Admin/users.png')} />
       </div>
     </div>
     <Footer/>

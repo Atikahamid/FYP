@@ -208,17 +208,19 @@ const deleteProduct = async (req, res) => {
  };
   
 //get product based on subCategory id
-const getProductsOnsubcategoryId = async(req, res) =>{
-    const {id} =req.params;
-    // validateMongoId(id);
-    try {
-        const getproductonsubcategory = await Product.find({subcategory_id:id}).populate('category_id subcategory_id vendor_id');
-        res.json(getproductonsubcategory);
-    } catch (error) {
-        throw new Error(error);
-    }
+const getProductsOnsubcategoryId = async (req, res) => {
+  const { id } = req.params;
+  // validateMongoId(id);
+  try {
+      const getproductonsubcategory = await Product.find({
+          subcategory_id: id,
+          $expr: { $ne: ["$sold", "$quantity"] }
+      }).populate('category_id subcategory_id vendor_id');
+      res.json(getproductonsubcategory);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
 }
-
 //get product based on vendor id
 const getProductOnvendorId = async(req, res) =>{
     const {id} =req.params;
