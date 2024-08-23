@@ -62,8 +62,8 @@ export default function CompleteOrders() {
         // Transform data to match DataTable's columns
         const transformedData = response.data.map(order => ({
           product: order.items.map(item => item.product.title).join(', '),
-          vendor_id: order.vendor._id,
-          customer_id: order.user._id,
+          vendor_id: order.vendor.email,
+          customer_id: order.user.email,
           uprice: order.items.map(item => item.product.price).join(', '),
           quantity: order.items.length,
           tprice: order.totalAmount,

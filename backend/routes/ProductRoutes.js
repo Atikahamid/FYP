@@ -3,7 +3,7 @@ const { createProduct, getAllProducts, getProductsOnsubcategoryId, getaProduct, 
 const upload = require('../middlewares/multer');
 const mongoose = require('mongoose');
 const authMiddleware = require('../middlewares/authMiddleware');
-const { createOrder, getOrderByUId, getOrderByVId, getOrderPending, getOrderDeatils, updateStatus, cancelOrder, getOrderCancel, getOrderDeliver, getAllOrders, revenueCalculation, getOrderDeliverMiddleware, getOrderPendingMiddleware, getPendingOrderByUId, getCancelledOrderByUId, getDeliveredOrderByUId } = require('../controllers/orderController');
+const { createOrder, getOrderByUId, getOrderByVId, getOrderPending, getOrderDeatils, updateStatus, cancelOrder, getOrderCancel, getOrderDeliver, getAllOrders, revenueCalculation, getOrderDeliverMiddleware, getOrderPendingMiddleware, getPendingOrderByUId, getCancelledOrderByUId, getDeliveredOrderByUId, revenueCalculationParams, revenueCalculationAndTransfer } = require('../controllers/orderController');
 const router = express.Router();
 
 // const Grid = require('gridfs-stream');
@@ -40,6 +40,8 @@ router.get('/get-delivered-order-user/:id', getDeliveredOrderByUId)
 router.get('/get-vendor-order', authMiddleware, getOrderByVId)
 router.get('/get-all-orders', getAllOrders)
 router.get('/revenue-calculation', authMiddleware, revenueCalculation) 
+router.get('/revenue/:id', revenueCalculationParams)
+router.post('/revenue-calculation-and-transfer/:id', revenueCalculationAndTransfer)
 router.get('/order-pending', getOrderPending)
 router.get('/order-cancel', getOrderCancel)
 router.get('/order-deliver', getOrderDeliver)

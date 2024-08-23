@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export default function OfferStatus() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,9 +27,9 @@ export default function OfferStatus() {
     fetchOffers();
   }, []);
 
-  const handleEdit = (offerId) => {
-    navigate(`/EditOffer/${offerId}`);
-  };
+  // const handleEdit = (offerId) => {
+  //   navigate(`/EditOffer/${offerId}`);
+  // };
 
   const handleDelete = async (offerId) => {
     const { isConfirmed } = await Swal.fire({
@@ -120,7 +120,7 @@ export default function OfferStatus() {
                       <span>{offer.description}</span>
                     </div>
                     <div className="optionbtn">
-                      <button className="btn btn-warning obtn" onClick={() => handleEdit(offer._id)}>Edit</button>
+                      {/* <button className="btn btn-warning obtn" onClick={() => handleEdit(offer._id)}>Edit</button> */}
                       <button className="btn btn-danger obtn" onClick={() => handleDelete(offer._id)}>Delete</button>
                     </div>
                   </div>

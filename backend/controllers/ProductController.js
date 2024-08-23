@@ -210,11 +210,12 @@ const deleteProduct = async (req, res) => {
 //get product based on subCategory id
 const getProductsOnsubcategoryId = async (req, res) => {
   const { id } = req.params;
-  // validateMongoId(id);
+  // validateMongoId(id); 
   try {
       const getproductonsubcategory = await Product.find({
           subcategory_id: id,
-          $expr: { $ne: ["$sold", "$quantity"] }
+          quantity: { $gt: 0 }
+          // $expr: { $ne: ["$sold", "$quantity"] }
       }).populate('category_id subcategory_id vendor_id');
       res.json(getproductonsubcategory);
   } catch (error) {

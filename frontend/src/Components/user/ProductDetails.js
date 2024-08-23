@@ -122,7 +122,8 @@ export default function ProductDetails() {
                                                     <dd>{product.brand}</dd>
                                                     <dt>Model</dt>
                                                     <dd>{product.makes_model_year}</dd>
-
+                                                    <dt>Quantity Available</dt>
+                                                    <dd>{product.quantity}</dd>
 
                                                 </div>
                                             </div>

@@ -1,8 +1,9 @@
 const User = require('../models/Users/userModel');
 const Product = require('../models/Products/productModel');
 const Order = require('../models/Orders/orderModel');
+const Vendor= require('../models/Users/vendorModel')
 const validateMongoId = require('../helpers/validateId');
-
+const nodemailer = require('nodemailer');
 
 //create order
 const createOrder = async (req, res) => {
@@ -42,8 +43,13 @@ const createOrder = async (req, res) => {
         }
 
         const totalAmount = orderItems.reduce((sum, item) => {
-            const price = item.offerPrice > 0 ? item.offerPrice : item.price;
-            return sum + price * item.quantity;
+            if(item.offerPrice > 0){
+                const price = item.offerPrice;
+                return sum + price;
+            }else{
+                const price = item.price;
+                return sum+ price * item.quantity;
+            }
         }, 0);
 
         const order = new Order({
@@ -186,7 +192,10 @@ const getOrderCancel = async(req, res) => {
 //get status delivered
 const getOrderDeliver = async(req, res) => {
     try {
-        const getorder = await Order.find({status: 'Delivered'}).populate('user vendor items.product');
+        const getorder = await Order.find({
+            $or: [{ status: 'Delivered' }, { status: 'Payment Completed' }]
+        }).populate('user vendor items.product');
+
         if(!getorder){
             res.json({msg: 'No data available'});
         }
@@ -294,7 +303,7 @@ const cancelOrder = async (req, res) => {
 const revenueCalculation = async(req, res) => {
     try {
         const userId = req.user;
-        const orders = await Order.find({vendor: userId});
+        const orders = await Order.find({vendor: userId, status:'Delivered'});
         if(!orders || orders.length === 0){
             return res.status(200).json({  msg: 'this vendor has no order', totalAmount: 0});
         }
@@ -311,6 +320,103 @@ const revenueCalculation = async(req, res) => {
         return res.status(500).json({success: false, msg: 'error getting vendor orders revenue', error: error.message});
     }
 }
+
+//bsed on params
+const revenueCalculationParams = async(req, res) => {
+    try {
+        const {id: userId} = req.params;
+        validateMongoId(userId);
+        const orders = await Order.find({vendor: userId, status:'Delivered'});
+        if(!orders || orders.length === 0){
+            return res.status(200).json({  msg: 'this vendor has no order', totalAmount: 0});
+        }
+
+        // Calculate the total amount
+        const totalAmount = orders.reduce((sum, order) => sum + order.totalAmount, 0);
+
+        res.json({
+            success: true,
+            msg: 'Total revenue calculated successfully',
+            totalAmount: totalAmount
+        });
+    } catch (error) {
+        return res.status(500).json({success: false, msg: 'error getting vendor orders revenue', error: error.message});
+    }
+}
+
+// mail transfer
+const revenueCalculationAndTransfer = async (req, res) => {
+    try {
+        const { id: userId } = req.params;
+        validateMongoId(userId);
+
+        const orders = await Order.find({ vendor: userId, status: 'Delivered' });
+        if (!orders || orders.length === 0) {
+            return res.status(200).json({ msg: 'This vendor has no delivered orders', totalAmount: 0 });
+        }
+
+        // Calculate the total amount
+        const totalAmount = orders.reduce((sum, order) => sum + order.totalAmount, 0);
+
+        if (totalAmount === 0) {
+            return res.status(200).json({ msg: 'There is no money to be transferred', totalAmount: 0 });
+        }
+
+        // Find the vendor
+        const vendor = await Vendor.findOne({ _id: userId });
+        if (!vendor) {
+            return res.status(404).send('Vendor not found');
+        }
+
+        // Here we simulate the manual transfer process
+        const transactionRef = `TRANS-${Date.now()}`;
+
+        // Update the status of all orders to 'Payment Completed'
+        await Order.updateMany(
+            { vendor: userId, status: 'Delivered' },
+            { $set: { status: 'Payment Completed', paymentDetails: { amount: totalAmount, date: new Date(), transactionRef } } }
+        );
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'hafizaatika965@gmail.com',
+                pass: 'uuvf vjtk oudd dawg'
+            }
+        });
+
+        // Send email notification to the vendor
+        const mailOptions = {
+            from: 'hafizaatika965@gmail.com',
+            to: vendor.email,
+            subject: 'Payment Notification',
+            text: `Dear ${vendor.fullName},
+
+            Your payment for the delivered orders has been processed successfully.
+            Total Amount Transferred: Rs. ${totalAmount}
+            Payment Method: Manual Transfer
+            Date of Transfer: ${new Date().toDateString()}
+            Transaction Reference: ${transactionRef}
+
+            Thank you for using our platform.
+
+            Best Regards,
+            Moto Parts`
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.json({
+            success: true,
+            msg: 'Total revenue calculated and transferred successfully. Email notification sent.',
+            totalAmount: totalAmount,
+            transactionRef: transactionRef
+        });
+    } catch (error) {
+        return res.status(500).json({ success: false, msg: 'Error calculating vendor orders revenue or processing payment', error: error.message });
+    }
+};
+
 
 
 module.exports = {
@@ -329,5 +435,7 @@ module.exports = {
     getOrderPendingMiddleware,
     getPendingOrderByUId,
     getCancelledOrderByUId,
-    getDeliveredOrderByUId
+    getDeliveredOrderByUId,
+    revenueCalculationParams,
+    revenueCalculationAndTransfer
 }

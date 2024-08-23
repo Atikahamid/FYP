@@ -7,6 +7,7 @@ const authRouter= require('./routes/authRoute')
 const imageRoutes = require('./routes/imageRoutes')
 const productRouter= require('./routes/ProductRoutes')
 const offerRoutes= require('./routes/offerRoutes');
+const payment = require('./routes/paymentRoute')
 const app=express();
 
 //databse connected
@@ -26,6 +27,7 @@ app.use('/', authRouter)
 app.use('/product', productRouter )
 app.use('/api', imageRoutes)
 app.use('/',offerRoutes)
+app.use('/api/payment', payment)
 
 const port = 8000;
 app.listen(port,()=>{

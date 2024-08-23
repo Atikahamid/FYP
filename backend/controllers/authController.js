@@ -61,7 +61,6 @@ const registerUser = async (req, res) => {
 
 //register vendor endpoint
 const registerVendor = async (req, res) => {
-    4
     try {
         const { fullName, gender, email, password, dateOfBirth, phoneNumber, streetName, regestrationDate, city, postalCode, entity, country } = req.body;
 

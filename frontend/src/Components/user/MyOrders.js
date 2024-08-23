@@ -15,7 +15,7 @@ export default function MyOrders() {
                 const response = await axios.get(`/product/get-user-order/${userId}`);
                 if (response.data.success) {
                     const orders = response.data.getorderuid;
-                    setCompletedOrders(orders.filter(order => order.status === 'Delivered'));
+                    setCompletedOrders(orders.filter(order => order.status === 'Delivered' || order.status === 'Payment Completed'));
                     setCancelledOrders(orders.filter(order => order.status === 'Cancelled'));
                     setPendingOrders(orders.filter(order => order.status === 'Pending'));
                 } else {
@@ -76,6 +76,11 @@ export default function MyOrders() {
             </div>
             <div className="inner m-5 mt-3 p-5 mt-3 pt-2">
                 <div className="order_Container">
+                <div className="order_category">
+                        <h1>Pending Orders</h1>
+                    </div>
+                    {pendingOrders.length > 0 ? pendingOrders.map(renderOrder) : <p>No pending orders.</p>}
+                    
                     <div className="order_category">
                         <h1>Completed Orders</h1>
                     </div>
@@ -86,10 +91,7 @@ export default function MyOrders() {
                     </div>
                     {cancelledOrders.length > 0 ? cancelledOrders.map(renderOrder) : <p>No cancelled orders.</p>}
                     
-                    <div className="order_category">
-                        <h1>Pending Orders</h1>
-                    </div>
-                    {pendingOrders.length > 0 ? pendingOrders.map(renderOrder) : <p>No pending orders.</p>}
+                    
                 </div>
             </div>
         </div>

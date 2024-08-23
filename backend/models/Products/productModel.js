@@ -35,7 +35,7 @@ const productShema = new Schema({
     sold:{
         type: Number,
         default: 0,
-        select:false
+        // select:false
     },
     regestrationDate:{
         type: Date,
