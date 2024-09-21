@@ -2,6 +2,7 @@ const express=require("express")
 const dotenv = require('dotenv').config()
 const cors= require('cors')
 const {mongoose} = require('mongoose')
+const path = require('path')
 const cookieParser = require('cookie-parser')
 const authRouter= require('./routes/authRoute')
 const imageRoutes = require('./routes/imageRoutes')
@@ -29,7 +30,12 @@ app.use('/api', imageRoutes)
 app.use('/',offerRoutes)
 app.use('/api/payment', payment)
 
-const port = 8000;
+
+if(process.env.NODE_ENV =="production"){
+    app.use(express.static("frontend/build"));
+}
+
+const port = process.env.PORT || 8000;
 app.listen(port,()=>{
     console.log(`server running on port no. ${port}`);
 })

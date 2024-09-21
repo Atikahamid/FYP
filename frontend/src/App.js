@@ -69,8 +69,14 @@ import ProductDeatil from './Components/vendor/ProductDeatil';
 import UpdateProduct from './Components/vendor/UpdateProduct';
 import CategoryCardPanel from './Components/user/CategoryCardPanel';
 
+// axios.defaults.baseURL = `${window.location.origin}`
+if (process.env.NODE_ENV === 'production') {
+  // Use the same domain as your backend in production
+  axios.defaults.baseURL = ''; // This defaults to the same domain as your backend
+} else {
+  axios.defaults.baseURL = 'http://localhost:8000';
+}
 
-axios.defaults.baseURL = 'http://localhost:8000'
 axios.defaults.withCredentials = true;
 
 
